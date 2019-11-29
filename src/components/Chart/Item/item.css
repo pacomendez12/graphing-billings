@@ -1,0 +1,91 @@
+.chart .items-container .item {
+  border-right: solid 1px;
+  position: relative;
+  flex-direction: column;
+  display: flex;
+  box-sizing: border-box;
+  min-width: 30px;
+}
+
+.chart .items-container .item .item-day {
+  border-bottom: solid 1px;
+  padding: 5px 0px 5px 0px;
+  background-color: #eeeeee;
+}
+
+.chart .items-container .item .main-content {
+  height: 100%;
+  overflow: hidden;
+}
+
+.chart .items-container .item .item-symbol {
+  height: 40%;
+  border-bottom: solid 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.chart .items-container .item .item-symbol .item-icon {
+  flex-grow: 8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.chart .items-container .item .item-symbol .item-peak-or-day {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20px;
+}
+
+.chart .items-container .item .item-symbol .item-intercourse {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20px;
+}
+
+.chart .items-container .item .item-annotation {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  height: 60%;
+  overflow: hidden;
+}
+
+.chart .items-container .item .item-rule {
+  border-top: solid 1px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.active-indicator {
+  position: absolute;
+  bottom: -30px;
+  left: calc(50% - 14px);
+}
+
+.move-to-indicator {
+  cursor: pointer;
+}
+
+.chart .items-container .item .item-annotation .annotation {
+  padding: 0px 6px 0px 6px !important;
+  font-size: 14px;
+}
+
+.rotated-text {
+  transform: rotate(-180deg);
+  writing-mode: vertical-rl;
+}

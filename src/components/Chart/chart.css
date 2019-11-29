@@ -1,0 +1,92 @@
+.chart {
+  width: 98%;
+  height: 75vh;
+  max-height: 500px;
+  border: solid 1px;
+  display: flex;
+}
+
+.chart .left-header {
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  align-content: stretch;
+  justify-content: stretch;
+  /* align-content: center; */
+}
+
+.chart .left-header > div {
+  background-color: #eeeeee;
+  border-right: solid 1px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.chart .left-header > div {
+  font-weight: 500;
+}
+
+.chart .left-header .header-day {
+  border-bottom: solid 1px;
+  padding: 5px 0px 5px 0px;
+}
+
+.chart .left-header .main-content {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart .left-header .header-symbol {
+  height: 40%;
+  text-align: center;
+  overflow: hidden;
+  border-bottom: solid 1px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.chart .left-header .header-annotation {
+  height: 60%;
+  text-align: center;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.chart .left-header .header-annotation .sensation-or-appearance {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.chart .left-header .header-rule {
+  border-top: solid 1px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart .items-container {
+  flex-grow: 1;
+  display: flex;
+  background-color: rgb(245, 245, 245);
+  position: relative;
+}
+
+.container-scrollable {
+  position: relative;
+  display: flex;
+  /* width: 100%; */
+  /* overflow: scroll; */
+  /* overflow-x: auto; */
+  /* overflow-y: hidden; */
+}
