@@ -1,9 +1,12 @@
 .chart {
+  position: relative;
   width: 98%;
   height: 75vh;
   max-height: 500px;
   border: solid 1px;
   display: flex;
+  overflow: auto;
+  margin-bottom: 10px;
 }
 
 .chart .left-header {
@@ -44,6 +47,8 @@
 
 .chart .left-header .header-symbol {
   height: 40%;
+  min-height: 100px;
+
   text-align: center;
   overflow: hidden;
   border-bottom: solid 1px;
@@ -80,12 +85,13 @@
   display: flex;
   background-color: rgb(245, 245, 245);
   position: relative;
+  width: calc(100% - 50px);
 }
 
 .container-scrollable {
   position: relative;
   display: flex;
-  /* width: 100%; */
+  width: 100%;
   /* overflow: scroll; */
   /* overflow-x: auto; */
   /* overflow-y: hidden; */

@@ -38,6 +38,8 @@ export default function Chart(props) {
               goToDay={props.goToDay}
               goNDaysForward={props.goNDaysForward}
               setShouldRenderPeak={props.setShouldRenderPeak}
+              dropDay={props.dropDay}
+              addDayOnIdx={props.addDayOnIdx}
             />
           );
         })}
@@ -61,7 +63,7 @@ export default function Chart(props) {
             </div>
           </div>
         </div>
-        <div className="header-rule">R</div>
+        <div className="header-rule">Regla</div>
       </div>
       <div className="items-container">{renderItems(props.data)}</div>
     </div>

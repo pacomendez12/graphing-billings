@@ -1,0 +1,35 @@
+.chart .items-container .item .item-symbol {
+  height: 40%;
+  min-height: 100px;
+  border-bottom: solid 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 29px;
+}
+
+.chart .items-container .item .item-symbol .item-icon {
+  flex-grow: 8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.chart .items-container .item .item-symbol .item-peak-or-day {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20px;
+}
+
+.chart .items-container .item .item-symbol .item-intercourse {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20px;
+}

@@ -1,7 +1,8 @@
 .App {
   text-align: center;
   background-color: white;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,20 +11,67 @@
   font-size: 16px;
 }
 
+.chart-title {
+  margin: 10px 30px 10px 30px;
+  width: 72%;
+  /* max-width: 100% !important; */
+  font-size: 22px;
+  text-align: center;
+  font-weight: 600;
+  padding: 5px;
+  border: none;
+  border-bottom: 2px solid transparent;
+}
+
+.chart-title:focus {
+  border-bottom: 2px dashed gray;
+}
+
 .nav-buttons {
-  /* position: absolute; */
-  margin-top: 40px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   justify-content: space-between;
-  width: 85%;
+  width: 98%;
   color: white;
 }
 
-.nav-buttons div {
-  background-color: #0066ff;
+.nav-buttons > .comments {
+  width: 95%;
+  background-color: white;
+  border: 2px dashed transparent;
+  font-size: 16px;
+  border-radius: 10px;
+  resize: none;
+  padding: 5px;
+  color: black;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  text-align: center;
+}
+
+.nav-buttons > .comments:focus {
+  border: 2px dashed gray;
+}
+
+.nav-buttons > .button {
   padding: 10px;
+  height: 25px;
   border-radius: 10px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-buttons > .button:hover {
+  background-color: #dadada;
+}
+
+.nav-buttons > .button .text {
+  color: rgb(94, 94, 94);
+  user-select: none;
 }
 
 .chart-type-buttons {
@@ -41,8 +89,8 @@
 
 .presentation-control {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 10px;
+  right: 10px;
 }
 
 .presentation-control > div {

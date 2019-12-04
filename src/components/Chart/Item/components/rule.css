@@ -1,0 +1,7 @@
+.chart .items-container .item .item-rule {
+  border-top: solid 1px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

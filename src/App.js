@@ -2,9 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import KeyboardEventHandler from "react-keyboard-event-handler";
 import { RadioGroup, RadioButton } from "react-radio-buttons";
 import Fullscreen from "react-full-screen";
+import AutosizeInput from "react-input-autosize";
 import logo from "./logo.svg";
 import { ReactComponent as CloseIcon } from "./img/close.svg";
 import { ReactComponent as StartPresentationIcon } from "./img/start_presentation.svg";
+
+import { ReactComponent as Next } from "./img/next.svg";
+import { ReactComponent as Prev } from "./img/prev.svg";
 
 import Chart from "./components/Chart";
 import "./App.css";
@@ -26,11 +30,14 @@ document.onkeydown = function(event) {
   }
 };
 
-const data = {
+const tmpData = {
   title: 'Gráfica con PBI de "Seco" y "Nada"',
-  comments: "my comments",
+  comments:
+    "Llena la siguiente gráfica con los símbolos o colores correspondientes para cada día.",
+  defaultChartType: "COLORS",
   days: [
     {
+      day: 1,
       symbol: {
         background: "RED",
         icon: "RED_ICON",
@@ -42,6 +49,7 @@ const data = {
       rule: 1
     },
     {
+      day: 2,
       symbol: {
         background: "RED",
         icon: "RED_ICON",
@@ -53,6 +61,7 @@ const data = {
       rule: 1
     },
     {
+      day: 3,
       symbol: {
         background: "RED",
         icon: "RED_ICON",
@@ -64,6 +73,7 @@ const data = {
       rule: 1
     },
     {
+      day: 4,
       symbol: {
         background: "RED",
         icon: "BLACK_DOTS",
@@ -75,6 +85,7 @@ const data = {
       rule: 1
     },
     {
+      day: 5,
       symbol: {
         background: "RED",
         icon: "BLACK_DOTS",
@@ -86,6 +97,7 @@ const data = {
       rule: 2
     },
     {
+      day: 6,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -97,6 +109,7 @@ const data = {
       rule: 2
     },
     {
+      day: 7,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -108,6 +121,7 @@ const data = {
       rule: 2
     },
     {
+      day: 8,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -119,6 +133,7 @@ const data = {
       rule: 2
     },
     {
+      day: 9,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -130,6 +145,7 @@ const data = {
       rule: 2
     },
     {
+      day: 10,
       symbol: {
         background: "WHITE",
         icon: "BABE",
@@ -141,6 +157,7 @@ const data = {
       rule: 3
     },
     {
+      day: 11,
       symbol: {
         background: "WHITE",
         icon: "BABE",
@@ -152,6 +169,7 @@ const data = {
       rule: 3
     },
     {
+      day: 12,
       symbol: {
         background: "WHITE",
         icon: "BABE",
@@ -163,6 +181,7 @@ const data = {
       rule: 3
     },
     {
+      day: 13,
       symbol: {
         background: "WHITE",
         icon: "BABE",
@@ -174,6 +193,7 @@ const data = {
       rule: 3
     },
     {
+      day: 14,
       symbol: {
         background: "WHITE",
         icon: "BABE",
@@ -185,6 +205,7 @@ const data = {
       rule: 3
     },
     {
+      day: 15,
       symbol: {
         background: "WHITE",
         icon: "BABE",
@@ -196,10 +217,11 @@ const data = {
       rule: 3
     },
     {
+      day: 16,
       symbol: {
         background: "GREEN",
         icon: "BABE",
-        intercourse: false,
+        intercourse: true,
         peakDay: false,
         numberDay: 1
       },
@@ -207,6 +229,7 @@ const data = {
       rule: 3
     },
     {
+      day: 17,
       symbol: {
         background: "GREEN",
         icon: "BABE",
@@ -218,6 +241,7 @@ const data = {
       rule: 3
     },
     {
+      day: 18,
       symbol: {
         background: "GREEN",
         icon: "BABE",
@@ -229,6 +253,7 @@ const data = {
       rule: 3
     },
     {
+      day: 19,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -240,6 +265,7 @@ const data = {
       rule: 2
     },
     {
+      day: 20,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -251,6 +277,7 @@ const data = {
       rule: 2
     },
     {
+      day: 21,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -262,6 +289,7 @@ const data = {
       rule: 2
     },
     {
+      day: 22,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -273,6 +301,7 @@ const data = {
       rule: 2
     },
     {
+      day: 23,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -284,6 +313,7 @@ const data = {
       rule: 2
     },
     {
+      day: 24,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -295,6 +325,7 @@ const data = {
       rule: 2
     },
     {
+      day: 25,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -306,6 +337,7 @@ const data = {
       rule: 2
     },
     {
+      day: 26,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -317,6 +349,7 @@ const data = {
       rule: 2
     },
     {
+      day: 27,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -328,6 +361,7 @@ const data = {
       rule: 2
     },
     {
+      day: 28,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -339,6 +373,7 @@ const data = {
       rule: 2
     },
     {
+      day: 29,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -350,6 +385,7 @@ const data = {
       rule: 2
     },
     {
+      day: 30,
       symbol: {
         background: "GREEN",
         icon: "GREEN_ICON",
@@ -366,13 +402,18 @@ const data = {
 function App() {
   const [currentDay, setCurrentDay] = useState(0);
   const [currentDayStep, setCurrentDayStep] = useState(0);
-  const [chartType, setChartType] = useState("COLORS");
+  const [chartType, setChartType] = useState(tmpData.defaultChartType);
   const [displayMode, setDisplayMode] = useState("EDIT");
   const [shouldRenderPeak, setShouldRenderPeak] = useState(false);
 
-  if (!data.days) {
-    data.days = [];
-  }
+  const [displayTitleInput, setDisplayTitleInput] = useState(false);
+  const [data, setData] = useState({ title: "", comments: "", days: [] });
+
+  const titleInputRef = useRef(null);
+
+  useEffect(() => {
+    setData({ ...tmpData });
+  }, []);
 
   const peakDay = data.days.findIndex(day => day.symbol.peakDay);
 
@@ -409,6 +450,95 @@ function App() {
   const onChangeChartType = value => {
     if (value === "SYMBOLS" || value === "COLORS") setChartType(value);
   };
+
+  const dropDay = idxDay => {
+    if (idxDay >= 0 && idxDay < data.days.length) {
+      setData(currentData => {
+        currentData.days.splice(idxDay, 1);
+        if (currentData.days.length === 0) {
+          currentData.days.push({
+            day: 0,
+            symbol: {
+              background: "WHITE",
+              icon: null,
+              intercourse: false,
+              peakDay: false,
+              numberDay: null
+            },
+            annotation: "",
+            rule: null
+          });
+        }
+        return { ...currentData };
+      });
+    }
+  };
+
+  const addDayOnIdx = idx => {
+    if (idx >= 0 && idx <= data.days.length) {
+      setData(currentData => {
+        currentData.days.splice(idx, 0, {
+          day: 0,
+          symbol: {
+            background: "WHITE",
+            icon: null,
+            intercourse: false,
+            peakDay: false,
+            numberDay: null
+          },
+          annotation: "",
+          rule: null
+        });
+
+        currentData.days = currentData.days.map((currentDay, idx) => ({
+          ...currentDay,
+          day: idx + 1
+        }));
+        return { ...currentData };
+      });
+    }
+  };
+
+  const renderTitle = () => {
+    if (displayTitleInput) {
+      return (
+        <input
+          ref={titleInputRef}
+          style={{ color: "gray" }}
+          className="chart-title"
+          value={data.title}
+          onChange={event => {
+            setData(d => {
+              return { ...d, title: event.target.value };
+            });
+          }}
+          onBlur={() => {
+            if (displayMode === "EDIT") {
+              setDisplayTitleInput(false);
+            }
+          }}
+        />
+      );
+    } else {
+      return (
+        <h2
+          className="chart-title"
+          onClick={() => {
+            if (displayMode === "EDIT") {
+              setDisplayTitleInput(true);
+              console.log(titleInputRef);
+              setTimeout(() => {
+                titleInputRef.current.focus();
+              }, 100);
+            }
+          }}
+        >
+          {data.title}
+        </h2>
+      );
+    }
+  };
+
   return (
     <Fullscreen
       enabled={displayMode === "PRESENTATION"}
@@ -451,7 +581,7 @@ function App() {
             </div>
           )}
         </div>
-        <h1>{data.title}</h1>
+        {renderTitle()}
         <div>
           <span>Current day:</span>
           <span>{currentDay}</span>
@@ -495,25 +625,46 @@ function App() {
           goToDay={goToDay}
           goNDaysForward={goNDaysForward}
           setShouldRenderPeak={setShouldRenderPeak}
+          dropDay={dropDay}
+          addDayOnIdx={addDayOnIdx}
         />
-        {displayMode === "PRESENTATION" && (
+        {
           <div className="nav-buttons">
-            <div
-              onClick={() => {
-                goBack();
-              }}
-            >
-              Prev
-            </div>
-            <div
-              onClick={() => {
-                goForward();
-              }}
-            >
-              Next
-            </div>
+            {displayMode === "PRESENTATION" && (
+              <div
+                className="button"
+                onClick={() => {
+                  goBack();
+                }}
+              >
+                <Prev />
+                <span className="text">Anterior</span>
+              </div>
+            )}
+            <textarea
+              className="comments"
+              value={data.comments}
+              spellCheck={false}
+              rows="4"
+              cols="1"
+              onChange={event =>
+                setData(prev => ({ ...prev, comments: event.target.value }))
+              }
+              disabled={displayMode === "PRESENTATION"}
+            />
+            {displayMode === "PRESENTATION" && (
+              <div
+                className="button"
+                onClick={() => {
+                  goForward();
+                }}
+              >
+                <span className="text">Siguiente</span>
+                <Next />
+              </div>
+            )}
           </div>
-        )}
+        }
       </div>
     </Fullscreen>
   );
