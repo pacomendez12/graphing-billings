@@ -115,6 +115,7 @@ export default function Symbol(props) {
     }
   }
 
+  // console.log(props.peakDay);
   return (
     <div
       className="item-field item-symbol "
@@ -134,10 +135,10 @@ export default function Symbol(props) {
             )}
           </div>
           <div className="item-peak-or-day">
-            {props.numberDay ||
-              (props.peakDay &&
-                (props.shouldRenderPeak || props.displayMode === "EDIT") &&
-                "X") ||
+            {(props.peakDay === props.idxDay &&
+              props.shouldRenderPeak &&
+              "X") ||
+              props.numberDay ||
               null}
           </div>
           <div className="item-intercourse">{props.intercourse && "R"}</div>

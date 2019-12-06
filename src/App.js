@@ -568,7 +568,10 @@ function App() {
                 setDisplayMode("PRESENTATION");
               }}
             >
-              <StartPresentationIcon />
+              <StartPresentationIcon
+                className="start-presentation-icon"
+                title="Iniciar presentación"
+              />
             </div>
           ) : (
             <div
@@ -577,19 +580,22 @@ function App() {
                 setDisplayMode("EDIT");
               }}
             >
-              <CloseIcon />
+              <CloseIcon
+                className="close-presentation-icon"
+                title="Cerrar presentación"
+              />
             </div>
           )}
         </div>
         {renderTitle()}
-        <div>
+        {/* <div>
           <span>Current day:</span>
           <span>{currentDay}</span>
         </div>
         <div>
           <span>Current day step:</span>
           <span>{currentDayStep}</span>
-        </div>
+        </div> */}
         <div className="chart-type-buttons">
           <RadioGroup
             onChange={value => onChangeChartType(value)}
@@ -614,20 +620,22 @@ function App() {
             </RadioButton>
           </RadioGroup>
         </div>
-        <Chart
-          data={data}
-          peakDay={peakDay}
-          currentDay={currentDay}
-          currentDayStep={currentDayStep}
-          chartType={chartType}
-          displayMode={displayMode}
-          shouldRenderPeak={shouldRenderPeak || displayMode === "EDIT"}
-          goToDay={goToDay}
-          goNDaysForward={goNDaysForward}
-          setShouldRenderPeak={setShouldRenderPeak}
-          dropDay={dropDay}
-          addDayOnIdx={addDayOnIdx}
-        />
+        <div className="main-chart-container">
+          <Chart
+            data={data}
+            peakDay={peakDay}
+            currentDay={currentDay}
+            currentDayStep={currentDayStep}
+            chartType={chartType}
+            displayMode={displayMode}
+            shouldRenderPeak={shouldRenderPeak || displayMode === "EDIT"}
+            goToDay={goToDay}
+            goNDaysForward={goNDaysForward}
+            setShouldRenderPeak={setShouldRenderPeak}
+            dropDay={dropDay}
+            addDayOnIdx={addDayOnIdx}
+          />
+        </div>
         {
           <div className="nav-buttons">
             {displayMode === "PRESENTATION" && (
@@ -637,12 +645,13 @@ function App() {
                   goBack();
                 }}
               >
-                <Prev />
+                <Prev className="prev-icon" />
                 <span className="text">Anterior</span>
               </div>
             )}
             <textarea
               className="comments"
+              title="Escribe tus comentarios aquí"
               value={data.comments}
               spellCheck={false}
               rows="4"
@@ -660,7 +669,7 @@ function App() {
                 }}
               >
                 <span className="text">Siguiente</span>
-                <Next />
+                <Next className="next-icon" />
               </div>
             )}
           </div>

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import Popover from "react-tiny-popover";
 import Day from "./components/day";
 import Symbol from "./components/symbol";
 import Annotation from "./components/annotation";
 import Rule from "./components/rule";
+import EditDay from "../EditDay";
 import "./item.css";
 
 const itemProps = {
@@ -18,6 +20,7 @@ const currentDayColor = "#e0e0e0";
 /** Component */
 export default function Item(props) {
   const { currentDayStep } = props;
+  const [showItemEditor, setShowItemEditor] = useState(false);
   const [nextDayStep, setNextDayStep] = useState(2);
   const [backgroundStep, setBackgroundStep] = useState(1);
 
@@ -54,6 +57,75 @@ export default function Item(props) {
     );
   }, [props, props.isCurrentDay]);
 
+  const renderItemEditor = () => {
+    return (
+      <Popover
+        isOpen={showItemEditor}
+        position={["top", "right", "left", "bottom"]}
+        padding={10}
+        disableReposition
+        onClickOutside={() => setShowItemEditor(false)}
+        contentLocation={{ top: 0, left: 0 }}
+        containerClassName="edit-day-component"
+        transitionDuration={0.5}
+        content={({
+          position,
+          nudgedLeft,
+          nudgedTop,
+          targetRect,
+          popoverRect
+        }) => (
+          <EditDay
+            position={position}
+            nudgedLeft={nudgedLeft}
+            nudgedTop={nudgedTop}
+            onClose={() => setShowItemEditor(false)}
+          />
+        )}
+      >
+        <div
+          className="open-editor-div"
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            if (props.displayMode === "EDIT") {
+              setShowItemEditor(true);
+            }
+          }}
+        >
+          <div className="main-content">
+            <Symbol
+              backgroundStep={backgroundStep}
+              isCurrentDay={props.isCurrentDay}
+              currentDayStep={props.currentDayStep}
+              showResult={props.showResult}
+              icon={props.symbol.icon}
+              iconBackground={props.symbol.background}
+              numberDay={props.symbol.numberDay}
+              idxDay={props.idxDay}
+              peakDay={props.peakDay}
+              intercourse={props.symbol.intercourse}
+              postPeak={props.postPeak}
+              chartType={props.chartType}
+              displayMode={props.displayMode}
+              shouldRenderPeak={props.shouldRenderPeak}
+            />
+            <Annotation
+              annotation={props.annotation}
+              isCurrentDay={props.isCurrentDay}
+              currentDayStep={props.currentDayStep}
+              showResult={props.showResult}
+            />
+          </div>
+          <Rule
+            rule={props.rule}
+            isCurrentDay={props.isCurrentDay}
+            showResult={props.showResult}
+          />
+        </div>
+      </Popover>
+    );
+  };
+
   return (
     <div
       className="item"
@@ -68,7 +140,9 @@ export default function Item(props) {
       onClick={() => {
         if (props.displayMode === "PRESENTATION") props.goToDay(props.idxDay);
       }}
-      title={props.displayMode === "PRESENTATION" && `Ir al día ${props.day}`}
+      title={
+        (props.displayMode === "PRESENTATION" && `Ir al día ${props.day}`) || ""
+      }
     >
       <Day
         day={props.day}
@@ -77,33 +151,46 @@ export default function Item(props) {
         dropDay={props.dropDay}
         addDayOnIdx={props.addDayOnIdx}
       ></Day>
-      <div className="main-content">
-        <Symbol
-          backgroundStep={backgroundStep}
+      {renderItemEditor()}
+      {/* <div
+        className="open-editor-div"
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          if (props.displayMode === "EDIT") {
+            props.openItemEditor(props.idxDay);
+          }
+        }}
+      >
+        <div className="main-content">
+          <Symbol
+            backgroundStep={backgroundStep}
+            isCurrentDay={props.isCurrentDay}
+            currentDayStep={props.currentDayStep}
+            showResult={props.showResult}
+            icon={props.symbol.icon}
+            iconBackground={props.symbol.background}
+            numberDay={props.symbol.numberDay}
+            idxDay={props.idxDay}
+            peakDay={props.peakDay}
+            intercourse={props.symbol.intercourse}
+            postPeak={props.postPeak}
+            chartType={props.chartType}
+            displayMode={props.displayMode}
+            shouldRenderPeak={props.shouldRenderPeak}
+          />
+          <Annotation
+            annotation={props.annotation}
+            isCurrentDay={props.isCurrentDay}
+            currentDayStep={props.currentDayStep}
+            showResult={props.showResult}
+          />
+        </div>
+        <Rule
+          rule={props.rule}
           isCurrentDay={props.isCurrentDay}
-          currentDayStep={props.currentDayStep}
-          showResult={props.showResult}
-          icon={props.symbol.icon}
-          iconBackground={props.symbol.background}
-          numberDay={props.symbol.numberDay}
-          intercourse={props.symbol.intercourse}
-          postPeak={props.postPeak}
-          chartType={props.chartType}
-          displayMode={props.displayMode}
-          shouldRenderPeak={props.shouldRenderPeak}
-        />
-        <Annotation
-          annotation={props.annotation}
-          isCurrentDay={props.isCurrentDay}
-          currentDayStep={props.currentDayStep}
           showResult={props.showResult}
         />
-      </div>
-      <Rule
-        rule={props.rule}
-        isCurrentDay={props.isCurrentDay}
-        showResult={props.showResult}
-      />
+      </div> */}
     </div>
   );
 }

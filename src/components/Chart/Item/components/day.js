@@ -11,6 +11,7 @@ function EditMenu(props) {
   return (
     <div className="edit-menu-popover">
       <div
+        title="Agregar un día antes"
         className="icon-container"
         onClick={() => {
           props.addDayOnIdx(props.idxDay);
@@ -21,6 +22,7 @@ function EditMenu(props) {
       </div>
       <div
         className="icon-container"
+        title="Borrar día"
         onClick={() => {
           confirmAlert({
             title: `Eliminar día ${props.idxDay + 1}`,
@@ -43,6 +45,7 @@ function EditMenu(props) {
       </div>
       <div
         className="icon-container"
+        title="Agregar un día después"
         onClick={() => {
           props.addDayOnIdx(props.idxDay + 1);
           props.setEditPopoverIsOpen(false);

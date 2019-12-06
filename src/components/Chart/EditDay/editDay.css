@@ -1,0 +1,20 @@
+.edit-day-component {
+  position: absolute;
+  background: #c0c0c0da;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.edit-day {
+  min-width: 300px;
+  width: 40%;
+  height: 70%;
+  background: #efefef;
+  box-shadow: 3px 3px 10px gray;
+  border-radius: 5px;
+  padding: 2rem;
+}

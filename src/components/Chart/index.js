@@ -53,7 +53,7 @@ export default function Chart(props) {
         <div className="header-day">Día</div>
         <div className="main-content">
           <div className="header-symbol">
-            <div className="rotated-text">
+            <div className="symbol-or-color rotated-text">
               {props.charType === "SYMBOLS" ? "Símbolo" : "Símbolo o color"}{" "}
             </div>
           </div>

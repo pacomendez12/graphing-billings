@@ -1,4 +1,4 @@
-.chart {
+/* .chart {
   position: relative;
   width: 98%;
   height: 75vh;
@@ -7,6 +7,14 @@
   display: flex;
   overflow: auto;
   margin-bottom: 10px;
+} */
+
+.chart {
+  position: relative;
+  width: 100%;
+  border: solid 1px;
+  display: flex;
+  overflow: auto;
 }
 
 .chart .left-header {
@@ -57,6 +65,12 @@
   width: 100%;
 }
 
+.chart .left-header .header-symbol .symbol-or-color {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .chart .left-header .header-annotation {
   height: 60%;
   text-align: center;
@@ -74,7 +88,7 @@
 
 .chart .left-header .header-rule {
   border-top: solid 1px;
-  height: 30px;
+  height: 32.5px;
   display: flex;
   justify-content: center;
   align-items: center;

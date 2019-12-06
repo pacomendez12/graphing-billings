@@ -8,6 +8,15 @@
   max-width: 30px;
 }
 
+.chart .items-container .item .open-editor-div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: none;
+}
+
 .chart div {
   user-select: none;
 }
