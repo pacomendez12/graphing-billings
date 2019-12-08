@@ -68,19 +68,8 @@ export default function Item(props) {
         contentLocation={{ top: 0, left: 0 }}
         containerClassName="edit-day-component"
         transitionDuration={0.5}
-        content={({
-          position,
-          nudgedLeft,
-          nudgedTop,
-          targetRect,
-          popoverRect
-        }) => (
-          <EditDay
-            position={position}
-            nudgedLeft={nudgedLeft}
-            nudgedTop={nudgedTop}
-            onClose={() => setShowItemEditor(false)}
-          />
+        content={() => (
+          <EditDay onClose={() => setShowItemEditor(false)} {...props} />
         )}
       >
         <div

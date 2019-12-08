@@ -26,6 +26,7 @@
   width: 35px;
   height: 35px;
   cursor: pointer;
+  box-shadow: 1px 1px 3px gray;
 }
 
 .edit-menu-popover > .icon-container:hover {
