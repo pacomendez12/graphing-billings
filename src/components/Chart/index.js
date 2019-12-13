@@ -1,52 +1,167 @@
-import React, { useState, useEffect, useRef } from "react";
-import { ChartTypes, DisplayModes } from "./Constants";
-import Item from "./Item";
+import React, { useState } from "react";
+import Popover from "react-tiny-popover";
+import {
+  ChartTypes,
+  DisplayModes,
+  CurrentSelectedDayColor,
+  SELECTING_DAY,
+  SHOW_DESCRIPTION,
+  SHOW_PEAK_OF_YESTERDAY,
+  SHOW_COLOR_AND_SYMBOL,
+  SHOW_COUNTING_DAY,
+  SHOW_RULE,
+  SHOW_INTERCOURSE
+} from "./Constants";
+import Day from "./components/Day/day";
+import Item from "./components/Item";
+import EditDay from "./components/EditDay";
+
 import "./chart.css";
 
 export default function Chart(props) {
+  const [showItemEditor, setShowItemEditor] = useState(false);
+  const [dayToEdit, setDayToEdit] = useState(null);
+
   const charType = props.chartType || ChartTypes.COLORS;
   const currentDay = props.currentDay !== undefined ? props.currentDay : 0;
-  const currentDayStep =
-    props.currentDayStep !== undefined ? props.currentDayStep : 0;
+  const currentDaySubStep =
+    props.currentDaySubStep !== undefined ? props.currentDaySubStep : 0;
   const displayMode = props.displayMode || DisplayModes.PRESENTATION;
 
-  let postPeak = false;
+  const updateDayValue = newConf => {
+    props.setDayValue(dayToEdit, newConf);
+    setShowItemEditor(false);
+  };
+
   const renderItems = daysData => {
     return (
       <div className="container-scrollable">
         {daysData.map((dayData, idx) => {
-          if (dayData.symbol.peakDay) {
-            postPeak = true;
-          }
+          const itemStatus =
+            displayMode === DisplayModes.EDIT
+              ? {
+                  displayDaySelector: currentDay === idx,
+                  displayDescription: true,
+                  displayPeak: dayData.symbol.peakDay,
+                  displayColorAndSymbol: true,
+                  displayCountingDay:
+                    dayData.symbol.numberDay !== null &&
+                    dayData.symbol.numberDay !== undefined,
+                  displayRule: true,
+                  displayIntercourse: dayData.symbol.intercourse
+                }
+              : {
+                  displayDaySelector:
+                    currentDay === idx && currentDaySubStep === SELECTING_DAY,
+                  displayDescription:
+                    currentDay >= idx + 1 ||
+                    (currentDay === idx &&
+                      currentDaySubStep >= SHOW_DESCRIPTION),
+                  displayPeak:
+                    dayData.symbol.peakDay &&
+                    ((currentDay === idx + 1 &&
+                      currentDaySubStep >= SHOW_PEAK_OF_YESTERDAY) ||
+                      currentDay > idx + 1),
+                  displayColorAndSymbol:
+                    currentDay >= idx + 1 ||
+                    (currentDay === idx &&
+                      currentDaySubStep >= SHOW_COLOR_AND_SYMBOL),
+                  displayCountingDay:
+                    dayData.symbol.numberDay !== null &&
+                    dayData.symbol.numberDay !== undefined &&
+                    (currentDay >= idx + 1 ||
+                      (currentDay === idx &&
+                        currentDaySubStep >= SHOW_COUNTING_DAY)),
+                  displayRule:
+                    currentDay >= idx + 1 ||
+                    (currentDay === idx && currentDaySubStep >= SHOW_RULE),
+                  displayIntercourse:
+                    dayData.symbol.intercourse &&
+                    (currentDay >= idx + 1 ||
+                      (currentDay === idx &&
+                        currentDaySubStep >= SHOW_INTERCOURSE))
+                };
+
+          const isPostPeak = idx > props.peakDay;
+
           return (
-            <Item
+            <div
               key={idx}
-              {...dayData}
-              peakDay={props.peakDay}
-              day={idx + 1}
-              idxDay={idx}
-              chartType={charType}
-              showResult={
-                displayMode === DisplayModes.PRESENTATION
-                  ? currentDay > idx
-                  : true
+              className="column"
+              style={{
+                backgroundColor:
+                  displayMode === DisplayModes.PRESENTATION &&
+                  props.currentDay === idx &&
+                  props.currentDaySubStep === SELECTING_DAY
+                    ? CurrentSelectedDayColor
+                    : "white",
+                cursor: "pointer"
+              }}
+              onClick={() => {
+                if (displayMode === DisplayModes.PRESENTATION) {
+                  props.goToDay(idx);
+                }
+              }}
+              title={
+                (displayMode === DisplayModes.PRESENTATION &&
+                  `Ir al día ${idx + 1}`) ||
+                ""
               }
-              isCurrentDay={
-                displayMode === DisplayModes.PRESENTATION
-                  ? currentDay === idx
-                  : false
-              }
-              displayMode={displayMode}
-              postPeak={postPeak}
-              shouldRenderPeak={props.shouldRenderPeak}
-              currentDayStep={currentDayStep}
-              goToDay={props.goToDay}
-              goNDaysForward={props.goNDaysForward}
-              setShouldRenderPeak={props.setShouldRenderPeak}
-              dropDay={props.dropDay}
-              addDayOnIdx={props.addDayOnIdx}
-              setDayValue={props.setDayValue}
-            />
+            >
+              <Day
+                day={idx + 1}
+                idxDay={idx}
+                displayMode={displayMode}
+                dropDay={props.dropDay}
+                addDayOnIdx={props.addDayOnIdx}
+              ></Day>
+              <div
+                style={{ height: "100%", position: "relative" }}
+                onClick={() => {
+                  if (displayMode === DisplayModes.EDIT) {
+                    setDayToEdit(idx);
+                    setShowItemEditor(true);
+                  }
+                }}
+                title={
+                  displayMode === DisplayModes.EDIT
+                    ? `Editar día ${idx + 1}`
+                    : undefined
+                }
+              >
+                <Item
+                  isPostPeak={isPostPeak}
+                  chartType={charType}
+                  showPeakDay={itemStatus.displayPeak}
+                  annotation={
+                    itemStatus.displayDescription && dayData.annotation
+                  }
+                  countingDay={
+                    itemStatus.displayCountingDay && dayData.symbol.numberDay
+                  }
+                  icon={itemStatus.displayColorAndSymbol && dayData.symbol.icon}
+                  iconBackground={
+                    itemStatus.displayColorAndSymbol &&
+                    dayData.symbol.background
+                  }
+                  rule={itemStatus.displayRule && dayData.rule}
+                  intercourse={
+                    itemStatus.displayIntercourse && dayData.symbol.intercourse
+                  }
+                  showQuestionMarkInSymbol={
+                    props.currentDay === idx &&
+                    props.currentDaySubStep >= SHOW_DESCRIPTION &&
+                    props.currentDaySubStep < SHOW_COLOR_AND_SYMBOL
+                  }
+                  showQuestionMarkInRule={
+                    props.currentDay === idx &&
+                    props.currentDaySubStep >= SHOW_DESCRIPTION &&
+                    props.currentDaySubStep < SHOW_RULE
+                  }
+                  currentDaySubStep={currentDaySubStep}
+                />
+              </div>
+            </div>
           );
         })}
       </div>
@@ -54,24 +169,45 @@ export default function Chart(props) {
   };
 
   return (
-    <div className="chart">
-      <div className="left-header">
-        <div className="header-day">Día</div>
-        <div className="main-content">
-          <div className="header-symbol">
-            <div className="symbol-or-color rotated-text">
-              {props.charType === "SYMBOLS" ? "Símbolo" : "Símbolo o color"}{" "}
+    <Popover
+      isOpen={showItemEditor}
+      position={["top", "right", "left", "bottom"]}
+      padding={10}
+      disableReposition
+      onClickOutside={() => setShowItemEditor(false)}
+      contentLocation={{ top: 0, left: 0 }}
+      containerClassName="edit-day-component"
+      transitionDuration={0.5}
+      content={() => (
+        <EditDay
+          {...props.daysData[dayToEdit]}
+          chartType={props.chartType}
+          onClose={() => setShowItemEditor(false)}
+          updateDayValue={updateDayValue}
+        />
+      )}
+    >
+      <div className="chart">
+        <div className="left-header">
+          <div className="header-day">Día</div>
+          <div className="main-content">
+            <div className="header-symbol">
+              <div className="symbol-or-color rotated-text">
+                {props.chartType === ChartTypes.SYMBOLS
+                  ? "Símbolo"
+                  : "Símbolo y color"}
+              </div>
+            </div>
+            <div className="header-annotation">
+              <div className="sensation-or-appearance rotated-text">
+                Apariencia y sensación
+              </div>
             </div>
           </div>
-          <div className="header-annotation">
-            <div className="sensation-or-appearance rotated-text">
-              Apariencia y sensación
-            </div>
-          </div>
+          <div className="header-rule">Regla</div>
         </div>
-        <div className="header-rule">Regla</div>
+        <div className="columns-container">{renderItems(props.daysData)}</div>
       </div>
-      <div className="items-container">{renderItems(props.daysData)}</div>
-    </div>
+    </Popover>
   );
 }

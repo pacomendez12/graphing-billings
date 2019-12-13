@@ -1,0 +1,13 @@
+.column .item-annotation {
+  height: 60%;
+  text-align: center;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.column .item-annotation .annotation {
+  padding: 0px 6px 0px 6px !important;
+  font-size: 14px;
+}

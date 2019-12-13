@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Switch from "react-switch";
-import { Icons, ChartTypes, BackgroundColors } from "../Constants";
-import { ReactComponent as CloseIcon } from "../../../img/close.svg";
+import Item from "../Item";
+import { Icons, ChartTypes, BackgroundColors } from "../../Constants";
+import { ReactComponent as CloseIcon } from "../../../../img/close.svg";
 import Symbol from "./components/symbol";
 import "./editDay.css";
 
@@ -213,36 +214,34 @@ export default function EditDay(props) {
           <div className="options-editor">{renderSymbolsOptions()}</div>
           <div className="options-editor">{renderPeakOrDayOptions()}</div>
           <div className="options-editor">{renderIntercourseOptions()}</div>
-          <div className="options-editor">{renderRuleOptions()}</div>
           <div className="options-editor">
             {renderAppearanceAndSensationOptions()}
           </div>
+          <div className="options-editor">{renderRuleOptions()}</div>
         </div>
         <div className="viewer">
-          {/* <Item
-            key={props.idxDay}
-            peakDay={props.peakDay}
-            day={props.idxDay + 1}
-            idxDay={props.idxDay}
-            chartType={charType}
-            showResult={
-              displayMode === "PRESENTATION" ? currentDay > props.idxDay : true
-            }
-            isCurrentDay={
-              displayMode === "PRESENTATION"
-                ? currentDay === props.idxDay
-                : false
-            }
-            displayMode={displayMode}
-            // postPeak={postPeak}
-            shouldRenderPeak={props.shouldRenderPeak}
-            currentDayStep={currentDayStep}
-            goToDay={props.goToDay}
-            goNDaysForward={props.goNDaysForward}
-            setShouldRenderPeak={props.setShouldRenderPeak}
-            dropDay={props.dropDay}
-            addDayOnIdx={props.addDayOnIdx}
-          /> */}
+          <div
+            className="column"
+            style={{
+              height: "100%",
+              border: "1px solid black",
+              backgroundColor: "white"
+            }}
+          >
+            <Item
+              isPostPeak={false}
+              chartType={props.chartType}
+              showPeakDay={peakDay}
+              annotation={annotation}
+              countingDay={numberDay}
+              icon={symbol}
+              iconBackground={background}
+              rule={rule}
+              intercourse={intercourse}
+              showQuestionMark={false}
+              currentDaySubStep={0}
+            />
+          </div>
         </div>
       </div>
       <div className="control-buttons">

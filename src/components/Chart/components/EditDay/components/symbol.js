@@ -1,13 +1,13 @@
 import React from "react";
-import { Icons } from "../../Constants";
-import { ReactComponent as BabeIcon } from "../../../../img/babe.svg";
-import { ReactComponent as BabeRedDotsIcon } from "../../../../img/babe_red_dots.svg";
-import { ReactComponent as BlackDotsIcon } from "../../../../img/black_dots.svg";
-import { ReactComponent as BigDotIcon } from "../../../../img/big_dot.svg";
-import { ReactComponent as BigDotUnfilledIcon } from "../../../../img/big_dot_unfilled.svg";
-import { ReactComponent as BigDotUnfilledWithDotsIcon } from "../../../../img/big_dot_unfilled_with_dots.svg";
-import { ReactComponent as VerticalLineIcon } from "../../../../img/vertical_line.svg";
-import { ReactComponent as HorizontalLinesIcon } from "../../../../img/horizontal_lines.svg";
+import { Icons } from "../../../Constants";
+import { ReactComponent as BabeIcon } from "../../../../../img/babe.svg";
+import { ReactComponent as BabeRedDotsIcon } from "../../../../../img/babe_red_dots.svg";
+import { ReactComponent as BlackDotsIcon } from "../../../../../img/black_dots.svg";
+import { ReactComponent as BigDotIcon } from "../../../../../img/big_dot.svg";
+import { ReactComponent as BigDotUnfilledIcon } from "../../../../../img/big_dot_unfilled.svg";
+import { ReactComponent as BigDotUnfilledWithDotsIcon } from "../../../../../img/big_dot_unfilled_with_dots.svg";
+import { ReactComponent as VerticalLineIcon } from "../../../../../img/vertical_line.svg";
+import { ReactComponent as HorizontalLinesIcon } from "../../../../../img/horizontal_lines.svg";
 import "./symbol.css";
 
 const getIconByTypeInColors = type => {

@@ -1,5 +1,5 @@
 .edit-day-component {
-  position: absolute;
+  position: relative;
   background: #e8e8e8c5;
   height: 100%;
   width: 100%;
@@ -11,13 +11,16 @@
 
 .edit-day {
   position: relative;
-  min-width: 300px;
+  min-width: 200px;
   width: 40%;
+  max-width: 600px;
   height: 80%;
+  max-height: 450px;
   background: #f7f7f7;
   box-shadow: 3px 3px 10px gray;
   border-radius: 5px;
-  padding: 3rem 1rem 1rem 1rem;
+  /* padding: 3rem 1rem 1rem 1rem; */
+  padding: 2% 1% 1% 1%;
 }
 
 .edit-day .top-bar {
@@ -64,17 +67,15 @@
 }
 
 .edit-day .edit-day-main-container .all-options {
-  display: flex;
+  display: block;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
-  flex-grow: 6;
+  flex-grow: 10;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-right: 15px;
+  margin-right: 2%;
+  overflow: auto;
 }
 
 .edit-day .edit-day-main-container .options-editor {
@@ -87,6 +88,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .edit-day .option-title {
@@ -208,12 +210,13 @@
 }
 
 .edit-day .edit-day-main-container .viewer {
-  flex-grow: 3;
+  flex-grow: 2;
   border-left: 1px dashed #a0a0a0;
   height: 90%;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-left: 2%;
 }
 
 .edit-day .control-buttons {

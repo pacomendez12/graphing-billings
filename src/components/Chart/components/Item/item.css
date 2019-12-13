@@ -1,4 +1,4 @@
-.chart .items-container .item {
+.column {
   border-right: solid 1px;
   position: relative;
   flex-direction: column;
@@ -8,8 +8,7 @@
   max-width: 30px;
 }
 
-.chart .items-container .item .open-editor-div {
-  position: relative;
+.column .item {
   width: 100%;
   height: 100%;
   display: flex;
@@ -21,12 +20,13 @@
   user-select: none;
 }
 
-.chart .items-container .item .main-content {
+.column .item .main-content {
+  max-height: 100%;
   height: 100%;
-  overflow: hidden;
+  /*overflow: hidden; */
 }
 
-.chart .items-container .item .item-rule {
+.column .item .item-rule {
   border-top: solid 1px;
   height: 30px;
   display: flex;

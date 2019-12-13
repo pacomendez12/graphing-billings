@@ -2,7 +2,19 @@ import React, { useState, useEffect, useRef } from "react";
 import KeyboardEventHandler from "react-keyboard-event-handler";
 import { RadioGroup, RadioButton } from "react-radio-buttons";
 import Fullscreen from "react-full-screen";
-import { DisplayModes, ChartTypes, BackgroundColors } from "./Constants";
+import {
+  DisplayModes,
+  ChartTypes,
+  BackgroundColors,
+  SELECTING_DAY,
+  SHOW_DESCRIPTION,
+  SHOW_PEAK_OF_YESTERDAY,
+  SHOW_COLOR_AND_SYMBOL,
+  SHOW_COUNTING_DAY,
+  SHOW_RULE,
+  SHOW_INTERCOURSE,
+  GO_TO_NEXT_DAY
+} from "./Constants";
 import { ReactComponent as CloseIcon } from "./img/close.svg";
 import { ReactComponent as StartPresentationIcon } from "./img/start_presentation.svg";
 
@@ -16,15 +28,7 @@ document.onkeydown = function(event) {
   switch (event.keyCode) {
     case 116: //F5 button
       event.returnValue = false;
-      // event.keyCode = 0;
       return false;
-    /*     case 82: //R button
-      if (event.ctrlKey) {
-        event.returnValue = false;
-        // event.keyCode = 0;
-        return false;
-      }
-      break; */
     default:
   }
 };
@@ -413,11 +417,11 @@ const emptyDay = {
 
 function App() {
   const [currentDay, setCurrentDay] = useState(0);
-  const [currentDayStep, setCurrentDayStep] = useState(0);
+  const [currentDaySubStepIdx, setCurrentDaySubStepIdx] = useState(0);
+  const [daysSteps, setDaysSteps] = useState([]);
+  const [peakDay, setPeakDay] = useState(null);
   const [chartType, setChartType] = useState(tmpData.defaultChartType);
   const [displayMode, setDisplayMode] = useState(DisplayModes.EDIT);
-  const [shouldRenderPeak, setShouldRenderPeak] = useState(false);
-
   const [displayTitleInput, setDisplayTitleInput] = useState(false);
   const [daysData, setDaysData] = useState([]);
   const [title, setTitle] = useState("");
@@ -431,22 +435,64 @@ function App() {
     setComments(tmpData.comments);
   }, []);
 
-  const peakDay = daysData.findIndex(day => day.symbol.peakDay);
+  useEffect(() => {
+    const newPeakDay = daysData.findIndex(day => day.symbol.peakDay);
+    setPeakDay(newPeakDay);
+    const newSteps = daysData.map((day, idx) => {
+      const steps = [SELECTING_DAY, SHOW_DESCRIPTION];
+
+      // checking peak day (yesterday)
+      if (peakDay !== null) {
+        if (peakDay === idx - 1) {
+          // if yesterday was peak
+          steps.push(SHOW_PEAK_OF_YESTERDAY);
+        }
+      }
+      // Adding color or symbol step
+      steps.push(SHOW_COLOR_AND_SYMBOL);
+
+      // Checking counting day
+      if (day.symbol.numberDay) {
+        steps.push(SHOW_COUNTING_DAY);
+      }
+
+      // Adding rule step
+      steps.push(SHOW_RULE);
+
+      if (day.symbol.intercourse) {
+        steps.push(SHOW_INTERCOURSE);
+      }
+
+      steps.push(GO_TO_NEXT_DAY);
+
+      return steps;
+    });
+
+    setDaysSteps(newSteps);
+  }, [daysData, peakDay]);
 
   const goBack = (positions = 1) => {
-    const newPosition = currentDay - positions;
-    if (newPosition >= 0) {
-      setCurrentDay(newPosition);
+    if (currentDay === daysData.length - 1 && currentDaySubStepIdx > 0) {
+      // corner case
+      setCurrentDaySubStepIdx(0);
+    } else {
+      const newPosition = currentDay - positions;
+      if (newPosition >= 0) {
+        setCurrentDay(newPosition);
+      }
+      setCurrentDaySubStepIdx(0);
     }
-    setCurrentDayStep(0);
   };
 
   const goForward = (positions = 1) => {
-    /* const newPosition = currentDay + positions;
-    if (newPosition <= data.days.length) {
-      setCurrentDay(newPosition);
-    } */
-    setCurrentDayStep(c => c + 1);
+    if (daysSteps[currentDay][currentDaySubStepIdx + 1] === GO_TO_NEXT_DAY) {
+      if (currentDay < daysData.length - 1) {
+        setCurrentDay(c => c + 1);
+        setCurrentDaySubStepIdx(0);
+      }
+    } else {
+      setCurrentDaySubStepIdx(c => c + 1);
+    }
   };
 
   const goNDaysForward = (positions = 1) => {
@@ -454,12 +500,13 @@ function App() {
     if (newPosition <= daysData.length) {
       setCurrentDay(newPosition);
     }
-    setCurrentDayStep(0);
+    setCurrentDaySubStepIdx(0);
   };
 
   const goToDay = position => {
     if (position >= 0 && position < daysData.length) {
       setCurrentDay(position);
+      setCurrentDaySubStepIdx(0);
     }
   };
 
@@ -590,14 +637,6 @@ function App() {
           )}
         </div>
         {renderTitle()}
-        {/* <div>
-          <span>Current day:</span>
-          <span>{currentDay}</span>
-        </div>
-        <div>
-          <span>Current day step:</span>
-          <span>{currentDayStep}</span>
-        </div> */}
         <div className="chart-type-buttons">
           <RadioGroup
             onChange={value => onChangeChartType(value)}
@@ -627,15 +666,15 @@ function App() {
             daysData={daysData}
             peakDay={peakDay}
             currentDay={currentDay}
-            currentDayStep={currentDayStep}
+            currentDaySubStep={
+              daysSteps.length > 0
+                ? daysSteps[currentDay][currentDaySubStepIdx] || 0
+                : 0
+            }
             chartType={chartType}
             displayMode={displayMode}
-            shouldRenderPeak={
-              shouldRenderPeak || displayMode === DisplayModes.EDIT
-            }
             goToDay={goToDay}
             goNDaysForward={goNDaysForward}
-            setShouldRenderPeak={setShouldRenderPeak}
             dropDay={dropDay}
             addDayOnIdx={addDayOnIdx}
             setDayValue={setDayValue}

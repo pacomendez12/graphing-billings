@@ -94,7 +94,7 @@
   align-items: center;
 }
 
-.chart .items-container {
+.chart .columns-container {
   flex-grow: 1;
   display: flex;
   background-color: rgb(245, 245, 245);
