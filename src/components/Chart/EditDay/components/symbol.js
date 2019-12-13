@@ -1,4 +1,5 @@
 import React from "react";
+import { Icons } from "../../Constants";
 import { ReactComponent as BabeIcon } from "../../../../img/babe.svg";
 import { ReactComponent as BabeRedDotsIcon } from "../../../../img/babe_red_dots.svg";
 import { ReactComponent as BlackDotsIcon } from "../../../../img/black_dots.svg";
@@ -8,16 +9,6 @@ import { ReactComponent as BigDotUnfilledWithDotsIcon } from "../../../../img/bi
 import { ReactComponent as VerticalLineIcon } from "../../../../img/vertical_line.svg";
 import { ReactComponent as HorizontalLinesIcon } from "../../../../img/horizontal_lines.svg";
 import "./symbol.css";
-
-const Icons = {
-  RED_ICON: "RED_ICON",
-  GREEN_ICON: "GREEN_ICON",
-  YELLOW_ICON: "YELLOW_ICON",
-  BABE: "BABE",
-  BABE_RED_DOTS: "BABE_RED_DOTS",
-  BLACK_DOTS: "BLACK_DOTS",
-  NONE: "NONE"
-};
 
 const getIconByTypeInColors = type => {
   switch (type) {
@@ -30,6 +21,7 @@ const getIconByTypeInColors = type => {
     case Icons.RED_ICON:
     case Icons.GREEN_ICON:
     case Icons.YELLOW_ICON:
+    case Icons.NONE:
     default:
       return null;
   }
@@ -72,7 +64,8 @@ export default function Symbol(props) {
         (props.icon === Icons.NONE &&
           (props.symbol === Icons.RED_ICON ||
             props.symbol === Icons.GREEN_ICON ||
-            props.symbol === Icons.YELLOW_ICON))
+            props.symbol === Icons.YELLOW_ICON ||
+            props.symbol === null))
           ? " item-checked"
           : ""
       }`}

@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
+import { ChartTypes, DisplayModes } from "./Constants";
 import Item from "./Item";
 import "./chart.css";
 
 export default function Chart(props) {
-  const charType = props.chartType || "COLORS";
+  const charType = props.chartType || ChartTypes.COLORS;
   const currentDay = props.currentDay !== undefined ? props.currentDay : 0;
   const currentDayStep =
     props.currentDayStep !== undefined ? props.currentDayStep : 0;
-  const displayMode = props.displayMode || "PRESENTATION";
+  const displayMode = props.displayMode || DisplayModes.PRESENTATION;
 
   let postPeak = false;
-  const renderItems = data => {
+  const renderItems = daysData => {
     return (
       <div className="container-scrollable">
-        {data.days.map((dayData, idx) => {
+        {daysData.map((dayData, idx) => {
           if (dayData.symbol.peakDay) {
             postPeak = true;
           }
@@ -26,10 +27,14 @@ export default function Chart(props) {
               idxDay={idx}
               chartType={charType}
               showResult={
-                displayMode === "PRESENTATION" ? currentDay > idx : true
+                displayMode === DisplayModes.PRESENTATION
+                  ? currentDay > idx
+                  : true
               }
               isCurrentDay={
-                displayMode === "PRESENTATION" ? currentDay === idx : false
+                displayMode === DisplayModes.PRESENTATION
+                  ? currentDay === idx
+                  : false
               }
               displayMode={displayMode}
               postPeak={postPeak}
@@ -40,6 +45,7 @@ export default function Chart(props) {
               setShouldRenderPeak={props.setShouldRenderPeak}
               dropDay={props.dropDay}
               addDayOnIdx={props.addDayOnIdx}
+              setDayValue={props.setDayValue}
             />
           );
         })}
@@ -65,7 +71,7 @@ export default function Chart(props) {
         </div>
         <div className="header-rule">Regla</div>
       </div>
-      <div className="items-container">{renderItems(props.data)}</div>
+      <div className="items-container">{renderItems(props.daysData)}</div>
     </div>
   );
 }

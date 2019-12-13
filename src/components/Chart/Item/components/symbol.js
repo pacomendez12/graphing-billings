@@ -1,31 +1,20 @@
 import React from "react";
 import "./symbol.css";
+import {
+  Icons,
+  BackgroundColors,
+  ChartTypes,
+  CurrentSelectedDayColor
+} from "../../Constants";
 import { ReactComponent as BabeIcon } from "../../../../img/babe.svg";
 import { ReactComponent as BabeRedDotsIcon } from "../../../../img/babe_red_dots.svg";
 import { ReactComponent as BlackDotsIcon } from "../../../../img/black_dots.svg";
 import { ReactComponent as BigDotIcon } from "../../../../img/big_dot.svg";
 import { ReactComponent as BigDotUnfilledIcon } from "../../../../img/big_dot_unfilled.svg";
+import { ReactComponent as BigDotUnfilledWithDotsIcon } from "../../../../img/big_dot_unfilled_with_dots.svg";
 import { ReactComponent as VerticalLineIcon } from "../../../../img/vertical_line.svg";
 import { ReactComponent as HorizontalLinesIcon } from "../../../../img/horizontal_lines.svg";
 import { ReactComponent as QuestionIcon } from "../../../../img/question.svg";
-
-const Icons = {
-  RED_ICON: "RED_ICON",
-  GREEN_ICON: "GREEN_ICON",
-  YELLOW_ICON: "YELLOW_ICON",
-  BABE: "BABE",
-  BABE_RED_DOTS: "BABE_RED_DOTS",
-  BLACK_DOTS: "BLACK_DOTS"
-};
-
-const Backgrounds = {
-  RED: "RED",
-  GREEN: "GREEN",
-  WHITE: "WHITE",
-  YELLOW: "YELLOW"
-};
-
-const currentDayColor = "#e0e0e0";
 
 const renderIcon = (
   iconType,
@@ -35,13 +24,13 @@ const renderIcon = (
   chartType
 ) => {
   let Icon;
-  if (chartType === "SYMBOLS") {
+  if (chartType === ChartTypes.SYMBOLS) {
     switch (iconType) {
       case Icons.BABE:
         Icon = <BigDotUnfilledIcon />;
         break;
       case Icons.BABE_RED_DOTS:
-        Icon = <BigDotUnfilledIcon />;
+        Icon = <BigDotUnfilledWithDotsIcon />;
         break;
       case Icons.BLACK_DOTS:
         Icon = <BlackDotsIcon />;
@@ -60,9 +49,9 @@ const renderIcon = (
     }
 
     if (isPostPeak && iconType === Icons.BABE) {
-      if (background === Backgrounds.YELLOW) {
+      if (background === BackgroundColors.YELLOW) {
         Icon = <HorizontalLinesIcon />;
-      } else if (background === Backgrounds.GREEN) {
+      } else if (background === BackgroundColors.GREEN) {
         Icon = <VerticalLineIcon />;
       }
     }
@@ -89,26 +78,28 @@ const renderIcon = (
 };
 
 export default function Symbol(props) {
-  let itemBackgroundColor = props.isCurrentDay ? currentDayColor : "white";
+  let itemBackgroundColor = props.isCurrentDay
+    ? CurrentSelectedDayColor
+    : "white";
   // let itemBackgroundColor =
   //   props.currentDayStep < 2 ? currentDayColor : "white";
   if (
-    (props.chartType === "COLORS" &&
+    (props.chartType === ChartTypes.COLORS &&
       props.isCurrentDay &&
       props.currentDayStep >= props.backgroundStep) ||
-    (props.showResult && props.chartType === "COLORS")
+    (props.showResult && props.chartType === ChartTypes.COLORS)
   ) {
     switch (props.iconBackground) {
-      case Backgrounds.RED:
+      case BackgroundColors.RED:
         itemBackgroundColor = "#aa0000";
         break;
-      case Backgrounds.GREEN:
+      case BackgroundColors.GREEN:
         itemBackgroundColor = "#1e6f1e";
         break;
-      case Backgrounds.YELLOW:
+      case BackgroundColors.YELLOW:
         itemBackgroundColor = "#ffcc00";
         break;
-      case Backgrounds.WHITE:
+      case BackgroundColors.WHITE:
       default:
         itemBackgroundColor = "white";
         break;

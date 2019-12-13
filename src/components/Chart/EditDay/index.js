@@ -1,42 +1,46 @@
 import React, { useState } from "react";
+import Switch from "react-switch";
+import { Icons, ChartTypes, BackgroundColors } from "../Constants";
 import { ReactComponent as CloseIcon } from "../../../img/close.svg";
 import Symbol from "./components/symbol";
 import "./editDay.css";
 
-const Icons = {
-  RED_ICON: "RED_ICON",
-  GREEN_ICON: "GREEN_ICON",
-  YELLOW_ICON: "YELLOW_ICON",
-  BABE: "BABE",
-  BABE_RED_DOTS: "BABE_RED_DOTS",
-  BLACK_DOTS: "BLACK_DOTS",
-  NONE: "NONE"
-};
-
 export default function EditDay(props) {
   const [background, setBackground] = useState(props.symbol.background);
   const [symbol, setSymbol] = useState(props.symbol.icon);
+  const [peakDay, setPeakDay] = useState(props.symbol.peakDay);
+  const [numberDay, setNumberDay] = useState(props.symbol.numberDay);
+  const [intercourse, setIntercourse] = useState(props.symbol.intercourse);
+  const [rule, setRule] = useState(props.rule);
+  const [annotation, setAnnotation] = useState(props.annotation);
 
-  const isUsingColors = props.chartType !== "SYMBOLS";
-  const currentDay = props.currentDay !== undefined ? props.currentDay : 0;
-  const currentDayStep =
-    props.currentDayStep !== undefined ? props.currentDayStep : 0;
-  const displayMode = props.displayMode || "PRESENTATION";
+  // console.log(peakDay);
+  // console.log(numberDay);
+  // console.log(props);
+  // console.log(rule);
+
+  const isUsingColors = props.chartType !== ChartTypes.SYMBOLS;
 
   const renderColorsOptions = () => {
     return (
       <React.Fragment>
         <div className="color-chooser options-editor-item">
           <div className="option-title">Color:</div>
-          {["RED", "GREEN", "YELLOW", "WHITE"].map(color => (
+          {[
+            BackgroundColors.RED,
+            BackgroundColors.GREEN,
+            BackgroundColors.YELLOW,
+            BackgroundColors.WHITE
+          ].map((color, idx) => (
             <label
+              key={idx}
               className="background-color-field"
               onClick={() => setBackground(color)}
             >
               <input
                 type="radio"
                 name="background-color"
-                value="RED"
+                value={color}
                 checked={background === color}
                 readOnly
               />
@@ -69,8 +73,8 @@ export default function EditDay(props) {
       <React.Fragment>
         <div className="symbol-chooser options-editor-item">
           <div className="option-title">Símbolo:</div>
-          {symbols.map(s => (
-            <div className="icon">
+          {symbols.map((s, idx) => (
+            <div className="icon" key={idx}>
               <Symbol
                 title={s.title}
                 symbol={symbol}
@@ -85,23 +89,101 @@ export default function EditDay(props) {
     );
   };
 
-  const renderPeakOrDay = () => {
+  const renderPeakOrDayOptions = () => {
     const items = [
       { text: "X", title: "Día cúspide" },
-      { text: "1", title: "Día uno" },
-      { text: "2", title: "Día dos" },
-      { text: "3", title: "Día tres" },
+      { text: 1, title: "Día uno" },
+      { text: 2, title: "Día dos" },
+      { text: 3, title: "Día tres" },
       { text: null, title: "Ninguno" }
     ];
     return (
       <React.Fragment>
         <div className="peak-or-day-chooser options-editor-item">
-          <div className="option-title">Cúspide o día:</div>
-          {items.map(i => (
-            <div title={i.title} className="box">
+          <div className="option-title">Cúspide o día de la cuenta:</div>
+          {items.map((i, idx) => (
+            <div
+              key={idx}
+              title={i.title}
+              className={`box${
+                (peakDay && i.text === "X") ||
+                (numberDay && i.text === numberDay) ||
+                (!numberDay && !peakDay && i.text === null)
+                  ? " item-checked"
+                  : ""
+              }`}
+              onClick={() => {
+                if (i.text === "X") {
+                  setPeakDay(true);
+                  setNumberDay(null);
+                } else if (i.text === 1 || i.text === 2 || i.text === 3) {
+                  setPeakDay(false);
+                  setNumberDay(i.text);
+                } else {
+                  setPeakDay(false);
+                  setNumberDay(null);
+                }
+              }}
+            >
               {i.text}
             </div>
           ))}
+        </div>
+      </React.Fragment>
+    );
+  };
+
+  const renderIntercourseOptions = () => {
+    return (
+      <React.Fragment>
+        <div className="intercourse-chooser options-editor-item">
+          <div className="option-title">Relación:</div>
+          <Switch onChange={setIntercourse} checked={intercourse} />
+        </div>
+      </React.Fragment>
+    );
+  };
+
+  const renderRuleOptions = () => {
+    const items = [
+      { text: 1, title: "Regla uno" },
+      { text: 2, title: "Regla dos" },
+      { text: 3, title: "Regla tres" },
+      { text: "C", title: "Regla de la cúspide" }
+    ];
+    return (
+      <React.Fragment>
+        <div className="rule-chooser options-editor-item">
+          <div className="option-title">Regla:</div>
+          {items.map((i, idx) => (
+            <div
+              key={idx}
+              title={i.title}
+              className={`box${rule && i.text === rule ? " item-checked" : ""}`}
+              onClick={() => {
+                setRule(i.text);
+              }}
+            >
+              {i.text}
+            </div>
+          ))}
+        </div>
+      </React.Fragment>
+    );
+  };
+
+  const renderAppearanceAndSensationOptions = () => {
+    return (
+      <React.Fragment>
+        <div className="appearance-and-sensation options-editor-item">
+          <div className="option-title">Apariencia y sensación:</div>
+          <input
+            type="text"
+            value={annotation}
+            onChange={e => setAnnotation(e.target.value)}
+            placeholder="Anota aquí la sensación y apariencia"
+            style={{}}
+          />
         </div>
       </React.Fragment>
     );
@@ -129,7 +211,12 @@ export default function EditDay(props) {
             <div className="options-editor">{renderColorsOptions()}</div>
           )}
           <div className="options-editor">{renderSymbolsOptions()}</div>
-          <div className="options-editor">{renderPeakOrDay()}</div>
+          <div className="options-editor">{renderPeakOrDayOptions()}</div>
+          <div className="options-editor">{renderIntercourseOptions()}</div>
+          <div className="options-editor">{renderRuleOptions()}</div>
+          <div className="options-editor">
+            {renderAppearanceAndSensationOptions()}
+          </div>
         </div>
         <div className="viewer">
           {/* <Item
@@ -159,7 +246,25 @@ export default function EditDay(props) {
         </div>
       </div>
       <div className="control-buttons">
-        <button className="ok-button">Aceptar</button>
+        <button
+          className="ok-button"
+          onClick={() =>
+            props.updateDayValue({
+              day: props.day,
+              symbol: {
+                background,
+                icon: symbol,
+                intercourse,
+                peakDay,
+                numberDay
+              },
+              annotation,
+              rule
+            })
+          }
+        >
+          Aceptar
+        </button>
       </div>
     </div>
   );

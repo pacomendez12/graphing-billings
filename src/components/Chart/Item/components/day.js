@@ -3,6 +3,7 @@ import Popover, { ArrowContainer } from "react-tiny-popover";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "./day.css";
+import { DisplayModes } from "../../Constants";
 import { ReactComponent as DeleteDay } from "../../../../img/delete_day.svg";
 import { ReactComponent as AddDayBefore } from "../../../../img/add_day_before.svg";
 import { ReactComponent as AddDayAfter } from "../../../../img/add_day_after.svg";
@@ -60,7 +61,7 @@ function EditMenu(props) {
 export default function Day(props) {
   const [editPopoverIsOpen, setEditPopoverIsOpen] = useState(false);
 
-  if (props.displayMode === "EDIT") {
+  if (props.displayMode === DisplayModes.EDIT) {
     return (
       <Popover
         isOpen={editPopoverIsOpen}

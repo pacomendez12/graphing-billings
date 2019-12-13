@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import KeyboardEventHandler from "react-keyboard-event-handler";
 import { RadioGroup, RadioButton } from "react-radio-buttons";
 import Fullscreen from "react-full-screen";
-import AutosizeInput from "react-input-autosize";
-import logo from "./logo.svg";
+import { DisplayModes, ChartTypes, BackgroundColors } from "./Constants";
 import { ReactComponent as CloseIcon } from "./img/close.svg";
 import { ReactComponent as StartPresentationIcon } from "./img/start_presentation.svg";
 
@@ -226,7 +225,7 @@ const tmpData = {
         numberDay: 1
       },
       annotation: "Nada Seco",
-      rule: 3
+      rule: "C"
     },
     {
       day: 17,
@@ -238,7 +237,7 @@ const tmpData = {
         numberDay: 2
       },
       annotation: "Nada Seco",
-      rule: 3
+      rule: "C"
     },
     {
       day: 18,
@@ -250,7 +249,7 @@ const tmpData = {
         numberDay: 3
       },
       annotation: "Nada Seco",
-      rule: 3
+      rule: "C"
     },
     {
       day: 19,
@@ -262,7 +261,7 @@ const tmpData = {
         numberDay: null
       },
       annotation: "Nada Seco",
-      rule: 2
+      rule: "C"
     },
     {
       day: 20,
@@ -274,7 +273,7 @@ const tmpData = {
         numberDay: null
       },
       annotation: "Nada Seco",
-      rule: 2
+      rule: "C"
     },
     {
       day: 21,
@@ -286,7 +285,7 @@ const tmpData = {
         numberDay: null
       },
       annotation: "Nada Seco",
-      rule: 2
+      rule: "C"
     },
     {
       day: 22,
@@ -298,7 +297,7 @@ const tmpData = {
         numberDay: null
       },
       annotation: "Nada Seco",
-      rule: 2
+      rule: "C"
     },
     {
       day: 23,
@@ -310,7 +309,7 @@ const tmpData = {
         numberDay: null
       },
       annotation: "Nada Seco",
-      rule: 2
+      rule: "C"
     },
     {
       day: 24,
@@ -322,7 +321,7 @@ const tmpData = {
         numberDay: null
       },
       annotation: "Nada Seco",
-      rule: 2
+      rule: "C"
     },
     {
       day: 25,
@@ -334,7 +333,7 @@ const tmpData = {
         numberDay: null
       },
       annotation: "Nada Seco",
-      rule: 2
+      rule: "C"
     },
     {
       day: 26,
@@ -346,7 +345,7 @@ const tmpData = {
         numberDay: null
       },
       annotation: "Nada Seco",
-      rule: 2
+      rule: "C"
     },
     {
       day: 27,
@@ -358,7 +357,7 @@ const tmpData = {
         numberDay: null
       },
       annotation: "Nada Seco",
-      rule: 2
+      rule: "C"
     },
     {
       day: 28,
@@ -370,7 +369,7 @@ const tmpData = {
         numberDay: null
       },
       annotation: "Nada Seco",
-      rule: 2
+      rule: "C"
     },
     {
       day: 29,
@@ -382,7 +381,7 @@ const tmpData = {
         numberDay: null
       },
       annotation: "Nada Seco",
-      rule: 2
+      rule: "C"
     },
     {
       day: 30,
@@ -394,28 +393,45 @@ const tmpData = {
         numberDay: null
       },
       annotation: "Nada Seco",
-      rule: 2
+      rule: "C"
     }
   ]
+};
+
+const emptyDay = {
+  day: 0,
+  symbol: {
+    background: BackgroundColors.WHITE,
+    icon: null,
+    intercourse: false,
+    peakDay: false,
+    numberDay: null
+  },
+  annotation: "",
+  rule: null
 };
 
 function App() {
   const [currentDay, setCurrentDay] = useState(0);
   const [currentDayStep, setCurrentDayStep] = useState(0);
   const [chartType, setChartType] = useState(tmpData.defaultChartType);
-  const [displayMode, setDisplayMode] = useState("EDIT");
+  const [displayMode, setDisplayMode] = useState(DisplayModes.EDIT);
   const [shouldRenderPeak, setShouldRenderPeak] = useState(false);
 
   const [displayTitleInput, setDisplayTitleInput] = useState(false);
-  const [data, setData] = useState({ title: "", comments: "", days: [] });
+  const [daysData, setDaysData] = useState([]);
+  const [title, setTitle] = useState("");
+  const [comments, setComments] = useState("");
 
   const titleInputRef = useRef(null);
 
   useEffect(() => {
-    setData({ ...tmpData });
+    setDaysData(tmpData.days);
+    setTitle(tmpData.title);
+    setComments(tmpData.comments);
   }, []);
 
-  const peakDay = data.days.findIndex(day => day.symbol.peakDay);
+  const peakDay = daysData.findIndex(day => day.symbol.peakDay);
 
   const goBack = (positions = 1) => {
     const newPosition = currentDay - positions;
@@ -435,66 +451,46 @@ function App() {
 
   const goNDaysForward = (positions = 1) => {
     const newPosition = currentDay + positions;
-    if (newPosition <= data.days.length) {
+    if (newPosition <= daysData.length) {
       setCurrentDay(newPosition);
     }
     setCurrentDayStep(0);
   };
 
   const goToDay = position => {
-    if (position >= 0 && position < data.days.length) {
+    if (position >= 0 && position < daysData.length) {
       setCurrentDay(position);
     }
   };
 
   const onChangeChartType = value => {
-    if (value === "SYMBOLS" || value === "COLORS") setChartType(value);
+    if (value === ChartTypes.SYMBOLS || value === ChartTypes.COLORS)
+      setChartType(value);
   };
 
   const dropDay = idxDay => {
-    if (idxDay >= 0 && idxDay < data.days.length) {
-      setData(currentData => {
-        currentData.days.splice(idxDay, 1);
-        if (currentData.days.length === 0) {
-          currentData.days.push({
-            day: 0,
-            symbol: {
-              background: "WHITE",
-              icon: null,
-              intercourse: false,
-              peakDay: false,
-              numberDay: null
-            },
-            annotation: "",
-            rule: null
-          });
+    if (idxDay >= 0 && idxDay < daysData.length) {
+      setDaysData(currentDaysData => {
+        currentDaysData.splice(idxDay, 1);
+        if (currentDaysData.length === 0) {
+          currentDaysData.push({ ...emptyDay });
         }
-        return { ...currentData };
+        return [...currentDaysData];
       });
     }
   };
 
   const addDayOnIdx = idx => {
-    if (idx >= 0 && idx <= data.days.length) {
-      setData(currentData => {
-        currentData.days.splice(idx, 0, {
-          day: 0,
-          symbol: {
-            background: "WHITE",
-            icon: null,
-            intercourse: false,
-            peakDay: false,
-            numberDay: null
-          },
-          annotation: "",
-          rule: null
-        });
+    if (idx >= 0 && idx <= daysData.length) {
+      setDaysData(currentDaysData => {
+        currentDaysData.splice(idx, 0, { ...emptyDay });
 
-        currentData.days = currentData.days.map((currentDay, idx) => ({
+        currentDaysData = currentDaysData.map((currentDay, idx) => ({
           ...currentDay,
           day: idx + 1
         }));
-        return { ...currentData };
+
+        return [...currentDaysData];
       });
     }
   };
@@ -506,14 +502,12 @@ function App() {
           ref={titleInputRef}
           style={{ color: "gray" }}
           className="chart-title"
-          value={data.title}
+          value={title}
           onChange={event => {
-            setData(d => {
-              return { ...d, title: event.target.value };
-            });
+            setTitle(event.target.value);
           }}
           onBlur={() => {
-            if (displayMode === "EDIT") {
+            if (displayMode === DisplayModes.EDIT) {
               setDisplayTitleInput(false);
             }
           }}
@@ -524,26 +518,34 @@ function App() {
         <h2
           className="chart-title"
           onClick={() => {
-            if (displayMode === "EDIT") {
+            if (displayMode === DisplayModes.EDIT) {
               setDisplayTitleInput(true);
-              console.log(titleInputRef);
               setTimeout(() => {
                 titleInputRef.current.focus();
               }, 100);
             }
           }}
         >
-          {data.title}
+          {title}
         </h2>
       );
     }
   };
 
+  const setDayValue = (dayIdx, newValue) => {
+    if (dayIdx >= 0 && dayIdx < daysData.length) {
+      daysData[dayIdx] = newValue;
+      setDaysData([...daysData]);
+    }
+  };
+
   return (
     <Fullscreen
-      enabled={displayMode === "PRESENTATION"}
+      enabled={displayMode === DisplayModes.PRESENTATION}
       onChange={isFull =>
-        setDisplayMode(isFull === true ? "PRESENTATION" : "EDIT")
+        setDisplayMode(
+          isFull === true ? DisplayModes.PRESENTATION : DisplayModes.EDIT
+        )
       }
     >
       <div className="App full-screenable-node">
@@ -555,17 +557,17 @@ function App() {
             } else if (key === "right") {
               goForward();
             } else if (key === "f5") {
-              setDisplayMode("PRESENTATION");
+              setDisplayMode(DisplayModes.PRESENTATION);
             }
           }}
         />
 
         <div className="presentation-control">
-          {displayMode === "EDIT" ? (
+          {displayMode === DisplayModes.EDIT ? (
             <div
               className="start-presentation"
               onClick={() => {
-                setDisplayMode("PRESENTATION");
+                setDisplayMode(DisplayModes.PRESENTATION);
               }}
             >
               <StartPresentationIcon
@@ -577,7 +579,7 @@ function App() {
             <div
               className="close-presentation"
               onClick={() => {
-                setDisplayMode("EDIT");
+                setDisplayMode(DisplayModes.EDIT);
               }}
             >
               <CloseIcon
@@ -606,7 +608,7 @@ function App() {
               padding={10}
               rootColor="#0066ff"
               pointColor="#0066ff"
-              value="COLORS"
+              value={ChartTypes.COLORS}
             >
               Colores
             </RadioButton>
@@ -614,7 +616,7 @@ function App() {
               padding={10}
               rootColor="#0066ff"
               pointColor="#0066ff"
-              value="SYMBOLS"
+              value={ChartTypes.SYMBOLS}
             >
               Símbolos
             </RadioButton>
@@ -622,29 +624,27 @@ function App() {
         </div>
         <div className="main-chart-container">
           <Chart
-            data={data}
+            daysData={daysData}
             peakDay={peakDay}
             currentDay={currentDay}
             currentDayStep={currentDayStep}
             chartType={chartType}
             displayMode={displayMode}
-            shouldRenderPeak={shouldRenderPeak || displayMode === "EDIT"}
+            shouldRenderPeak={
+              shouldRenderPeak || displayMode === DisplayModes.EDIT
+            }
             goToDay={goToDay}
             goNDaysForward={goNDaysForward}
             setShouldRenderPeak={setShouldRenderPeak}
             dropDay={dropDay}
             addDayOnIdx={addDayOnIdx}
+            setDayValue={setDayValue}
           />
         </div>
         {
           <div className="nav-buttons">
-            {displayMode === "PRESENTATION" && (
-              <div
-                className="button"
-                onClick={() => {
-                  goBack();
-                }}
-              >
+            {displayMode === DisplayModes.PRESENTATION && (
+              <div className="button" onClick={() => goBack()}>
                 <Prev className="prev-icon" />
                 <span className="text">Anterior</span>
               </div>
@@ -652,22 +652,15 @@ function App() {
             <textarea
               className="comments"
               title="Escribe tus comentarios aquí"
-              value={data.comments}
+              value={comments}
               spellCheck={false}
               rows="4"
               cols="1"
-              onChange={event =>
-                setData(prev => ({ ...prev, comments: event.target.value }))
-              }
-              disabled={displayMode === "PRESENTATION"}
+              onChange={event => setComments(event.target.value)}
+              disabled={displayMode === DisplayModes.PRESENTATION}
             />
-            {displayMode === "PRESENTATION" && (
-              <div
-                className="button"
-                onClick={() => {
-                  goForward();
-                }}
-              >
+            {displayMode === DisplayModes.PRESENTATION && (
+              <div className="button" onClick={() => goForward()}>
                 <span className="text">Siguiente</span>
                 <Next className="next-icon" />
               </div>
