@@ -522,6 +522,10 @@ function App() {
         if (currentDaysData.length === 0) {
           currentDaysData.push({ ...emptyDay });
         }
+        currentDaysData = currentDaysData.map((currentDay, idx) => ({
+          ...currentDay,
+          day: idx + 1
+        }));
         return [...currentDaysData];
       });
     }
