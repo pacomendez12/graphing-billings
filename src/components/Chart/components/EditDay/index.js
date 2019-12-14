@@ -190,6 +190,69 @@ export default function EditDay(props) {
     );
   };
 
+  const saveDay = () => {
+    let finalBackground = background;
+    let finalIcon = symbol;
+    if (props.chartType === ChartTypes.SYMBOLS) {
+      switch (symbol) {
+        case Icons.GREEN_ICON:
+          finalBackground = BackgroundColors.GREEN;
+          break;
+        case Icons.RED_ICON:
+        case Icons.BLACK_DOTS:
+          finalBackground = BackgroundColors.RED;
+          break;
+        case Icons.YELLOW_ICON:
+          finalBackground = BackgroundColors.YELLOW;
+          break;
+        case Icons.BABE:
+        case Icons.BABE_RED_DOTS:
+          finalBackground = BackgroundColors.WHITE;
+          break;
+        default:
+      }
+    } else {
+      if (
+        symbol === Icons.NONE ||
+        symbol === Icons.RED_ICON ||
+        symbol === Icons.GREEN_ICON ||
+        symbol === Icons.YELLOW_ICON ||
+        symbol === null
+      ) {
+        switch (background) {
+          case BackgroundColors.YELLOW:
+            finalIcon = Icons.YELLOW_ICON;
+            break;
+          case BackgroundColors.GREEN:
+            finalIcon = Icons.GREEN_ICON;
+            break;
+          case BackgroundColors.RED:
+            finalIcon = Icons.RED_ICON;
+            break;
+          case BackgroundColors.WHITE:
+            finalIcon = Icons.NONE;
+            break;
+          default:
+        }
+      }
+    }
+
+    const finalDayValue = {
+      day: props.day,
+      symbol: {
+        background: finalBackground,
+        icon: finalIcon,
+        intercourse,
+        peakDay,
+        numberDay
+      },
+      annotation,
+      rule
+    };
+    console.log(finalDayValue);
+    props.updateDayValue(finalDayValue);
+  };
+
   return (
     <div className="edit-day">
       <div className="top-bar">
@@ -245,23 +308,7 @@ export default function EditDay(props) {
         </div>
       </div>
       <div className="control-buttons">
-        <button
-          className="ok-button"
-          onClick={() =>
-            props.updateDayValue({
-              day: props.day,
-              symbol: {
-                background,
-                icon: symbol,
-                intercourse,
-                peakDay,
-                numberDay
-              },
-              annotation,
-              rule
-            })
-          }
-        >
+        <button className="ok-button" onClick={saveDay}>
           Aceptar
         </button>
       </div>

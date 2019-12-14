@@ -3,6 +3,8 @@ import Popover from "react-tiny-popover";
 import {
   ChartTypes,
   DisplayModes,
+  BackgroundColors,
+  Icons,
   CurrentSelectedDayColor,
   SELECTING_DAY,
   SHOW_DESCRIPTION,
@@ -18,11 +20,24 @@ import EditDay from "./components/EditDay";
 
 import "./chart.css";
 
+const getIconForSymbolsAfterPeak = background => {
+  switch (background) {
+    case BackgroundColors.GREEN:
+      return Icons.GREEN_ICON;
+    case BackgroundColors.YELLOW:
+      return Icons.YELLOW_ICON;
+    // case BackgroundColors.RED:
+    //   return Icons.RED_ICON;
+    default:
+      return false;
+  }
+};
+
 export default function Chart(props) {
   const [showItemEditor, setShowItemEditor] = useState(false);
   const [dayToEdit, setDayToEdit] = useState(null);
 
-  const charType = props.chartType || ChartTypes.COLORS;
+  const chartType = props.chartType || ChartTypes.COLORS;
   const currentDay = props.currentDay !== undefined ? props.currentDay : 0;
   const currentDaySubStep =
     props.currentDaySubStep !== undefined ? props.currentDaySubStep : 0;
@@ -87,7 +102,11 @@ export default function Chart(props) {
           return (
             <div
               key={idx}
-              className="column"
+              className={`column ${
+                displayMode === DisplayModes.EDIT && idx === props.currentDay
+                  ? "mark-current-day"
+                  : ""
+              }`}
               style={{
                 backgroundColor:
                   displayMode === DisplayModes.PRESENTATION &&
@@ -98,9 +117,9 @@ export default function Chart(props) {
                 cursor: "pointer"
               }}
               onClick={() => {
-                if (displayMode === DisplayModes.PRESENTATION) {
-                  props.goToDay(idx);
-                }
+                // if (displayMode === DisplayModes.PRESENTATION) {
+                props.goToDay(idx);
+                // }
               }}
               title={
                 (displayMode === DisplayModes.PRESENTATION &&
@@ -117,7 +136,7 @@ export default function Chart(props) {
               ></Day>
               <div
                 style={{ height: "100%", position: "relative" }}
-                onClick={() => {
+                onDoubleClick={() => {
                   if (displayMode === DisplayModes.EDIT) {
                     setDayToEdit(idx);
                     setShowItemEditor(true);
@@ -131,7 +150,7 @@ export default function Chart(props) {
               >
                 <Item
                   isPostPeak={isPostPeak}
-                  chartType={charType}
+                  chartType={chartType}
                   showPeakDay={itemStatus.displayPeak}
                   annotation={
                     itemStatus.displayDescription && dayData.annotation
@@ -139,7 +158,15 @@ export default function Chart(props) {
                   countingDay={
                     itemStatus.displayCountingDay && dayData.symbol.numberDay
                   }
-                  icon={itemStatus.displayColorAndSymbol && dayData.symbol.icon}
+                  // icon={itemStatus.displayColorAndSymbol && dayData.symbol.icon}
+                  icon={
+                    itemStatus.displayColorAndSymbol &&
+                    ((chartType === ChartTypes.SYMBOLS &&
+                      idx > props.peakDay &&
+                      idx < props.peakDay + 4 &&
+                      getIconForSymbolsAfterPeak(dayData.symbol.background)) ||
+                      dayData.symbol.icon)
+                  }
                   iconBackground={
                     itemStatus.displayColorAndSymbol &&
                     dayData.symbol.background
@@ -182,6 +209,8 @@ export default function Chart(props) {
         <EditDay
           {...props.daysData[dayToEdit]}
           chartType={props.chartType}
+          peakDay={props.peakDay}
+          postPeak={dayToEdit > props.peakDay}
           onClose={() => setShowItemEditor(false)}
           updateDayValue={updateDayValue}
         />

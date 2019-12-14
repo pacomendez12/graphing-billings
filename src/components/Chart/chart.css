@@ -102,6 +102,15 @@
   width: calc(100% - 50px);
 }
 
+.chart .columns-container .mark-current-day {
+  position: relative;
+  outline-style: auto;
+  outline-color: #003f9e;
+  z-index: 5;
+  /* box-shadow: 0px 0px 10px #272727; */
+  box-shadow: 0px 0px 10px #003f9e;
+}
+
 .container-scrollable {
   position: relative;
   display: flex;

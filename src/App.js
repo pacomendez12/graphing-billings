@@ -426,6 +426,7 @@ function App() {
   const [daysData, setDaysData] = useState([]);
   const [title, setTitle] = useState("");
   const [comments, setComments] = useState("");
+  const [clipboard, setClipboard] = useState({ day: null, data: null });
 
   const titleInputRef = useRef(null);
 
@@ -485,13 +486,17 @@ function App() {
   };
 
   const goForward = (positions = 1) => {
-    if (daysSteps[currentDay][currentDaySubStepIdx + 1] === GO_TO_NEXT_DAY) {
-      if (currentDay < daysData.length - 1) {
-        setCurrentDay(c => c + 1);
-        setCurrentDaySubStepIdx(0);
+    if (displayMode === DisplayModes.PRESENTATION) {
+      if (daysSteps[currentDay][currentDaySubStepIdx + 1] === GO_TO_NEXT_DAY) {
+        if (currentDay < daysData.length - 1) {
+          setCurrentDay(c => c + 1);
+          setCurrentDaySubStepIdx(0);
+        }
+      } else {
+        setCurrentDaySubStepIdx(c => c + 1);
       }
-    } else {
-      setCurrentDaySubStepIdx(c => c + 1);
+    } else if (currentDay < daysData.length - 1) {
+      setCurrentDay(c => c + 1);
     }
   };
 
@@ -590,6 +595,41 @@ function App() {
     }
   };
 
+  const copyCurrentDayToClipboard = () => {
+    setClipboard({ day: currentDay, data: { ...daysData[currentDay] } });
+  };
+
+  const pasteClipboardToCurrentDay = () => {
+    if (currentDay !== clipboard.day) {
+      setDayValue(currentDay, clipboard.data);
+    }
+  };
+
+  const handleKeyEvents = (key, e) => {
+    switch (key) {
+      case "left":
+        goBack();
+        break;
+      case "right":
+        goForward();
+        break;
+      case "f5":
+        setDisplayMode(DisplayModes.PRESENTATION);
+        break;
+      case "ctrl+c":
+        if (displayMode === DisplayModes.EDIT) {
+          copyCurrentDayToClipboard();
+        }
+        break;
+      case "ctrl+v":
+        if (displayMode === DisplayModes.EDIT) {
+          pasteClipboardToCurrentDay();
+        }
+        break;
+      default:
+    }
+  };
+
   return (
     <Fullscreen
       enabled={displayMode === DisplayModes.PRESENTATION}
@@ -601,16 +641,8 @@ function App() {
     >
       <div className="App full-screenable-node">
         <KeyboardEventHandler
-          handleKeys={["left", "right", "f5"]}
-          onKeyEvent={key => {
-            if (key === "left") {
-              goBack();
-            } else if (key === "right") {
-              goForward();
-            } else if (key === "f5") {
-              setDisplayMode(DisplayModes.PRESENTATION);
-            }
-          }}
+          handleKeys={["left", "right", "f5", "ctrl+c", "ctrl+v"]}
+          onKeyEvent={handleKeyEvents}
         />
 
         <div className="presentation-control">

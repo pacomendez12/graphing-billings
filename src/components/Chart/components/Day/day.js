@@ -90,6 +90,8 @@ export default function Day(props) {
           <div
             className="item-field item-day"
             onClick={() => setEditPopoverIsOpen(true)}
+            // onMouseEnter={() => setEditPopoverIsOpen(true)}
+            // onMouseLeave={() => setEditPopoverIsOpen(false)}
             style={{ cursor: "pointer" }}
             title={"Editar día"}
           >
