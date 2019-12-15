@@ -11,11 +11,11 @@
 
 .edit-day {
   position: relative;
-  min-width: 200px;
-  width: 40%;
-  max-width: 600px;
+  width: 50%;
+  min-width: 450px;
+  max-width: 550px;
   height: 80%;
-  max-height: 450px;
+  max-height: 550px;
   background: #f7f7f7;
   box-shadow: 3px 3px 10px gray;
   border-radius: 5px;
@@ -67,8 +67,8 @@
 }
 
 .edit-day .edit-day-main-container .all-options {
-  display: block;
-  /* display: flex; */
+  /* display: block; */
+  display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
