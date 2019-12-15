@@ -25,20 +25,21 @@ function EditMenu(props) {
         className="icon-container"
         title="Borrar día"
         onClick={() => {
-          confirmAlert({
-            title: `Eliminar día ${props.idxDay + 1}`,
-            message: "¿Estás seguro que quieres eliminar este día?",
-            buttons: [
-              {
-                label: "Si",
-                onClick: () => props.dropDay(props.idxDay)
-              },
-              {
-                label: "No"
-              }
-            ]
-          });
+          // confirmAlert({
+          //   title: `Eliminar día ${props.idxDay + 1}`,
+          //   message: "¿Estás seguro que quieres eliminar este día?",
+          //   buttons: [
+          //     {
+          //       label: "Si",
+          //       onClick: () => props.dropDay(props.idxDay)
+          //     },
+          //     {
+          //       label: "No"
+          //     }
+          //   ]
+          // });
 
+          props.dropDay(props.idxDay);
           props.setEditPopoverIsOpen(false);
         }}
       >

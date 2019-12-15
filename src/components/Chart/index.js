@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Popover from "react-tiny-popover";
+import KeyboardEventHandler from "react-keyboard-event-handler";
 import {
   ChartTypes,
   DisplayModes,
@@ -47,6 +48,17 @@ export default function Chart(props) {
     props.setDayValue(dayToEdit, newConf);
     setShowItemEditor(false);
   };
+
+  const setHotKeysDisabled = useCallback(props.setHotKeysDisabled);
+
+  useEffect(() => {
+    if (showItemEditor) {
+      setHotKeysDisabled(true);
+    }
+    return () => {
+      setHotKeysDisabled(false);
+    };
+  }, [setHotKeysDisabled, showItemEditor]);
 
   const renderItems = daysData => {
     return (
@@ -216,6 +228,17 @@ export default function Chart(props) {
         />
       )}
     >
+      <KeyboardEventHandler
+        handleKeys={["enter"]}
+        onKeyEvent={(key, e) => {
+          if (key === "enter") {
+            if (displayMode === DisplayModes.EDIT) {
+              setDayToEdit(props.currentDay);
+              setShowItemEditor(true);
+            }
+          }
+        }}
+      />
       <div className="chart">
         <div className="left-header">
           <div className="header-day">Día</div>

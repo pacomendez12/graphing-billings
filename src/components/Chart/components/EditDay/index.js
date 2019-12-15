@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Switch from "react-switch";
+import KeyboardEventHandler from "react-keyboard-event-handler";
 import Item from "../Item";
 import { Icons, ChartTypes, BackgroundColors } from "../../Constants";
 import { ReactComponent as CloseIcon } from "../../../../img/close.svg";
@@ -249,12 +250,21 @@ export default function EditDay(props) {
       annotation,
       rule
     };
-    console.log(finalDayValue);
     props.updateDayValue(finalDayValue);
   };
 
   return (
     <div className="edit-day">
+      <KeyboardEventHandler
+        handleKeys={["enter", "esc"]}
+        onKeyEvent={(key, e) => {
+          if (key === "enter") {
+            saveDay();
+          } else if (key === "esc") {
+            props.onClose();
+          }
+        }}
+      />
       <div className="top-bar">
         <div className="title">
           <h2>{`Editar día ${props.day}`}</h2>

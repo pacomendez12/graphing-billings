@@ -12,7 +12,9 @@
 .chart {
   position: relative;
   width: 100%;
-  border: solid 1px;
+  border: solid 1px #a0a0a0;
+  border-radius: 10px;
+  box-shadow: 1px 1px 3px gray;
   display: flex;
   overflow: auto;
 }
@@ -97,7 +99,7 @@
 .chart .columns-container {
   flex-grow: 1;
   display: flex;
-  background-color: rgb(245, 245, 245);
+  background-color: rgb(58, 58, 58);
   position: relative;
   width: calc(100% - 50px);
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import KeyboardEventHandler from "react-keyboard-event-handler";
 import { RadioGroup, RadioButton } from "react-radio-buttons";
 import Fullscreen from "react-full-screen";
+import _ from "lodash";
 import {
   DisplayModes,
   ChartTypes,
@@ -26,12 +27,34 @@ import "./App.css";
 
 document.onkeydown = function(event) {
   switch (event.keyCode) {
+    case 33: // pageup
+    case 34: // pagedown
+    case 35: // end
+    case 36: // home
+    case 37: // left
+    case 38: // up
+    case 39: // right
+    case 40: // down
     case 116: //F5 button
+    case 62:
+    case 107:
+    case 173:
+    case 109:
+    case 187:
+    case 189:
       event.returnValue = false;
       return false;
     default:
   }
 };
+
+// 	$(window).bind('mousewheel DOMMouseScroll', function (event) {
+// 	       if (event.ctrlKey == true) {
+//            alert('disabling zooming');
+// 		   event.preventDefault();
+// 	       }
+// 	});
+// });
 
 const tmpData = {
   title: 'Gráfica con PBI de "Seco" y "Nada"',
@@ -427,7 +450,7 @@ function App() {
   const [title, setTitle] = useState("");
   const [comments, setComments] = useState("");
   const [clipboard, setClipboard] = useState({ day: null, data: null });
-
+  const [hotKeysDisabled, setHotKeysDisabled] = useState(false);
   const titleInputRef = useRef(null);
 
   useEffect(() => {
@@ -481,7 +504,7 @@ function App() {
       if (newPosition >= 0) {
         setCurrentDay(newPosition);
       }
-      setCurrentDaySubStepIdx(0);
+      if (currentDaySubStepIdx !== 0) setCurrentDaySubStepIdx(0);
     }
   };
 
@@ -490,7 +513,7 @@ function App() {
       if (daysSteps[currentDay][currentDaySubStepIdx + 1] === GO_TO_NEXT_DAY) {
         if (currentDay < daysData.length - 1) {
           setCurrentDay(c => c + 1);
-          setCurrentDaySubStepIdx(0);
+          if (currentDaySubStepIdx !== 0) setCurrentDaySubStepIdx(0);
         }
       } else {
         setCurrentDaySubStepIdx(c => c + 1);
@@ -522,10 +545,14 @@ function App() {
 
   const dropDay = idxDay => {
     if (idxDay >= 0 && idxDay < daysData.length) {
+      if (currentDay === daysData.length - 1 && daysData.length > 1) {
+        setCurrentDay(daysData.length - 2);
+      }
+
       setDaysData(currentDaysData => {
         currentDaysData.splice(idxDay, 1);
         if (currentDaysData.length === 0) {
-          currentDaysData.push({ ...emptyDay });
+          currentDaysData.push(_.cloneDeep(emptyDay));
         }
         currentDaysData = currentDaysData.map((currentDay, idx) => ({
           ...currentDay,
@@ -539,7 +566,7 @@ function App() {
   const addDayOnIdx = idx => {
     if (idx >= 0 && idx <= daysData.length) {
       setDaysData(currentDaysData => {
-        currentDaysData.splice(idx, 0, { ...emptyDay });
+        currentDaysData.splice(idx, 0, _.cloneDeep(emptyDay));
 
         currentDaysData = currentDaysData.map((currentDay, idx) => ({
           ...currentDay,
@@ -596,12 +623,17 @@ function App() {
   };
 
   const copyCurrentDayToClipboard = () => {
-    setClipboard({ day: currentDay, data: { ...daysData[currentDay] } });
+    setClipboard({ day: currentDay, data: _.cloneDeep(daysData[currentDay]) });
   };
 
   const pasteClipboardToCurrentDay = () => {
     if (currentDay !== clipboard.day) {
-      setDayValue(currentDay, clipboard.data);
+      const newData = _.cloneDeep(clipboard.data);
+
+      if (newData.symbol.peakDay === true) {
+        newData.symbol.peakDay = false;
+      }
+      setDayValue(currentDay, newData);
     }
   };
 
@@ -613,20 +645,49 @@ function App() {
       case "right":
         goForward();
         break;
-      case "f5":
-        setDisplayMode(DisplayModes.PRESENTATION);
+
+      case "home":
+        setCurrentDay(0);
         break;
-      case "ctrl+c":
-        if (displayMode === DisplayModes.EDIT) {
-          copyCurrentDayToClipboard();
-        }
+      case "end":
+        setCurrentDay(daysData.length - 1);
         break;
-      case "ctrl+v":
-        if (displayMode === DisplayModes.EDIT) {
-          pasteClipboardToCurrentDay();
-        }
+      case "pageup":
+        const newPosUp = currentDay - 5;
+        setCurrentDay(newPosUp >= 0 ? newPosUp : 0);
+        break;
+      case "pagedown":
+        const newPosDown = currentDay + 5;
+        setCurrentDay(
+          newPosDown < daysData.length ? newPosDown : daysData.length - 1
+        );
         break;
       default:
+    }
+
+    if (displayMode === DisplayModes.EDIT) {
+      switch (key) {
+        case "f5":
+          setDisplayMode(DisplayModes.PRESENTATION);
+          break;
+        case "ctrl+c":
+          if (displayMode === DisplayModes.EDIT) {
+            copyCurrentDayToClipboard();
+          }
+          break;
+        case "ctrl+v":
+          if (displayMode === DisplayModes.EDIT) {
+            pasteClipboardToCurrentDay();
+          }
+          break;
+        case "ctrl+plus":
+          addDayOnIdx(currentDay + 1);
+          break;
+        case "ctrl+minus":
+          dropDay(currentDay);
+          break;
+        default:
+      }
     }
   };
 
@@ -641,7 +702,20 @@ function App() {
     >
       <div className="App full-screenable-node">
         <KeyboardEventHandler
-          handleKeys={["left", "right", "f5", "ctrl+c", "ctrl+v"]}
+          isDisabled={hotKeysDisabled}
+          handleKeys={[
+            "left",
+            "right",
+            "f5",
+            "ctrl+c",
+            "ctrl+v",
+            "ctrl+plus",
+            "ctrl+minus",
+            "home",
+            "end",
+            "pageup",
+            "pagedown"
+          ]}
           onKeyEvent={handleKeyEvents}
         />
 
@@ -655,7 +729,7 @@ function App() {
             >
               <StartPresentationIcon
                 className="start-presentation-icon"
-                title="Iniciar presentación"
+                title="Iniciar presentación (F5)"
               />
             </div>
           ) : (
@@ -667,7 +741,7 @@ function App() {
             >
               <CloseIcon
                 className="close-presentation-icon"
-                title="Cerrar presentación"
+                title="Cerrar presentación (Esc)"
               />
             </div>
           )}
@@ -714,6 +788,7 @@ function App() {
             dropDay={dropDay}
             addDayOnIdx={addDayOnIdx}
             setDayValue={setDayValue}
+            setHotKeysDisabled={setHotKeysDisabled}
           />
         </div>
         {
