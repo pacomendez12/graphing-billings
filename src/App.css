@@ -1,12 +1,12 @@
 .App {
   text-align: center;
-  background-color: white;
+  background-color: #f5f5f5;
   /* min-height: 100vh; */
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   /* font-size: calc(7px + 2vmin); */
   font-size: 16px;
 }
@@ -22,16 +22,24 @@ input:focus {
 .main-chart-container {
   position: relative;
   width: 98%;
-  /* height: 75vh; */
-  height: 100%;
-  max-height: 500px;
+  height: 70%;
+  /* min-height: 350px; */
+  max-height: 600px;
   display: flex;
-  margin-bottom: 10px;
+  align-items: center;
+  flex-direction: column;
 }
 
-.chart-title {
-  margin: 10px 30px 10px 30px;
-  width: 72%;
+.title-and-controls {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-and-controls .chart-title {
+  margin: 5px 0px 5px calc(20px + 5px);
+  flex-grow: 1;
   /* max-width: 100% !important; */
   font-size: 22px;
   text-align: center;
@@ -41,7 +49,22 @@ input:focus {
   border-bottom: 2px solid transparent;
 }
 
-.chart-title:focus {
+.title-and-controls .presentation-control {
+  /* background: white; */
+  border-radius: 10px;
+  margin-right: 5px;
+}
+
+.title-and-controls .presentation-control > div {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.title-and-controls .chart-title:focus {
   border-bottom: 2px dashed gray;
 }
 
@@ -56,7 +79,7 @@ input:focus {
 
 .nav-buttons > .comments {
   width: 100%;
-  background-color: white;
+  background-color: transparent;
   border: 2px dashed transparent;
   font-size: 16px;
   border-radius: 10px;
@@ -88,7 +111,6 @@ input:focus {
 }
 
 .nav-buttons > .button .text {
-  /* color: rgb(94, 94, 94); */
   color: #053e74;
   user-select: none;
 }
@@ -136,24 +158,6 @@ input:focus {
   animation-direction: alternate;
 }
 
-.presentation-control {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 5;
-  background: white;
-  border-radius: 10px;
-}
-
-.presentation-control > div {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
 .start-presentation {
   border-radius: 10px;
   border: 1px solid gray;
@@ -179,12 +183,55 @@ input:focus {
 }
 
 @media (max-height: 500px) {
-  .chart-title,
-  .chart-type-buttons,
-  .nav-buttons > .comments {
-    display: none;
+  .chart-type-buttons {
+    margin-bottom: 0px;
   }
-  .main-chart-container {
-    margin-top: 10px;
+
+  .chart-type-buttons > div > div {
+    padding: 0 0 2px 0;
   }
+
+  .title-and-controls .chart-title {
+    padding: 0px;
+    margin: 0px 0px 0px calc(30px + 5px);
+  }
+}
+
+.help-icon {
+  margin-left: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.help-icon:hover {
+  transform: scale(1.5);
+}
+
+.help-icon > svg > circle {
+  fill: gray;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 1px rgb(0, 0, 0);
+  box-shadow: inset 1 1 2px rgb(0, 0, 0);
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background: rgba(117, 117, 117, 0.8);
+  -webkit-box-shadow: inset 0 0 2px rgb(148, 148, 148);
+  box-shadow: inset 0 0 2px rgb(148, 148, 148);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(175, 175, 175, 0.4);
 }

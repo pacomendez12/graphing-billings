@@ -184,7 +184,7 @@ export default function EditDay(props) {
             value={annotation}
             onChange={e => setAnnotation(e.target.value)}
             placeholder="Anota aquí la sensación y apariencia"
-            style={{}}
+            maxLength={30}
           />
         </div>
       </React.Fragment>

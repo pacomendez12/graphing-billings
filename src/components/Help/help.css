@@ -1,0 +1,48 @@
+.help-full {
+  position: relative;
+  background: #e8e8e8c5;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.help-main {
+  background-color: white;
+  width: 85%;
+  height: 85%;
+  border-radius: 5px;
+  border: 1px solid rgb(226, 226, 226);
+  box-shadow: 2px 2px 3px gray;
+}
+
+.help-main .top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+
+.help-main > .top-bar > .title {
+  color: gray;
+  font-size: 24px;
+  padding-left: 10px;
+}
+
+.help-main .top-bar .close-button {
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+
+.help-main .top-bar .close-button svg {
+  width: 20px;
+  height: 20px;
+}

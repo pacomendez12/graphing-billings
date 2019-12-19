@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import KeyboardEventHandler from "react-keyboard-event-handler";
 import { RadioGroup, RadioButton } from "react-radio-buttons";
+import Popover from "react-tiny-popover";
 import Fullscreen from "react-full-screen";
 import _ from "lodash";
 import {
@@ -18,23 +19,25 @@ import {
 } from "./Constants";
 import { ReactComponent as CloseIcon } from "./img/close.svg";
 import { ReactComponent as StartPresentationIcon } from "./img/start_presentation.svg";
+import { ReactComponent as QuestionIcon } from "./img/question.svg";
 
 import { ReactComponent as Next } from "./img/next.svg";
 import { ReactComponent as Prev } from "./img/prev.svg";
 
 import Chart from "./components/Chart";
+import Help from "./components/Help";
 import "./App.css";
 
 document.onkeydown = function(event) {
   switch (event.keyCode) {
     case 33: // pageup
     case 34: // pagedown
-    case 35: // end
-    case 36: // home
-    case 37: // left
-    case 38: // up
-    case 39: // right
-    case 40: // down
+    //case 35: // end
+    //case 36: // home
+    //case 37: // left
+    //case 38: // up
+    //case 39: // right
+    //case 40: // down
     case 116: //F5 button
     case 62:
     case 107:
@@ -465,6 +468,7 @@ function App() {
   const [comments, setComments] = useState("");
   const [clipboard, setClipboard] = useState({ day: null, data: null });
   const [hotKeysDisabled, setHotKeysDisabled] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
   const titleInputRef = useRef(null);
 
   useEffect(() => {
@@ -705,6 +709,66 @@ function App() {
     }
   };
 
+  const renderPresentationControl = () => {
+    return (
+      <div className="presentation-control">
+        {displayMode === DisplayModes.EDIT ? (
+          <div
+            className="start-presentation"
+            onClick={() => {
+              setDisplayMode(DisplayModes.PRESENTATION);
+            }}
+          >
+            <StartPresentationIcon
+              className="start-presentation-icon"
+              title="Iniciar presentación (F5)"
+            />
+          </div>
+        ) : (
+          <div
+            className="close-presentation"
+            onClick={() => {
+              setDisplayMode(DisplayModes.EDIT);
+            }}
+          >
+            <CloseIcon
+              className="close-presentation-icon"
+              title="Cerrar presentación (Esc)"
+            />
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderHelpButton = () => {
+    return (
+      displayMode === DisplayModes.EDIT && (
+        <Popover
+          isOpen={showHelp}
+          position={["top", "right", "left", "bottom"]}
+          padding={10}
+          disableReposition
+          onClickOutside={() => setShowHelp(false)}
+          contentLocation={{ top: 0, left: 0 }}
+          containerClassName="help-full"
+          transitionDuration={0.5}
+          content={() => <Help onClose={() => setShowHelp(false)} />}
+        >
+          {
+            <div
+              className="help-icon"
+              onClick={() => setShowHelp(true)}
+              title="Ayuda"
+            >
+              <QuestionIcon />
+            </div>
+          }
+        </Popover>
+      )
+    );
+  };
+
   return (
     <Fullscreen
       enabled={displayMode === DisplayModes.PRESENTATION}
@@ -721,59 +785,36 @@ function App() {
           onKeyEvent={handleKeyEvents}
         />
 
-        <div className="presentation-control">
-          {displayMode === DisplayModes.EDIT ? (
-            <div
-              className="start-presentation"
-              onClick={() => {
-                setDisplayMode(DisplayModes.PRESENTATION);
-              }}
-            >
-              <StartPresentationIcon
-                className="start-presentation-icon"
-                title="Iniciar presentación (F5)"
-              />
-            </div>
-          ) : (
-            <div
-              className="close-presentation"
-              onClick={() => {
-                setDisplayMode(DisplayModes.EDIT);
-              }}
-            >
-              <CloseIcon
-                className="close-presentation-icon"
-                title="Cerrar presentación (Esc)"
-              />
-            </div>
-          )}
-        </div>
-        {renderTitle()}
-        <div className="chart-type-buttons">
-          <RadioGroup
-            onChange={value => onChangeChartType(value)}
-            horizontal
-            value={chartType}
-          >
-            <RadioButton
-              padding={10}
-              rootColor="#0066ff"
-              pointColor="#0066ff"
-              value={ChartTypes.COLORS}
-            >
-              Colores
-            </RadioButton>
-            <RadioButton
-              padding={10}
-              rootColor="#0066ff"
-              pointColor="#0066ff"
-              value={ChartTypes.SYMBOLS}
-            >
-              Símbolos
-            </RadioButton>
-          </RadioGroup>
+        <div className="title-and-controls">
+          {renderHelpButton()}
+          {renderTitle()}
+          {renderPresentationControl()}
         </div>
         <div className="main-chart-container">
+          <div className="chart-type-buttons">
+            <RadioGroup
+              onChange={value => onChangeChartType(value)}
+              horizontal
+              value={chartType}
+            >
+              <RadioButton
+                padding={10}
+                rootColor="#0066ff"
+                pointColor="#0066ff"
+                value={ChartTypes.COLORS}
+              >
+                Colores
+              </RadioButton>
+              <RadioButton
+                padding={10}
+                rootColor="#0066ff"
+                pointColor="#0066ff"
+                value={ChartTypes.SYMBOLS}
+              >
+                Símbolos
+              </RadioButton>
+            </RadioGroup>
+          </div>
           <Chart
             daysData={daysData}
             peakDay={peakDay}
@@ -806,7 +847,7 @@ function App() {
               title="Escribe tus comentarios aquí"
               value={comments}
               spellCheck={false}
-              rows="4"
+              rows="1"
               cols="1"
               onChange={event => setComments(event.target.value)}
               disabled={displayMode === DisplayModes.PRESENTATION}
