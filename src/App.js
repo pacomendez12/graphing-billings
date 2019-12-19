@@ -438,6 +438,20 @@ const emptyDay = {
   rule: null
 };
 
+const handleKeys = [
+  "left",
+  "right",
+  "f5",
+  "ctrl+c",
+  "ctrl+v",
+  "ctrl+plus",
+  "ctrl+minus",
+  "home",
+  "end",
+  "pageup",
+  "pagedown"
+];
+
 function App() {
   const [currentDay, setCurrentDay] = useState(0);
   const [currentDaySubStepIdx, setCurrentDaySubStepIdx] = useState(0);
@@ -703,19 +717,7 @@ function App() {
       <div className="App full-screenable-node">
         <KeyboardEventHandler
           isDisabled={hotKeysDisabled}
-          handleKeys={[
-            "left",
-            "right",
-            "f5",
-            "ctrl+c",
-            "ctrl+v",
-            "ctrl+plus",
-            "ctrl+minus",
-            "home",
-            "end",
-            "pageup",
-            "pagedown"
-          ]}
+          handleKeys={handleKeys}
           onKeyEvent={handleKeyEvents}
         />
 

@@ -145,7 +145,7 @@ export default function Chart(props) {
                 displayMode={displayMode}
                 dropDay={props.dropDay}
                 addDayOnIdx={props.addDayOnIdx}
-              ></Day>
+              />
               <div
                 style={{ height: "100%", position: "relative" }}
                 onDoubleClick={() => {

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import Popover, { ArrowContainer } from "react-tiny-popover";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
 import "./day.css";
 import { DisplayModes } from "../../Constants";
 import { ReactComponent as DeleteDay } from "../../../../img/delete_day.svg";
@@ -25,22 +23,10 @@ function EditMenu(props) {
         className="icon-container"
         title="Borrar día"
         onClick={() => {
-          // confirmAlert({
-          //   title: `Eliminar día ${props.idxDay + 1}`,
-          //   message: "¿Estás seguro que quieres eliminar este día?",
-          //   buttons: [
-          //     {
-          //       label: "Si",
-          //       onClick: () => props.dropDay(props.idxDay)
-          //     },
-          //     {
-          //       label: "No"
-          //     }
-          //   ]
-          // });
-
-          props.dropDay(props.idxDay);
           props.setEditPopoverIsOpen(false);
+          setTimeout(() => {
+            props.dropDay(props.idxDay);
+          }, 40);
         }}
       >
         <DeleteDay />
@@ -59,6 +45,8 @@ function EditMenu(props) {
   );
 }
 
+const position = ["top", "bottom", "left", "right"];
+
 export default function Day(props) {
   const [editPopoverIsOpen, setEditPopoverIsOpen] = useState(false);
 
@@ -66,7 +54,7 @@ export default function Day(props) {
     return (
       <Popover
         isOpen={editPopoverIsOpen}
-        position={["top", "bottom", "left", "right"]}
+        position={position}
         onClickOutside={() => setEditPopoverIsOpen(false)}
         padding={3}
         content={({ position, targetRect, popoverRect }) => (
