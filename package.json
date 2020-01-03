@@ -1,7 +1,8 @@
 {
   "name": "graphing-billings",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "license": "GPL-3.0-or-later",
   "homepage": "./",
   "main": "src/start.js",
   "build": {
@@ -19,6 +20,7 @@
     }
   },
   "dependencies": {
+    "electron-about-window": "^1.13.2",
     "electron-is-dev": "^1.1.0",
     "lodash": "^4.17.15",
     "react": "^16.12.0",

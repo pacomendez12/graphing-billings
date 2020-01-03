@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import KeyboardEventHandler from "react-keyboard-event-handler";
 import { RadioGroup, RadioButton } from "react-radio-buttons";
 import Popover from "react-tiny-popover";
 import Fullscreen from "react-full-screen";
 import _ from "lodash";
+
 import {
   DisplayModes,
   ChartTypes,
@@ -463,19 +464,206 @@ function App() {
   const [chartType, setChartType] = useState(tmpData.defaultChartType);
   const [displayMode, setDisplayMode] = useState(DisplayModes.EDIT);
   const [displayTitleInput, setDisplayTitleInput] = useState(false);
-  const [daysData, setDaysData] = useState([]);
+  const [daysData, setDaysData] = useState([_.cloneDeep(emptyDay)]);
   const [title, setTitle] = useState("");
   const [comments, setComments] = useState("");
   const [clipboard, setClipboard] = useState({ day: null, data: null });
   const [hotKeysDisabled, setHotKeysDisabled] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const [fileModified, setFileModified] = useState(false);
+  const [fileJustOpened, setFileJustOpened] = useState(true);
+  const [fileSource, setFileSource] = useState(null);
   const titleInputRef = useRef(null);
 
+  const cleanData = () => {
+    setDaysData([_.cloneDeep(emptyDay)]);
+    setTitle("");
+    setComments("");
+    setChartType(ChartTypes.COLORS);
+  };
+
   useEffect(() => {
-    setDaysData(tmpData.days);
-    setTitle(tmpData.title);
-    setComments(tmpData.comments);
+    // for desktop only
+    if (window.ipcRenderer) {
+      window.ipcRenderer.on("fileOpened", (event, data) => {
+        try {
+          const contentAsJson = JSON.parse(data.content);
+          setDaysData(contentAsJson.days);
+          setTitle(contentAsJson.title);
+          setComments(contentAsJson.comments);
+          setChartType(contentAsJson.defaultChartType);
+          setFileSource(data.filePath);
+          setFileModified(false);
+          setFileJustOpened(true);
+        } catch (e) {
+          const fileName = data.filePath
+            .split("\\")
+            .pop()
+            .split("/")
+            .pop();
+          window.ipcRenderer.send("showMessage", {
+            title: "Error abriendo archivo",
+            message: `El archivo '${fileName}' no es compatible con esta aplicación`,
+            type: "error",
+            buttons: ["OK"]
+          });
+        }
+      });
+
+      window.ipcRenderer.on("showSortcutsCommand", () => {
+        setShowHelp(true);
+      });
+
+      window.ipcRenderer.on("startPresentationCommand", () => {
+        console.log("here");
+        setDisplayMode(c => {
+          if (c === DisplayModes.EDIT) return DisplayModes.PRESENTATION;
+        });
+      });
+    }
   }, []);
+
+  const tryNewListener = useCallback(
+    (event, data) => {
+      let continueCleanData = false;
+      if (fileModified) {
+        const result = window.ipcRenderer.sendSync("showMessage", {
+          title: "Gráfica no guardada",
+          message: `La gŕafica no ha sido guardada, ¿Deseas eliminarla?`,
+          type: "warning",
+          buttons: ["Si", "No"]
+        });
+        if (result === 0) {
+          continueCleanData = true;
+        }
+      }
+
+      if (data.cleanData && continueCleanData) {
+        cleanData();
+        setFileSource(null);
+        setFileJustOpened(true);
+        setFileModified(false);
+      }
+    },
+    [fileModified]
+  );
+
+  const quitListener = useCallback(
+    (event, data) => {
+      if (window.ipcRenderer) {
+        let continueQuit = true;
+        const content = {
+          title,
+          comments,
+          defaultChartType: chartType,
+          days: daysData
+        };
+        if (fileModified) {
+          const result = window.ipcRenderer.sendSync("showMessage", {
+            title: "Gráfica no guardada",
+            message: `La gŕafica no ha sido guardada, ¿Estás seguro que quieres salir?`,
+            type: "warning",
+            buttons: ["Si", "No", "Guardar"]
+          });
+          if (result === 1) {
+            continueQuit = false;
+          } else if (result === 2) {
+            // Guardar
+            const result = window.ipcRenderer.sendSync("saveFile", {
+              saveAs: fileSource === null ? true : false,
+              filePath: fileSource,
+              content: JSON.stringify(content, null, 2)
+            });
+            console.log(result);
+            if (!result.saved) {
+              continueQuit = false;
+            }
+          }
+        }
+
+        if (continueQuit) {
+          window.ipcRenderer.sendSync("quit");
+        }
+      }
+    },
+    [chartType, comments, daysData, fileModified, fileSource, title]
+  );
+
+  const saveFileListener = useCallback(
+    (event, data) => {
+      const content = {
+        title,
+        comments,
+        defaultChartType: chartType,
+        days: daysData
+      };
+      if (window.ipcRenderer) {
+        const result = window.ipcRenderer.sendSync("saveFile", {
+          saveAs: data.saveAs,
+          filePath: fileSource,
+          content: JSON.stringify(content, null, 2)
+        });
+        if (result && result.saved) {
+          setFileSource(result.filePath);
+          setFileJustOpened(true);
+          setFileModified(false);
+        }
+      }
+    },
+    [title, comments, chartType, daysData, fileSource]
+  );
+
+  useEffect(() => {
+    if (window.ipcRenderer) {
+      window.ipcRenderer.on("tryNew", tryNewListener);
+      window.ipcRenderer.on("quitCommand", quitListener);
+
+      return () => {
+        window.ipcRenderer.removeListener("tryNew", tryNewListener);
+        window.ipcRenderer.removeListener("quitCommand", quitListener);
+        if (fileJustOpened) {
+          setFileModified(false);
+        }
+      };
+    }
+  }, [fileJustOpened, tryNewListener, quitListener]);
+
+  useEffect(() => {
+    if (window.ipcRenderer) {
+      window.ipcRenderer.on("saveFileCommand", saveFileListener);
+
+      setFileJustOpened(false);
+
+      return () => {
+        window.ipcRenderer.removeListener("saveFileCommand", saveFileListener);
+        setFileModified(!fileJustOpened);
+      };
+    }
+  }, [fileJustOpened, saveFileListener]);
+
+  useEffect(() => {
+    if (!title || title === "") {
+      setDisplayTitleInput(true);
+    }
+  }, [title]);
+
+  useEffect(() => {
+    const fileName = fileSource
+      ? fileSource
+          .split("\\")
+          .pop()
+          .split("/")
+          .pop()
+      : null;
+    if (fileModified) {
+      document.title = `* Graficador Billings${
+        fileName ? ` - ${fileName}` : ""
+      }`;
+      return () => {
+        document.title = document.title.substring(2);
+      };
+    }
+  }, [fileModified, fileSource]);
 
   useEffect(() => {
     const newPeakDay = daysData.findIndex(day => day.symbol.peakDay);
@@ -608,10 +796,11 @@ function App() {
             setTitle(event.target.value);
           }}
           onBlur={() => {
-            if (displayMode === DisplayModes.EDIT) {
+            if (displayMode === DisplayModes.EDIT && title && title !== "") {
               setDisplayTitleInput(false);
             }
           }}
+          placeholder="Escribe el título de la gráfica aquí"
         />
       );
     } else {
@@ -645,7 +834,7 @@ function App() {
   };
 
   const pasteClipboardToCurrentDay = () => {
-    if (currentDay !== clipboard.day) {
+    if (currentDay !== clipboard.day && clipboard.data) {
       const newData = _.cloneDeep(clipboard.data);
 
       if (newData.symbol.peakDay === true) {

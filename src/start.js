@@ -1,11 +1,19 @@
-const { app, BrowserWindow, Menu } = require("electron");
+const { app, BrowserWindow, dialog, ipcMain, Menu } = require("electron");
 const isDev = require("electron-is-dev");
 const path = require("path");
+const fs = require("fs");
+const openAboutWindow = require("electron-about-window").default;
 require("electron-reload");
 
 const isMac = process.platform === "darwin";
 
 let mainWindow;
+
+function getFilesizeInBytes(filename) {
+  const stats = fs.statSync(filename);
+  const fileSizeInBytes = stats.size;
+  return fileSizeInBytes;
+}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -13,10 +21,18 @@ function createWindow() {
     height: 600,
     minHeight: 600,
     minWidth: 600,
+    center: true,
+    maximizable: true,
+    show: false,
     webPreferences: {
-      nodeIntegration: true
-    }
+      nodeIntegration: false,
+      preload: __dirname + "/preload.js"
+    },
+    icon: __dirname + "/img/logo256.png",
+    title: "hola"
   });
+
+  mainWindow.maximize();
 
   mainWindow.loadURL(
     isDev
@@ -25,125 +41,68 @@ function createWindow() {
   );
 
   const template = [
-    // { role: 'appMenu' }
-    ...(isMac
-      ? [
-          {
-            label: app.name,
-            submenu: [
-              { role: "about" },
-              { type: "separator" },
-              { role: "services" },
-              { type: "separator" },
-              { role: "hide" },
-              { role: "hideothers" },
-              { role: "unhide" },
-              { type: "separator" },
-              { role: "quit" }
-            ]
-          }
-        ]
-      : []),
-    // { role: 'fileMenu' }
     {
       label: "Archivo",
       submenu: [
-        { label: "Nuevo", accelerator: "ctrl+n" },
-        { label: "Abrir", accelerator: "ctrl+o" },
+        { label: "Nuevo", accelerator: "CmdOrCtrl+n", click: () => newFile() },
+        { label: "Abrir", accelerator: "CmdOrCtrl+o", click: () => openFile() },
         { type: "separator" },
-        { label: "Guardar", accelerator: "ctrl+s" },
-        { label: "Guardar Como...", accelerator: "ctrl+shift+s" },
+        {
+          label: "Guardar",
+          accelerator: "CmdOrCtrl+s",
+          click: () => saveFile()
+        },
+        {
+          label: "Guardar Como...",
+          accelerator: "CmdOrCtrl+shift+s",
+          click: () => saveFileAs()
+        },
         { type: "separator" },
-        { label: "Salir", accelerator: "ctrl+q" }
-        // { role: isMac ? "close" : "quit" }
+        { label: "Salir", accelerator: "CmdOrCtrl+q", click: () => quit() }
       ]
     },
-    // { role: 'editMenu' }
     {
-      label: "Edit",
+      label: "Edición",
       submenu: [
-        { role: "undo" },
-        { role: "redo" },
-        { type: "separator" },
-        { role: "cut" },
-        { role: "copy" },
-        { role: "paste" },
-        ...(isMac
-          ? [
-              { role: "pasteAndMatchStyle" },
-              { role: "delete" },
-              { role: "selectAll" },
-              { type: "separator" },
-              {
-                label: "Speech",
-                submenu: [{ role: "startspeaking" }, { role: "stopspeaking" }]
-              }
-            ]
-          : [{ role: "delete" }, { type: "separator" }, { role: "selectAll" }])
-      ]
-    },
-    // { role: 'viewMenu' }
-    {
-      label: "View",
-      submenu: [
-        { role: "reload" },
-        { role: "forcereload" },
-        { role: "toggledevtools" },
-        { type: "separator" },
-        { role: "resetzoom" },
-        { role: "zoomin" },
-        { role: "zoomout" },
-        { type: "separator" },
-        { role: "togglefullscreen" }
-      ]
-    },
-    // { role: 'windowMenu' }
-    {
-      label: "Window",
-      submenu: [
-        { role: "minimize" },
-        { role: "zoom" },
-        ...(isMac
-          ? [
-              { type: "separator" },
-              { role: "front" },
-              { type: "separator" },
-              { role: "window" }
-            ]
-          : [{ role: "close" }])
+        { label: "Copiar", accelerator: "ctrl+c" },
+        { label: "Pegar", accelerator: "ctrl+v" },
+        { label: "Eliminar" }
       ]
     },
     {
-      role: "help",
+      label: "Ver",
       submenu: [
         {
-          label: "Learn More",
-          click: async () => {
-            const { shell } = require("electron");
-            await shell.openExternal("https://electronjs.org");
-          }
+          label: "Iniciar presentación",
+          accelerator: "f5",
+          click: () => startPresentation()
         }
+      ]
+    },
+    {
+      label: "Ayuda",
+      submenu: [
+        {
+          label: "Mostrar atajos",
+          click: () => showShortcuts()
+        },
+        {
+          label: "Acerca de",
+          click: () => showAbout()
+        },
+        { role: "toggledevtools" }
       ]
     }
   ];
 
-  // const template = [
-  //   {
-  //     label: "Archivo",
-  //     submenu: [
-  //       { role: "Abrir" },
-  //       { role: "Guardar" },
-  //       { role: "Guardar como..." },
-  //       { role: "Salir" }
-  //     ]
-  //   }
-  // ];
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
+
+  mainWindow.show();
 }
 
 app.on("ready", createWindow);
@@ -159,3 +118,111 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+ipcMain.on("showMessage", (event, data) => {
+  event.returnValue = dialog.showMessageBoxSync(mainWindow, data);
+});
+
+ipcMain.on("saveFile", (event, data) => {
+  let filePath =
+    data.saveAs || data.filePath === null
+      ? dialog.showSaveDialogSync(mainWindow, {
+          title: "Guardar gráfica",
+          properties: ["saveFile"],
+          filters: [{ name: "Billings chart", extensions: ["ngs"] }],
+          defaultPath: data.filePath || undefined
+        })
+      : data.filePath;
+
+  let saved = false;
+  if (filePath) {
+    if (!filePath.endsWith(".ngs")) {
+      filePath = `${filePath}.ngs`;
+    }
+    fs.writeFileSync(filePath, data.content);
+    saved = true;
+  }
+
+  event.returnValue = {
+    saved,
+    filePath
+  };
+});
+
+ipcMain.on("quit", (event, data) => {
+  app.quit();
+});
+
+const openFile = async () => {
+  const files = await dialog.showOpenDialog(mainWindow, {
+    title: "Abrir gráfica",
+    properties: ["openFile"],
+    filters: [
+      { name: "Billings chart", extensions: ["ngs"] },
+      { name: "All files", extensions: ["*"] }
+    ]
+  });
+  if (files && !files.canceled) {
+    const file = files.filePaths[0];
+
+    // Check filesize
+    const fileSize = getFilesizeInBytes(file);
+
+    if (fileSize > 1 * 1024 * 1024) {
+      dialog.showMessageBoxSync(mainWindow, {
+        title: "Error abriendo archivo",
+        message: `El archivo '${file}' no es compatible con esta aplicación`,
+        type: "error",
+        buttons: ["OK"]
+      });
+    } else {
+      const fileContent = fs.readFileSync(file).toString();
+      mainWindow.webContents.send("fileOpened", {
+        filePath: file,
+        content: fileContent
+      });
+    }
+  }
+};
+
+const newFile = async () => {
+  mainWindow.webContents.send("tryNew", {
+    cleanData: true
+  });
+};
+
+const saveFile = () => {
+  mainWindow.webContents.send("saveFileCommand", { saveAs: false });
+};
+
+const saveFileAs = () => {
+  mainWindow.webContents.send("saveFileCommand", { saveAs: true });
+};
+
+const quit = () => {
+  mainWindow.webContents.send("quitCommand");
+};
+
+const showShortcuts = () => {
+  mainWindow.webContents.send("showSortcutsCommand");
+};
+
+const startPresentation = () => {
+  mainWindow.webContents.send("startPresentationCommand");
+};
+
+const showAbout = () => {
+  openAboutWindow({
+    icon_path: __dirname + "/img/logo1024.png",
+    product_name: "Graficador Billings",
+    package_json_dir: __dirname + "/..",
+    // copyright: "Francisco Méndez",
+    homepage: "https://www.woombmexico.com/",
+    description: "Herramienta para enseñar a graficar el método Billings",
+    license: "GPLv3",
+    adjust_window_size: true,
+    // win_options?: BrowserWindowOptions;
+    use_version_info: false,
+    show_close_button: "Cerrar"
+  });
+};

@@ -1,0 +1,16 @@
+.shortcut {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 8px 0px 8px 0px;
+}
+
+.shortcut .shortcut-text {
+  padding: 7px;
+  background-color: #efefef;
+  border-radius: 4px;
+}
+
+.shortcut .shortcut-text-container {
+  margin: 0px 25px 0px 25px;
+}

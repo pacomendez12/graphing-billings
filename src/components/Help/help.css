@@ -65,6 +65,7 @@
   justify-content: space-around;
   align-items: center;
   min-height: min-content;
+  padding: 3%;
 }
 
 .help-main .help-body .help-item {
