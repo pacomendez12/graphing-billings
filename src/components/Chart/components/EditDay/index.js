@@ -296,7 +296,7 @@ export default function EditDay(props) {
           <div
             className="column"
             style={{
-              height: "100%",
+              height: "99%",
               border: "1px solid black",
               backgroundColor: "white"
             }}

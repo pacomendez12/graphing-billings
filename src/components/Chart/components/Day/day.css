@@ -1,7 +1,12 @@
 .chart .columns-container .column .item-day {
-  border-bottom: solid 1px;
+  border-bottom: solid 1px black;
   padding: 5px 0px 5px 0px;
   background-color: #eeeeee;
+}
+
+.chart .columns-container .column .item-day-mutable:hover {
+  background-color: rgb(58, 58, 58);
+  color: white;
 }
 
 .edit-menu-popover {

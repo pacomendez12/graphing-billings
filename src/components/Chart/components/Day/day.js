@@ -5,6 +5,7 @@ import { DisplayModes } from "../../Constants";
 import { ReactComponent as DeleteDay } from "../../../../img/delete_day.svg";
 import { ReactComponent as AddDayBefore } from "../../../../img/add_day_before.svg";
 import { ReactComponent as AddDayAfter } from "../../../../img/add_day_after.svg";
+import { ReactComponent as EditDay } from "../../../../img/edit_day.svg";
 
 function EditMenu(props) {
   return (
@@ -18,6 +19,18 @@ function EditMenu(props) {
         }}
       >
         <AddDayBefore />
+      </div>
+      <div
+        className="icon-container"
+        title="Editar día"
+        onClick={() => {
+          props.setEditPopoverIsOpen(false);
+          setTimeout(() => {
+            props.openEditor(props.idxDay);
+          }, 40);
+        }}
+      >
+        <EditDay />
       </div>
       <div
         className="icon-container"
@@ -70,6 +83,7 @@ export default function Day(props) {
               idxDay={props.idxDay}
               dropDay={props.dropDay}
               addDayOnIdx={props.addDayOnIdx}
+              openEditor={props.openEditor}
               setEditPopoverIsOpen={setEditPopoverIsOpen}
             />
           </ArrowContainer>
@@ -77,12 +91,10 @@ export default function Day(props) {
       >
         {
           <div
-            className="item-field item-day"
+            className="item-field item-day item-day-mutable"
             onClick={() => setEditPopoverIsOpen(true)}
-            // onMouseEnter={() => setEditPopoverIsOpen(true)}
-            // onMouseLeave={() => setEditPopoverIsOpen(false)}
             style={{ cursor: "pointer" }}
-            title={"Editar día"}
+            title={"Opciones"}
           >
             {props.day || 1}
           </div>

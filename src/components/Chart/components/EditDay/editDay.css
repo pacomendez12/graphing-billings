@@ -87,7 +87,7 @@
 }
 
 .edit-day .edit-day-main-container .options-editor .options-editor-item {
-  margin: 15px 0px 15px 0px;
+  margin: 12px 0px 12px 0px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -232,16 +232,15 @@
 
 .edit-day .control-buttons .ok-button {
   border: none;
-  background: rgb(0, 102, 255);
+  background: rgb(23, 20, 192);
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 3px;
   cursor: pointer;
-  padding-left: 10px;
-  padding-right: 10px;
-  height: 25px;
+  padding: 5px 10px 5px 10px;
+  height: 30px;
 }
 
 .edit-day .item-checked {

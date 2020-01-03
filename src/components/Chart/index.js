@@ -60,6 +60,13 @@ export default function Chart(props) {
     };
   }, [setHotKeysDisabled, showItemEditor]);
 
+  const openEditor = idx => {
+    if (displayMode === DisplayModes.EDIT) {
+      setDayToEdit(idx);
+      setShowItemEditor(true);
+    }
+  };
+
   const renderItems = daysData => {
     return (
       <div className="container-scrollable">
@@ -145,14 +152,12 @@ export default function Chart(props) {
                 displayMode={displayMode}
                 dropDay={props.dropDay}
                 addDayOnIdx={props.addDayOnIdx}
+                openEditor={openEditor}
               />
               <div
                 style={{ height: "100%", position: "relative" }}
                 onDoubleClick={() => {
-                  if (displayMode === DisplayModes.EDIT) {
-                    setDayToEdit(idx);
-                    setShowItemEditor(true);
-                  }
+                  openEditor(props.currentDay);
                 }}
                 title={
                   displayMode === DisplayModes.EDIT
@@ -188,11 +193,13 @@ export default function Chart(props) {
                     itemStatus.displayIntercourse && dayData.symbol.intercourse
                   }
                   showQuestionMarkInSymbol={
+                    displayMode === DisplayModes.PRESENTATION &&
                     props.currentDay === idx &&
                     props.currentDaySubStep >= SHOW_DESCRIPTION &&
                     props.currentDaySubStep < SHOW_COLOR_AND_SYMBOL
                   }
                   showQuestionMarkInRule={
+                    displayMode === DisplayModes.PRESENTATION &&
                     props.currentDay === idx &&
                     props.currentDaySubStep >= SHOW_DESCRIPTION &&
                     props.currentDaySubStep < SHOW_RULE
@@ -232,10 +239,7 @@ export default function Chart(props) {
         handleKeys={["enter"]}
         onKeyEvent={(key, e) => {
           if (key === "enter") {
-            if (displayMode === DisplayModes.EDIT) {
-              setDayToEdit(props.currentDay);
-              setShowItemEditor(true);
-            }
+            openEditor(props.currentDay);
           }
         }}
       />
