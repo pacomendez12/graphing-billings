@@ -5,9 +5,8 @@ const fs = require("fs");
 const openAboutWindow = require("electron-about-window").default;
 require("electron-reload");
 
-const isMac = process.platform === "darwin";
-
 let mainWindow;
+let quitNow = false;
 
 function getFilesizeInBytes(filename) {
   const stats = fs.statSync(filename);
@@ -28,8 +27,7 @@ function createWindow() {
       nodeIntegration: false,
       preload: __dirname + "/preload.js"
     },
-    icon: __dirname + "/img/logo256.png",
-    title: "hola"
+    icon: __dirname + "/img/logo256.png"
   });
 
   mainWindow.maximize();
@@ -44,47 +42,88 @@ function createWindow() {
     {
       label: "Archivo",
       submenu: [
-        { label: "Nuevo", accelerator: "CmdOrCtrl+n", click: () => newFile() },
+        {
+          label: "Nuevo",
+          accelerator: "CmdOrCtrl+n",
+          click: () =>
+            sendCommandToRenderer("tryNew", {
+              cleanData: true
+            })
+        },
         { label: "Abrir", accelerator: "CmdOrCtrl+o", click: () => openFile() },
         { type: "separator" },
         {
           label: "Guardar",
           accelerator: "CmdOrCtrl+s",
-          click: () => saveFile()
+          click: () =>
+            sendCommandToRenderer("saveFileCommand", { saveAs: false })
         },
         {
           label: "Guardar Como...",
           accelerator: "CmdOrCtrl+shift+s",
-          click: () => saveFileAs()
+          click: () =>
+            sendCommandToRenderer("saveFileCommand", { saveAs: true })
         },
         { type: "separator" },
-        { label: "Salir", accelerator: "CmdOrCtrl+q", click: () => quit() }
+        {
+          label: "Salir",
+          accelerator: "CmdOrCtrl+q",
+          click: () => sendCommandToRenderer("quitCommand")
+        }
       ]
     },
     {
       label: "Edición",
       submenu: [
-        { label: "Copiar", accelerator: "ctrl+c" },
-        { label: "Pegar", accelerator: "ctrl+v" },
-        { label: "Eliminar" }
-      ]
-    },
-    {
-      label: "Ver",
-      submenu: [
         {
-          label: "Iniciar presentación",
-          accelerator: "f5",
-          click: () => startPresentation()
+          label: "Copiar",
+          accelerator: "CmdOrCtrl+c",
+          selector: "copy:",
+          click: () => sendCommandToRenderer("copyCommand")
+        },
+        {
+          label: "Pegar",
+          accelerator: "CmdOrCtrl+v",
+          selector: "paste:",
+          click: () => sendCommandToRenderer("pasteCommand")
+        },
+        { type: "separator" },
+        {
+          label: "Editar día",
+          click: () => sendCommandToRenderer("editDayCommand")
+        },
+        {
+          label: "Eliminar día",
+          click: () => sendCommandToRenderer("deleteDayCommand")
+        },
+        { type: "separator" },
+        {
+          label: "Agregar día antes",
+          click: () => sendCommandToRenderer("addDayCommand", "BEFORE")
+        },
+        {
+          label: "Agregar día después",
+          click: () => sendCommandToRenderer("addDayCommand", "AFTER")
         }
       ]
     },
+    // Hide until I can find a solution with browser full screen
+    // {
+    //   label: "Ver",
+    //   submenu: [
+    //     {
+    //       label: "Iniciar presentación",
+    //       accelerator: "f5",
+    //       click: () => sendCommandToRenderer("startPresentationCommand")
+    //     }
+    //   ]
+    // },
     {
       label: "Ayuda",
       submenu: [
         {
           label: "Mostrar atajos",
-          click: () => showShortcuts()
+          click: () => sendCommandToRenderer("showSortcutsCommand")
         },
         {
           label: "Acerca de",
@@ -97,6 +136,15 @@ function createWindow() {
 
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
+
+  mainWindow.on("close", event => {
+    sendCommandToRenderer("quitCommand");
+    if (!quitNow) {
+      event.returnValue = false;
+      event.preventDefault();
+      return false;
+    }
+  });
 
   mainWindow.on("closed", () => {
     mainWindow = null;
@@ -150,6 +198,7 @@ ipcMain.on("saveFile", (event, data) => {
 });
 
 ipcMain.on("quit", (event, data) => {
+  quitNow = true;
   app.quit();
 });
 
@@ -185,30 +234,8 @@ const openFile = async () => {
   }
 };
 
-const newFile = async () => {
-  mainWindow.webContents.send("tryNew", {
-    cleanData: true
-  });
-};
-
-const saveFile = () => {
-  mainWindow.webContents.send("saveFileCommand", { saveAs: false });
-};
-
-const saveFileAs = () => {
-  mainWindow.webContents.send("saveFileCommand", { saveAs: true });
-};
-
-const quit = () => {
-  mainWindow.webContents.send("quitCommand");
-};
-
-const showShortcuts = () => {
-  mainWindow.webContents.send("showSortcutsCommand");
-};
-
-const startPresentation = () => {
-  mainWindow.webContents.send("startPresentationCommand");
+const sendCommandToRenderer = (command, data) => {
+  mainWindow.webContents.send(command, data);
 };
 
 const showAbout = () => {

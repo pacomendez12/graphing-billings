@@ -79,7 +79,7 @@
 
 .chart .left-header .header-rule {
   border-top: solid 1px;
-  height: 31px;
+  height: 31.5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,7 +88,8 @@
 .chart .columns-container {
   flex-grow: 1;
   display: flex;
-  background-color: rgb(58, 58, 58);
+  /* background-color: rgb(58, 58, 58); */
+  background-color: rgb(207, 207, 207);
   position: relative;
   width: calc(100% - 50px);
   min-height: 350px;
@@ -97,9 +98,11 @@
 .chart .columns-container .mark-current-day {
   position: relative;
   outline-style: auto;
-  outline-color: #003f9e;
+  outline-color: rgb(0, 91, 175);
+  box-shadow: 0px 0px 10px rgb(0, 91, 175);
+  /* outline-color: black;
+  box-shadow: 0px 0px 5px black; */
   z-index: 5;
-  box-shadow: 0px 0px 10px #003f9e;
 }
 
 .container-scrollable {

@@ -44,12 +44,13 @@ export default function Chart(props) {
     props.currentDaySubStep !== undefined ? props.currentDaySubStep : 0;
   const displayMode = props.displayMode || DisplayModes.PRESENTATION;
 
-  const updateDayValue = newConf => {
-    props.setDayValue(dayToEdit, newConf);
-    setShowItemEditor(false);
-  };
-
   const setHotKeysDisabled = useCallback(props.setHotKeysDisabled);
+
+  useEffect(() => {
+    if (props.openEditor) {
+      setDayToEdit(props.currentDay);
+    }
+  }, [props.currentDay, props.openEditor]);
 
   useEffect(() => {
     if (showItemEditor) {
@@ -59,6 +60,12 @@ export default function Chart(props) {
       setHotKeysDisabled(false);
     };
   }, [setHotKeysDisabled, showItemEditor]);
+
+  const updateDayValue = newConf => {
+    props.setDayValue(dayToEdit, newConf);
+    setShowItemEditor(false);
+    props.setOpenEditor(false);
+  };
 
   const openEditor = idx => {
     if (displayMode === DisplayModes.EDIT) {
@@ -216,11 +223,10 @@ export default function Chart(props) {
 
   return (
     <Popover
-      isOpen={showItemEditor}
+      isOpen={showItemEditor || props.openEditor}
       position={["top", "right", "left", "bottom"]}
       padding={10}
       disableReposition
-      onClickOutside={() => setShowItemEditor(false)}
       contentLocation={{ top: 0, left: 0 }}
       containerClassName="edit-day-component"
       transitionDuration={0.5}
@@ -230,7 +236,10 @@ export default function Chart(props) {
           chartType={props.chartType}
           peakDay={props.peakDay}
           postPeak={dayToEdit > props.peakDay}
-          onClose={() => setShowItemEditor(false)}
+          onClose={() => {
+            setShowItemEditor(false);
+            props.setOpenEditor(false);
+          }}
           updateDayValue={updateDayValue}
         />
       )}

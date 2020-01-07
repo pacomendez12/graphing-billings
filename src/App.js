@@ -24,10 +24,12 @@ import { ReactComponent as QuestionIcon } from "./img/question.svg";
 
 import { ReactComponent as Next } from "./img/next.svg";
 import { ReactComponent as Prev } from "./img/prev.svg";
+import woombIcon from "./img/WOOMB.png";
 
 import Chart from "./components/Chart";
 import Help from "./components/Help";
 import "./App.css";
+import { Icons } from "./components/Chart/Constants";
 
 document.onkeydown = function(event) {
   switch (event.keyCode) {
@@ -430,7 +432,7 @@ const tmpData = {
 };
 
 const emptyDay = {
-  day: 0,
+  day: 1,
   symbol: {
     background: BackgroundColors.WHITE,
     icon: null,
@@ -456,6 +458,100 @@ const handleKeys = [
   "pagedown"
 ];
 
+const isValidBackground = background => {
+  return (
+    background === BackgroundColors.GREEN ||
+    background === BackgroundColors.RED ||
+    background === BackgroundColors.WHITE ||
+    background === BackgroundColors.YELLOW
+  );
+};
+
+const isValidIcon = icon => {
+  return (
+    icon === Icons.BABE ||
+    icon === Icons.BABE_RED_DOTS ||
+    icon === Icons.BLACK_DOTS ||
+    icon === Icons.GREEN_ICON ||
+    icon === Icons.NONE ||
+    icon === Icons.RED_ICON ||
+    icon === Icons.YELLOW_ICON
+  );
+};
+
+const isValidNumberDay = day => {
+  const dayString = `${day}`;
+  return dayString === "1" || dayString === "2" || dayString === "3";
+};
+
+const isValidRuleumberDay = rule => {
+  const ruleString = `${rule}`;
+  return (
+    ruleString === "1" ||
+    ruleString === "2" ||
+    ruleString === "3" ||
+    ruleString === "c" ||
+    ruleString === "C"
+  );
+};
+
+const checkDataIntegrityAndFixErrors = data => {
+  if (typeof data === "object") {
+    if (!data.title || typeof data.title !== "string") {
+      data.title = "";
+    }
+    if (!data.comments || typeof data.comments !== "string") {
+      data.comments = "";
+    }
+
+    if (!data.defaultChartType || typeof data.defaultChartType !== "string") {
+      data.defaultChartType = ChartTypes.COLORS;
+    }
+
+    if (
+      !data.days ||
+      typeof data.days !== "object" ||
+      !Array.isArray(data.days)
+    ) {
+      // days data should be at least array
+      console.log("days should be an array");
+      return null;
+    }
+
+    data.days = data.days.map((day, idx) => {
+      return {
+        day: idx + 1,
+        symbol: {
+          background:
+            (day.symbol &&
+              isValidBackground(day.symbol.background) &&
+              day.symbol.background) ||
+            BackgroundColors.WHITE,
+          icon:
+            (day.symbol && isValidIcon(day.symbol.icon) && day.symbol.icon) ||
+            null,
+          intercourse: (day.symbol && day.symbol.intercourse) || false,
+          peakDay: (day.symbol && day.symbol.peakDay) || false,
+          numberDay:
+            (day.symbol &&
+              isValidNumberDay(day.symbol.numberDay) &&
+              day.symbol.numberDay) ||
+            null
+        },
+        annotation: day.annotation || "",
+        rule:
+          (day.rule !== undefined &&
+            isValidRuleumberDay(day.rule) &&
+            day.rule) ||
+          null
+      };
+    });
+
+    return data;
+  }
+  return null;
+};
+
 function App() {
   const [currentDay, setCurrentDay] = useState(0);
   const [currentDaySubStepIdx, setCurrentDaySubStepIdx] = useState(0);
@@ -467,7 +563,7 @@ function App() {
   const [daysData, setDaysData] = useState([_.cloneDeep(emptyDay)]);
   const [title, setTitle] = useState("");
   const [comments, setComments] = useState("");
-  const [clipboard, setClipboard] = useState({ day: null, data: null });
+  const [forceOpenEditor, setForceOpenEditor] = useState(false);
   const [hotKeysDisabled, setHotKeysDisabled] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [fileModified, setFileModified] = useState(false);
@@ -482,20 +578,71 @@ function App() {
     setChartType(ChartTypes.COLORS);
   };
 
+  const setDayValue = useCallback((dayIdx, newValue) => {
+    if (dayIdx >= 0) {
+      setDaysData(currentDaysData => {
+        if (dayIdx < currentDaysData.length) {
+          currentDaysData[dayIdx] = newValue;
+          return [...currentDaysData];
+        }
+        return currentDaysData;
+      });
+    }
+  }, []);
+
+  const dropDay = useCallback(
+    idxDay => {
+      if (!idxDay || typeof idxDay !== "number") {
+        idxDay = currentDay;
+      }
+      if (idxDay >= 0 && idxDay < daysData.length) {
+        if (currentDay === daysData.length - 1 && daysData.length > 1) {
+          setCurrentDay(daysData.length - 2);
+        }
+
+        setDaysData(currentDaysData => {
+          currentDaysData.splice(idxDay, 1);
+          if (currentDaysData.length === 0) {
+            currentDaysData.push(_.cloneDeep(emptyDay));
+          }
+          currentDaysData = currentDaysData.map((currentDay, idx) => ({
+            ...currentDay,
+            day: idx + 1
+          }));
+          return [...currentDaysData];
+        });
+      }
+    },
+    [currentDay, daysData.length]
+  );
+
+  const editDayListener = useCallback(() => {
+    console.log("force edit on");
+    setForceOpenEditor(true);
+  }, []);
+
   useEffect(() => {
     // for desktop only
     if (window.ipcRenderer) {
       window.ipcRenderer.on("fileOpened", (event, data) => {
         try {
           const contentAsJson = JSON.parse(data.content);
-          setDaysData(contentAsJson.days);
-          setTitle(contentAsJson.title);
-          setComments(contentAsJson.comments);
-          setChartType(contentAsJson.defaultChartType);
-          setFileSource(data.filePath);
-          setFileModified(false);
-          setFileJustOpened(true);
+
+          const fixedData = checkDataIntegrityAndFixErrors(contentAsJson);
+          if (fixedData) {
+            setCurrentDay(0);
+            setCurrentDaySubStepIdx(0);
+            setDisplayMode(DisplayModes.EDIT);
+            setDaysData(fixedData.days);
+            setTitle(fixedData.title);
+            setComments(fixedData.comments);
+            setChartType(fixedData.defaultChartType);
+            setFileSource(data.filePath);
+            setFileModified(false);
+            setFileJustOpened(true);
+          }
         } catch (e) {
+          console.log(`ERROR: ${e}`);
           const fileName = data.filePath
             .split("\\")
             .pop()
@@ -515,17 +662,29 @@ function App() {
       });
 
       window.ipcRenderer.on("startPresentationCommand", () => {
-        console.log("here");
         setDisplayMode(c => {
           if (c === DisplayModes.EDIT) return DisplayModes.PRESENTATION;
         });
       });
+
+      window.ipcRenderer.on("editDayCommand", editDayListener);
     }
-  }, []);
+  }, [editDayListener]);
+
+  useEffect(() => {
+    if (window.ipcRenderer) {
+      window.ipcRenderer.on("deleteDayCommand", dropDay);
+
+      return () => {
+        window.ipcRenderer.removeListener("deleteDayCommand", dropDay);
+      };
+    }
+  }, [dropDay]);
 
   const tryNewListener = useCallback(
     (event, data) => {
-      let continueCleanData = false;
+      let continueCleanData = true;
+      console.log("here");
       if (fileModified) {
         const result = window.ipcRenderer.sendSync("showMessage", {
           title: "Gráfica no guardada",
@@ -533,16 +692,18 @@ function App() {
           type: "warning",
           buttons: ["Si", "No"]
         });
-        if (result === 0) {
-          continueCleanData = true;
+        if (result !== 0) {
+          continueCleanData = false;
         }
       }
 
       if (data.cleanData && continueCleanData) {
-        cleanData();
+        setCurrentDay(0);
+        setCurrentDaySubStepIdx(0);
         setFileSource(null);
         setFileJustOpened(true);
         setFileModified(false);
+        cleanData();
       }
     },
     [fileModified]
@@ -558,6 +719,7 @@ function App() {
           defaultChartType: chartType,
           days: daysData
         };
+        console.log(`here with fileModified: ${fileModified}`);
         if (fileModified) {
           const result = window.ipcRenderer.sendSync("showMessage", {
             title: "Gráfica no guardada",
@@ -641,11 +803,59 @@ function App() {
     }
   }, [fileJustOpened, saveFileListener]);
 
+  const copyToClipboard = useCallback(() => {
+    const dayJson = daysData[currentDay];
+    window.clipboard.writeText(JSON.stringify(dayJson, null, 2));
+  }, [currentDay, daysData]);
+
+  const pasteFromClipboard = useCallback(() => {
+    try {
+      const clipboardData = window.clipboard.readText();
+      const jsonData = JSON.parse(clipboardData);
+
+      if (jsonData && typeof jsonData === "object") {
+        const finalJsonData = {
+          day: currentDay + 1,
+          symbol: {
+            background:
+              (jsonData.symbol && jsonData.symbol.background) || undefined,
+            icon: (jsonData.symbol && jsonData.symbol.icon) || undefined,
+            intercourse:
+              (jsonData.symbol && jsonData.symbol.intercourse) || undefined,
+            peakDay: (jsonData.symbol && jsonData.symbol.peakDay) || undefined,
+            numberDay:
+              (jsonData.symbol && jsonData.symbol.numberDay) || undefined
+          },
+          annotation: jsonData.annotation,
+          rule: jsonData.rule
+        };
+
+        if (finalJsonData.symbol.peakDay === true) {
+          finalJsonData.symbol.peakDay = false;
+        }
+        setDayValue(currentDay, finalJsonData);
+      }
+    } catch (e) {}
+  }, [currentDay, setDayValue]);
+
   useEffect(() => {
-    if (!title || title === "") {
+    if (window.clipboard && window.ipcRenderer) {
+      window.ipcRenderer.on("copyCommand", copyToClipboard);
+
+      window.ipcRenderer.on("pasteCommand", pasteFromClipboard);
+
+      return () => {
+        window.ipcRenderer.removeListener("copyCommand", copyToClipboard);
+        window.ipcRenderer.removeListener("pasteCommand", pasteFromClipboard);
+      };
+    }
+  }, [copyToClipboard, pasteFromClipboard]);
+
+  useEffect(() => {
+    if (!title || (title === "" && displayMode === DisplayModes.EDIT)) {
       setDisplayTitleInput(true);
     }
-  }, [title]);
+  }, [displayMode, title]);
 
   useEffect(() => {
     const fileName = fileSource
@@ -749,26 +959,6 @@ function App() {
       setChartType(value);
   };
 
-  const dropDay = idxDay => {
-    if (idxDay >= 0 && idxDay < daysData.length) {
-      if (currentDay === daysData.length - 1 && daysData.length > 1) {
-        setCurrentDay(daysData.length - 2);
-      }
-
-      setDaysData(currentDaysData => {
-        currentDaysData.splice(idxDay, 1);
-        if (currentDaysData.length === 0) {
-          currentDaysData.push(_.cloneDeep(emptyDay));
-        }
-        currentDaysData = currentDaysData.map((currentDay, idx) => ({
-          ...currentDay,
-          day: idx + 1
-        }));
-        return [...currentDaysData];
-      });
-    }
-  };
-
   const addDayOnIdx = idx => {
     if (idx >= 0 && idx <= daysData.length) {
       setDaysData(currentDaysData => {
@@ -789,7 +979,7 @@ function App() {
       return (
         <input
           ref={titleInputRef}
-          style={{ color: "gray" }}
+          // style={{ color: "gray" }}
           className="chart-title"
           value={title}
           onChange={event => {
@@ -800,7 +990,11 @@ function App() {
               setDisplayTitleInput(false);
             }
           }}
-          placeholder="Escribe el título de la gráfica aquí"
+          placeholder={
+            displayMode === DisplayModes.EDIT
+              ? "Escribe el título de la gráfica aquí"
+              : ""
+          }
         />
       );
     } else {
@@ -819,28 +1013,6 @@ function App() {
           {title}
         </h2>
       );
-    }
-  };
-
-  const setDayValue = (dayIdx, newValue) => {
-    if (dayIdx >= 0 && dayIdx < daysData.length) {
-      daysData[dayIdx] = newValue;
-      setDaysData([...daysData]);
-    }
-  };
-
-  const copyCurrentDayToClipboard = () => {
-    setClipboard({ day: currentDay, data: _.cloneDeep(daysData[currentDay]) });
-  };
-
-  const pasteClipboardToCurrentDay = () => {
-    if (currentDay !== clipboard.day && clipboard.data) {
-      const newData = _.cloneDeep(clipboard.data);
-
-      if (newData.symbol.peakDay === true) {
-        newData.symbol.peakDay = false;
-      }
-      setDayValue(currentDay, newData);
     }
   };
 
@@ -879,12 +1051,12 @@ function App() {
           break;
         case "ctrl+c":
           if (displayMode === DisplayModes.EDIT) {
-            copyCurrentDayToClipboard();
+            copyToClipboard();
           }
           break;
         case "ctrl+v":
           if (displayMode === DisplayModes.EDIT) {
-            pasteClipboardToCurrentDay();
+            pasteFromClipboard();
           }
           break;
         case "ctrl+plus":
@@ -976,6 +1148,36 @@ function App() {
 
         <div className="title-and-controls">
           {renderHelpButton()}
+          <div
+            style={{
+              left: "0px",
+              top: "0px",
+              position: "absolute",
+              backgroundColor: "rgb(0, 91, 175)",
+              padding: "6px",
+              borderRadius: "50%"
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: "white",
+                width: "60px",
+                height: "60px",
+                borderRadius: "50%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              <img
+                style={{ objectFit: "contain" }}
+                src={woombIcon}
+                alt="logo"
+                width="55"
+                height="55"
+              />
+            </div>
+          </div>
           {renderTitle()}
           {renderPresentationControl()}
         </div>
@@ -1015,12 +1217,14 @@ function App() {
             }
             chartType={chartType}
             displayMode={displayMode}
+            openEditor={forceOpenEditor}
             goToDay={goToDay}
             goNDaysForward={goNDaysForward}
             dropDay={dropDay}
             addDayOnIdx={addDayOnIdx}
             setDayValue={setDayValue}
             setHotKeysDisabled={setHotKeysDisabled}
+            setOpenEditor={setForceOpenEditor}
           />
         </div>
         {
@@ -1040,6 +1244,11 @@ function App() {
               cols="1"
               onChange={event => setComments(event.target.value)}
               disabled={displayMode === DisplayModes.PRESENTATION}
+              placeholder={
+                displayMode === DisplayModes.EDIT
+                  ? "Escribe los comentarios sobre la gráfica"
+                  : ""
+              }
             />
             {displayMode === DisplayModes.PRESENTATION && (
               <div className="button" onClick={() => goForward()}>
