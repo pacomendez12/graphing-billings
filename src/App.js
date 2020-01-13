@@ -21,6 +21,7 @@ import {
 import { ReactComponent as CloseIcon } from "./img/close.svg";
 import { ReactComponent as StartPresentationIcon } from "./img/start_presentation.svg";
 import { ReactComponent as QuestionIcon } from "./img/question.svg";
+import { ReactComponent as PdfIcon } from "./img/pdf.svg";
 
 import { ReactComponent as Next } from "./img/next.svg";
 import { ReactComponent as Prev } from "./img/prev.svg";
@@ -28,6 +29,7 @@ import woombIcon from "./img/WOOMB.png";
 
 import Chart from "./components/Chart";
 import Help from "./components/Help";
+import PdfPreview from "./components/PdfChart/PdfPreview";
 import "./App.css";
 import { Icons } from "./components/Chart/Constants";
 
@@ -560,12 +562,14 @@ function App() {
   const [chartType, setChartType] = useState(tmpData.defaultChartType);
   const [displayMode, setDisplayMode] = useState(DisplayModes.EDIT);
   const [displayTitleInput, setDisplayTitleInput] = useState(false);
-  const [daysData, setDaysData] = useState([_.cloneDeep(emptyDay)]);
-  const [title, setTitle] = useState("");
-  const [comments, setComments] = useState("");
+  // const [daysData, setDaysData] = useState([_.cloneDeep(emptyDay)]);
+  const [daysData, setDaysData] = useState(tmpData.days);
+  const [title, setTitle] = useState(tmpData.title || "");
+  const [comments, setComments] = useState(tmpData.comments || "");
   const [forceOpenEditor, setForceOpenEditor] = useState(false);
   const [hotKeysDisabled, setHotKeysDisabled] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const [showExportPdf, setShowExportPdf] = useState(true);
   const [fileModified, setFileModified] = useState(false);
   const [fileJustOpened, setFileJustOpened] = useState(true);
   const [fileSource, setFileSource] = useState(null);
@@ -1130,6 +1134,40 @@ function App() {
     );
   };
 
+  const renderPdfButton = () => {
+    return displayMode === DisplayModes.EDIT ? (
+      <Popover
+        isOpen={showExportPdf}
+        position={["top", "right", "left", "bottom"]}
+        padding={10}
+        disableReposition
+        onClickOutside={() => setShowExportPdf(false)}
+        contentLocation={{ top: 0, left: 0 }}
+        containerClassName="export-full"
+        transitionDuration={0.5}
+        content={() => (
+          <PdfPreview
+            daysData={daysData}
+            title={title}
+            comments={comments}
+            chartType={chartType}
+            onClose={() => setShowExportPdf(false)}
+          />
+        )}
+      >
+        {
+          <div
+            className="pdf-icon"
+            onClick={() => setShowExportPdf(true)}
+            title="Exportar a PDF"
+          >
+            <PdfIcon />
+          </div>
+        }
+      </Popover>
+    ) : null;
+  };
+
   return (
     <Fullscreen
       enabled={displayMode === DisplayModes.PRESENTATION}
@@ -1148,7 +1186,8 @@ function App() {
 
         <div className="title-and-controls">
           {renderHelpButton()}
-          <div
+          {renderPdfButton()}
+          {/* <div
             style={{
               left: "0px",
               top: "0px",
@@ -1177,7 +1216,7 @@ function App() {
                 height="55"
               />
             </div>
-          </div>
+          </div> */}
           {renderTitle()}
           {renderPresentationControl()}
         </div>

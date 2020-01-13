@@ -229,3 +229,13 @@ input:focus {
 .help-icon > svg > circle {
   fill: gray;
 }
+
+.pdf-icon {
+  margin-left: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.pdf-icon > svg > path {
+  fill: gray;
+}
