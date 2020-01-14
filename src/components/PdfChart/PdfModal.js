@@ -1,17 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
-import PdfRenderer from "./PdfRenderer";
-import "./PdfPreview.css";
+import React from "react";
+import "./PdfModal.css";
 import { ReactComponent as CloseIcon } from "../../img/close.svg";
+import PdfWizard from "./Wizard";
 export default function PdfPreview(props) {
-  const [renderPdf, setRenderPdf] = useState(false);
-  useEffect(() => {
-    setTimeout(() => {
-      setRenderPdf(true);
-
-      return () => setRenderPdf(false);
-    }, 100);
-  }, []);
   return (
     <div className="pdf-main">
       <div className="top-bar">
@@ -26,7 +17,16 @@ export default function PdfPreview(props) {
         </button>
       </div>
       <div className="pdf-body">
-        {renderPdf &&
+        {
+          <PdfWizard
+            daysData={props.daysData}
+            title={props.title}
+            comments={props.comments}
+            chartType={props.chartType}
+            closeModal={props.onClose}
+          />
+        }
+        {/* {renderPdf &&
           (true ? (
             <PDFViewer>
               <PdfRenderer
@@ -54,7 +54,7 @@ export default function PdfPreview(props) {
                 }
               </PDFDownloadLink>
             </div>
-          ))}
+          ))} */}
       </div>
     </div>
   );

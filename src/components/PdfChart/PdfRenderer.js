@@ -345,7 +345,7 @@ const renderTableSpliting = (daysData, peakDay, chartType, fillChart) => {
 };
 
 const ChartToPdf = props => {
-  const { fillChart } = props;
+  const fillChart = props.exportSolved;
 
   const peakDay = props.daysData.findIndex(day => day.symbol.peakDay);
 
@@ -360,7 +360,7 @@ const ChartToPdf = props => {
             props.daysData,
             peakDay,
             props.chartType,
-            (fillChart !== undefined && fillChart !== null && fillChart) || true
+            fillChart !== undefined && fillChart !== null ? fillChart : true
           )}
           <Text maxLines={2} style={{ textAlign: "center", fontSize: 12 }}>
             {props.comments}

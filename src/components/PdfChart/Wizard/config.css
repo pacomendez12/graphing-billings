@@ -1,0 +1,22 @@
+.config-main {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.config-main .config-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.config-main .config-row div:nth-child(1) {
+  /* width: 250px; */
+}
+
+.config-main .config-row .chart-type-buttons {
+  width: 230px;
+}

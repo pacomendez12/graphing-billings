@@ -29,7 +29,7 @@ import woombIcon from "./img/WOOMB.png";
 
 import Chart from "./components/Chart";
 import Help from "./components/Help";
-import PdfPreview from "./components/PdfChart/PdfPreview";
+import PdfModal from "./components/PdfChart/PdfModal";
 import "./App.css";
 import { Icons } from "./components/Chart/Constants";
 
@@ -1134,6 +1134,11 @@ function App() {
     );
   };
 
+  const closeExportToPdf = () => {
+    console.log("here");
+    setShowExportPdf(false);
+  };
+
   const renderPdfButton = () => {
     return displayMode === DisplayModes.EDIT ? (
       <Popover
@@ -1141,17 +1146,17 @@ function App() {
         position={["top", "right", "left", "bottom"]}
         padding={10}
         disableReposition
-        onClickOutside={() => setShowExportPdf(false)}
+        // onClickOutside={closeExportToPdf}
         contentLocation={{ top: 0, left: 0 }}
         containerClassName="export-full"
         transitionDuration={0.5}
         content={() => (
-          <PdfPreview
+          <PdfModal
             daysData={daysData}
             title={title}
             comments={comments}
             chartType={chartType}
-            onClose={() => setShowExportPdf(false)}
+            onClose={closeExportToPdf}
           />
         )}
       >
@@ -1187,7 +1192,7 @@ function App() {
         <div className="title-and-controls">
           {renderHelpButton()}
           {renderPdfButton()}
-          {/* <div
+          <div
             style={{
               left: "0px",
               top: "0px",
@@ -1216,7 +1221,7 @@ function App() {
                 height="55"
               />
             </div>
-          </div> */}
+          </div>
           {renderTitle()}
           {renderPresentationControl()}
         </div>
