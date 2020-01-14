@@ -344,10 +344,7 @@ const renderTableSpliting = (daysData, peakDay, chartType, fillChart) => {
   return result;
 };
 
-// Create Document Component
 const ChartToPdf = props => {
-  console.log(props);
-
   const { fillChart } = props;
 
   const peakDay = props.daysData.findIndex(day => day.symbol.peakDay);

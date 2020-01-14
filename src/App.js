@@ -569,7 +569,7 @@ function App() {
   const [forceOpenEditor, setForceOpenEditor] = useState(false);
   const [hotKeysDisabled, setHotKeysDisabled] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
-  const [showExportPdf, setShowExportPdf] = useState(true);
+  const [showExportPdf, setShowExportPdf] = useState(false);
   const [fileModified, setFileModified] = useState(false);
   const [fileJustOpened, setFileJustOpened] = useState(true);
   const [fileSource, setFileSource] = useState(null);
