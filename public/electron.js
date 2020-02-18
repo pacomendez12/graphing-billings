@@ -1,9 +1,12 @@
-const { app, BrowserWindow, dialog, ipcMain, Menu } = require("electron");
+const Electron = require("electron");
 const isDev = require("electron-is-dev");
 const path = require("path");
 const fs = require("fs");
 const openAboutWindow = require("electron-about-window").default;
-require("electron-reload");
+const { app, BrowserWindow, dialog, ipcMain, Menu } = Electron;
+if (isDev) {
+  require("electron-reload");
+}
 
 let mainWindow;
 let quitNow = false;
@@ -27,7 +30,7 @@ function createWindow() {
       nodeIntegration: false,
       preload: __dirname + "/preload.js"
     },
-    icon: __dirname + "/img/logo256.png"
+    icon: __dirname + "/logo1024.png"
   });
 
   mainWindow.maximize();
@@ -35,7 +38,7 @@ function createWindow() {
   mainWindow.loadURL(
     isDev
       ? "http://localhost:3000"
-      : `file://${path.join(__dirname, "../build/index.html")}`
+      : `file://${path.join(__dirname, "/index.html")}`
   );
 
   const template = [
@@ -240,7 +243,7 @@ const sendCommandToRenderer = (command, data) => {
 
 const showAbout = () => {
   openAboutWindow({
-    icon_path: __dirname + "/img/logo1024.png",
+    icon_path: __dirname + "/logo1024.png",
     product_name: "Graficador Billings",
     package_json_dir: __dirname + "/..",
     // copyright: "Francisco Méndez",

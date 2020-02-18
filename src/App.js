@@ -688,7 +688,6 @@ function App() {
   const tryNewListener = useCallback(
     (event, data) => {
       let continueCleanData = true;
-      console.log("here");
       if (fileModified) {
         const result = window.ipcRenderer.sendSync("showMessage", {
           title: "Gráfica no guardada",
@@ -723,7 +722,6 @@ function App() {
           defaultChartType: chartType,
           days: daysData
         };
-        console.log(`here with fileModified: ${fileModified}`);
         if (fileModified) {
           const result = window.ipcRenderer.sendSync("showMessage", {
             title: "Gráfica no guardada",
@@ -1135,7 +1133,6 @@ function App() {
   };
 
   const closeExportToPdf = () => {
-    console.log("here");
     setShowExportPdf(false);
   };
 
@@ -1192,7 +1189,7 @@ function App() {
         <div className="title-and-controls">
           {renderHelpButton()}
           {renderPdfButton()}
-          <div
+          {/* <div
             style={{
               left: "0px",
               top: "0px",
@@ -1221,7 +1218,7 @@ function App() {
                 height="55"
               />
             </div>
-          </div>
+          </div> */}
           {renderTitle()}
           {renderPresentationControl()}
         </div>

@@ -1,26 +1,30 @@
 {
   "name": "graphing-billings",
+  "description": "Application for helping how to teach chaarting Billings Method",
+  "author": "Frncisco Mendez",
   "version": "1.0.0",
   "private": true,
   "license": "GPL-3.0-or-later",
   "homepage": "./",
-  "main": "src/start.js",
+  "main": "src/electron.js",
   "build": {
-    "appId": "billings",
+    "appId": "woomb.mexico.charting",
     "directories": {
       "buildResources": "assets"
     },
-    "win": {
-      "category": "chart.app",
-      "iconUrl": "path-to-icon.png"
-    },
     "mac": {
-      "category": "chart.app",
-      "iconUrl": "path-to-icon.png"
+      "category": "Utility"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "category": "Utility"
     }
   },
   "dependencies": {
     "@react-pdf/renderer": "^1.6.8",
+    "concurrently": "^5.1.0",
     "electron-about-window": "^1.13.2",
     "electron-is-dev": "^1.1.0",
     "lodash": "^4.17.15",
@@ -32,14 +36,21 @@
     "react-scripts": "^3.3.0",
     "react-step-wizard": "^5.3.0",
     "react-switch": "^5.0.1",
-    "react-tiny-popover": "^4.0.0"
+    "react-tiny-popover": "^4.0.0",
+    "wait-on": "^4.0.0"
   },
   "scripts": {
     "electron": "cross-env NODE_ENV=dev nodemon --exec \"\"electron .\"\"",
+    "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
+    "pack": "electron-builder --dir",
+    "electron-pack": "electron-builder -wl --x64 -c.extraMetadata.main=build/electron.js",
+    "preelectron-pack": "rm -rf build; cp src/electron.js public; cp src/preload.js public; npm run build;",
+    "dist": "electron-builder",
     "start": "cross-env BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "electron-builder install-app-deps"
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -63,7 +74,7 @@
   },
   "devDependencies": {
     "cross-env": "^6.0.3",
-    "electron": "^7.1.9",
+    "electron": "^7.1.12",
     "electron-builder": "^21.2.0",
     "electron-reload": "^1.5.0",
     "nodemon": "^2.0.2"
