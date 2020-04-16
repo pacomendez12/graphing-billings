@@ -2,27 +2,15 @@ import React, { useState } from "react";
 import Popover, { ArrowContainer } from "react-tiny-popover";
 import "./day.css";
 import { DisplayModes } from "../../Constants";
-import { ReactComponent as DeleteDay } from "../../../../img/delete_day.svg";
-import { ReactComponent as AddDayBefore } from "../../../../img/add_day_before.svg";
-import { ReactComponent as AddDayAfter } from "../../../../img/add_day_after.svg";
 import { ReactComponent as EditDay } from "../../../../img/edit_day.svg";
 
 function EditMenu(props) {
   return (
     <div className="edit-menu-popover">
-      <div
-        title="Agregar un día antes"
-        className="icon-container"
-        onClick={() => {
-          props.addDayOnIdx(props.idxDay);
-          props.setEditPopoverIsOpen(false);
-        }}
-      >
-        <AddDayBefore />
-      </div>
+
       <div
         className="icon-container"
-        title="Editar día"
+        title="Resolver día"
         onClick={() => {
           props.setEditPopoverIsOpen(false);
           setTimeout(() => {
@@ -32,28 +20,7 @@ function EditMenu(props) {
       >
         <EditDay />
       </div>
-      <div
-        className="icon-container"
-        title="Borrar día"
-        onClick={() => {
-          props.setEditPopoverIsOpen(false);
-          setTimeout(() => {
-            props.dropDay(props.idxDay);
-          }, 40);
-        }}
-      >
-        <DeleteDay />
-      </div>
-      <div
-        className="icon-container"
-        title="Agregar un día después"
-        onClick={() => {
-          props.addDayOnIdx(props.idxDay + 1);
-          props.setEditPopoverIsOpen(false);
-        }}
-      >
-        <AddDayAfter />
-      </div>
+
     </div>
   );
 }

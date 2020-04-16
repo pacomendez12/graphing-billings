@@ -7,25 +7,7 @@ import Config from "./config";
 import PdfSave from "./pdfSave";
 
 const NavButtons = props => {
-  return (
-    <div
-      style={{
-        justifyContent: props.currentStep === 1 ? "flex-end" : "space-between"
-      }}
-      className="nav-buttons"
-    >
-      {props.currentStep > 1 ? (
-        <div className="button" onClick={() => props.previousStep()}>
-          <span className="text">Anterior</span>
-        </div>
-      ) : null}
-      {props.currentStep !== props.totalSteps ? (
-        <div className="button" onClick={() => props.nextStep()}>
-          <span className="text">Siguiente</span>
-        </div>
-      ) : null}
-    </div>
-  );
+  return <div></div>;
 };
 
 const customTransitions = {
@@ -44,13 +26,6 @@ const PdfWizard = props => {
       transitions={customTransitions}
       className="wizard"
     >
-      <Config
-        chartType={chartType}
-        setChartType={setChartType}
-        exportSolved={exportSolved}
-        setExportSolved={setExportSolved}
-        className="wizard-step"
-      />
       <PdfSave
         daysData={props.daysData}
         title={props.title}

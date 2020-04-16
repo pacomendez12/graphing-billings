@@ -81,47 +81,47 @@ export default function Chart(props) {
           const itemStatus =
             displayMode === DisplayModes.EDIT
               ? {
-                  displayDaySelector: currentDay === idx,
-                  displayDescription: true,
-                  displayPeak: dayData.symbol.peakDay,
-                  displayColorAndSymbol: true,
-                  displayCountingDay:
-                    dayData.symbol.numberDay !== null &&
-                    dayData.symbol.numberDay !== undefined,
-                  displayRule: true,
-                  displayIntercourse: dayData.symbol.intercourse
-                }
+                displayDaySelector: currentDay === idx,
+                displayDescription: true,
+                displayPeak: dayData.symbol.peakDay,
+                displayColorAndSymbol: true,
+                displayCountingDay:
+                  dayData.symbol.numberDay !== null &&
+                  dayData.symbol.numberDay !== undefined,
+                displayRule: true,
+                displayIntercourse: dayData.symbol.intercourse
+              }
               : {
-                  displayDaySelector:
-                    currentDay === idx && currentDaySubStep === SELECTING_DAY,
-                  displayDescription:
-                    currentDay >= idx + 1 ||
+                displayDaySelector:
+                  currentDay === idx && currentDaySubStep === SELECTING_DAY,
+                displayDescription:
+                  currentDay >= idx + 1 ||
+                  (currentDay === idx &&
+                    currentDaySubStep >= SHOW_DESCRIPTION),
+                displayPeak:
+                  dayData.symbol.peakDay &&
+                  ((currentDay === idx + 1 &&
+                    currentDaySubStep >= SHOW_PEAK_OF_YESTERDAY) ||
+                    currentDay > idx + 1),
+                displayColorAndSymbol:
+                  currentDay >= idx + 1 ||
+                  (currentDay === idx &&
+                    currentDaySubStep >= SHOW_COLOR_AND_SYMBOL),
+                displayCountingDay:
+                  dayData.symbol.numberDay !== null &&
+                  dayData.symbol.numberDay !== undefined &&
+                  (currentDay >= idx + 1 ||
                     (currentDay === idx &&
-                      currentDaySubStep >= SHOW_DESCRIPTION),
-                  displayPeak:
-                    dayData.symbol.peakDay &&
-                    ((currentDay === idx + 1 &&
-                      currentDaySubStep >= SHOW_PEAK_OF_YESTERDAY) ||
-                      currentDay > idx + 1),
-                  displayColorAndSymbol:
-                    currentDay >= idx + 1 ||
+                      currentDaySubStep >= SHOW_COUNTING_DAY)),
+                displayRule:
+                  currentDay >= idx + 1 ||
+                  (currentDay === idx && currentDaySubStep >= SHOW_RULE),
+                displayIntercourse:
+                  dayData.symbol.intercourse &&
+                  (currentDay >= idx + 1 ||
                     (currentDay === idx &&
-                      currentDaySubStep >= SHOW_COLOR_AND_SYMBOL),
-                  displayCountingDay:
-                    dayData.symbol.numberDay !== null &&
-                    dayData.symbol.numberDay !== undefined &&
-                    (currentDay >= idx + 1 ||
-                      (currentDay === idx &&
-                        currentDaySubStep >= SHOW_COUNTING_DAY)),
-                  displayRule:
-                    currentDay >= idx + 1 ||
-                    (currentDay === idx && currentDaySubStep >= SHOW_RULE),
-                  displayIntercourse:
-                    dayData.symbol.intercourse &&
-                    (currentDay >= idx + 1 ||
-                      (currentDay === idx &&
-                        currentDaySubStep >= SHOW_INTERCOURSE))
-                };
+                      currentDaySubStep >= SHOW_INTERCOURSE))
+              };
 
           const isPostPeak = idx > props.peakDay;
 
@@ -132,12 +132,12 @@ export default function Chart(props) {
                 displayMode === DisplayModes.EDIT && idx === props.currentDay
                   ? "mark-current-day"
                   : ""
-              }`}
+                }`}
               style={{
                 backgroundColor:
                   displayMode === DisplayModes.PRESENTATION &&
-                  props.currentDay === idx &&
-                  props.currentDaySubStep === SELECTING_DAY
+                    props.currentDay === idx &&
+                    props.currentDaySubStep === SELECTING_DAY
                     ? CurrentSelectedDayColor
                     : "white",
                 cursor: "pointer"
@@ -168,7 +168,7 @@ export default function Chart(props) {
                 }}
                 title={
                   displayMode === DisplayModes.EDIT
-                    ? `Editar día ${idx + 1}`
+                    ? `Resolver día ${idx + 1}`
                     : undefined
                 }
               >

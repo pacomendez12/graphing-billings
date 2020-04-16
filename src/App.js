@@ -28,12 +28,11 @@ import { ReactComponent as Prev } from "./img/prev.svg";
 import woombIcon from "./img/WOOMB.png";
 
 import Chart from "./components/Chart";
-import Help from "./components/Help";
 import PdfModal from "./components/PdfChart/PdfModal";
 import "./App.css";
 import { Icons } from "./components/Chart/Constants";
 
-document.onkeydown = function(event) {
+document.onkeydown = function (event) {
   switch (event.keyCode) {
     case 33: // pageup
     case 34: // pagedown
@@ -69,366 +68,306 @@ const tmpData = {
   comments:
     "Llena la siguiente gráfica con los símbolos o colores correspondientes para cada día.",
   defaultChartType: "COLORS",
-  days: [
+  "days": [
     {
-      day: 1,
-      symbol: {
-        background: "RED",
-        icon: "RED_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 1,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
       },
-      annotation: "Sangrado Mojado",
-      rule: 1
+      "annotation": "Sangrado mojado",
+      "rule": null
     },
     {
-      day: 2,
-      symbol: {
-        background: "RED",
-        icon: "RED_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 2,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Sangrado Mojado",
-      rule: 1
+      "annotation": "Sangrado mojado",
+      "rule": null
     },
     {
-      day: 3,
-      symbol: {
-        background: "RED",
-        icon: "RED_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 3,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Sangrado Mojado",
-      rule: 1
+      "annotation": "Sangrado mojado",
+      "rule": null
     },
     {
-      day: 4,
-      symbol: {
-        background: "RED",
-        icon: "BLACK_DOTS",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 4,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
       },
-      annotation: "Goteo Mojado",
-      rule: 1
+      "annotation": "Goteo mojado",
+      "rule": null
     },
     {
-      day: 5,
-      symbol: {
-        background: "RED",
-        icon: "BLACK_DOTS",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 5,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
       },
-      annotation: "Goteo Seco",
-      rule: 2
+      "annotation": "Goteo seco",
+      "rule": null
     },
     {
-      day: 6,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 6,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
       },
-      annotation: "Nada Seco",
-      rule: 2
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 7,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 7,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: 2
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 8,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 8,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: 2
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 9,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 9,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: 2
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 10,
-      symbol: {
-        background: "WHITE",
-        icon: "BABE",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 10,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
       },
-      annotation: "Nada Mojado",
-      rule: 3
+      "annotation": "Nada mojado",
+      "rule": null
     },
     {
-      day: 11,
-      symbol: {
-        background: "WHITE",
-        icon: "BABE",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 11,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
       },
-      annotation: "Amarillo Mojado",
-      rule: 3
+      "annotation": "Amarillo mojado",
+      "rule": null
     },
     {
-      day: 12,
-      symbol: {
-        background: "WHITE",
-        icon: "BABE",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 12,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
       },
-      annotation: "Claro Mojado",
-      rule: 3
+      "annotation": "Claro mojado",
+      "rule": null
     },
     {
-      day: 13,
-      symbol: {
-        background: "WHITE",
-        icon: "BABE",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 13,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
       },
-      annotation: "Claro Muy mojado",
-      rule: 3
+      "annotation": "Claro muy mojado",
+      "rule": null
     },
     {
-      day: 14,
-      symbol: {
-        background: "WHITE",
-        icon: "BABE",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 14,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
       },
-      annotation: "Claro Resbaloso",
-      rule: 3
+      "annotation": "Claro resbaloso",
+      "rule": null
     },
     {
-      day: 15,
-      symbol: {
-        background: "WHITE",
-        icon: "BABE",
-        intercourse: false,
-        peakDay: true,
-        numberDay: null
+      "day": 15,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
       },
-      annotation: "Nada Resbaloso",
-      rule: 3
+      "annotation": "Nada resbaloso",
+      "rule": null
     },
     {
-      day: 16,
-      symbol: {
-        background: "GREEN",
-        icon: "BABE",
-        intercourse: true,
-        peakDay: false,
-        numberDay: 1
+      "day": 16,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: "C"
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 17,
-      symbol: {
-        background: "GREEN",
-        icon: "BABE",
-        intercourse: false,
-        peakDay: false,
-        numberDay: 2
+      "day": 17,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: "C"
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 18,
-      symbol: {
-        background: "GREEN",
-        icon: "BABE",
-        intercourse: false,
-        peakDay: false,
-        numberDay: 3
+      "day": 18,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: "C"
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 19,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 19,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: "C"
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 20,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 20,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: "C"
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 21,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 21,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: "C"
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 22,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 22,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: "C"
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 23,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 23,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: "C"
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 24,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 24,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: "C"
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 25,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 25,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: "C"
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 26,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 26,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: "C"
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 27,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 27,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: "C"
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 28,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 28,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: "C"
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 29,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 29,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: "C"
+      "annotation": "Nada seco",
+      "rule": null
     },
     {
-      day: 30,
-      symbol: {
-        background: "GREEN",
-        icon: "GREEN_ICON",
-        intercourse: false,
-        peakDay: false,
-        numberDay: null
+      "day": 30,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE"
       },
-      annotation: "Nada Seco",
-      rule: "C"
+      "annotation": "Nada seco",
+      "rule": null
     }
   ]
 };
@@ -449,9 +388,6 @@ const emptyDay = {
 const handleKeys = [
   "left",
   "right",
-  "f5",
-  "ctrl+c",
-  "ctrl+v",
   "ctrl+plus",
   "ctrl+minus",
   "home",
@@ -559,28 +495,51 @@ function App() {
   const [currentDaySubStepIdx, setCurrentDaySubStepIdx] = useState(0);
   const [daysSteps, setDaysSteps] = useState([]);
   const [peakDay, setPeakDay] = useState(null);
-  const [chartType, setChartType] = useState(tmpData.defaultChartType);
+  const [chartType, setChartType] = useState('COLORS');
   const [displayMode, setDisplayMode] = useState(DisplayModes.EDIT);
   const [displayTitleInput, setDisplayTitleInput] = useState(false);
-  // const [daysData, setDaysData] = useState([_.cloneDeep(emptyDay)]);
-  const [daysData, setDaysData] = useState(tmpData.days);
-  const [title, setTitle] = useState(tmpData.title || "");
-  const [comments, setComments] = useState(tmpData.comments || "");
+  const [daysData, setDaysData] = useState([_.cloneDeep(emptyDay)]);
+  // const [daysData, setDaysData] = useState(tmpData.days);
+  const [title, setTitle] = useState("");
+  const [comments, setComments] = useState("");
   const [forceOpenEditor, setForceOpenEditor] = useState(false);
   const [hotKeysDisabled, setHotKeysDisabled] = useState(false);
-  const [showHelp, setShowHelp] = useState(false);
   const [showExportPdf, setShowExportPdf] = useState(false);
   const [fileModified, setFileModified] = useState(false);
   const [fileJustOpened, setFileJustOpened] = useState(true);
   const [fileSource, setFileSource] = useState(null);
   const titleInputRef = useRef(null);
 
-  const cleanData = () => {
-    setDaysData([_.cloneDeep(emptyDay)]);
-    setTitle("");
-    setComments("");
-    setChartType(ChartTypes.COLORS);
-  };
+  useEffect(() => {
+    try {
+      const dataEncoded = window.location.search.substring(3);
+      const buff = Buffer.from(dataEncoded, 'base64');
+      const dataJson = JSON.parse(buff.toString());
+
+      setChartType(dataJson.defaultChartType || 'COLORS');
+      setTitle(dataJson.title || "");
+      setComments(dataJson.comments || "");
+
+      const days = dataJson.days ? dataJson.days.map((day, idx) => {
+        return {
+          day: idx + 1,
+          symbol: {
+            background: "WHITE",
+            icon: "NONE",
+            intercourse: false,
+            peakDay: false,
+            numberDay: null
+          },
+          annotation: day,
+          rule: null
+        }
+      }) : [{ ...emptyDay }];
+
+      setDaysData(days)
+    } catch (e) {
+
+    }
+  }, []);
 
   const setDayValue = useCallback((dayIdx, newValue) => {
     if (dayIdx >= 0) {
@@ -620,239 +579,6 @@ function App() {
     [currentDay, daysData.length]
   );
 
-  const editDayListener = useCallback(() => {
-    console.log("force edit on");
-    setForceOpenEditor(true);
-  }, []);
-
-  useEffect(() => {
-    // for desktop only
-    if (window.ipcRenderer) {
-      window.ipcRenderer.on("fileOpened", (event, data) => {
-        try {
-          const contentAsJson = JSON.parse(data.content);
-
-          const fixedData = checkDataIntegrityAndFixErrors(contentAsJson);
-          if (fixedData) {
-            setCurrentDay(0);
-            setCurrentDaySubStepIdx(0);
-            setDisplayMode(DisplayModes.EDIT);
-            setDaysData(fixedData.days);
-            setTitle(fixedData.title);
-            setComments(fixedData.comments);
-            setChartType(fixedData.defaultChartType);
-            setFileSource(data.filePath);
-            setFileModified(false);
-            setFileJustOpened(true);
-          }
-        } catch (e) {
-          console.log(`ERROR: ${e}`);
-          const fileName = data.filePath
-            .split("\\")
-            .pop()
-            .split("/")
-            .pop();
-          window.ipcRenderer.send("showMessage", {
-            title: "Error abriendo archivo",
-            message: `El archivo '${fileName}' no es compatible con esta aplicación`,
-            type: "error",
-            buttons: ["OK"]
-          });
-        }
-      });
-
-      window.ipcRenderer.on("showSortcutsCommand", () => {
-        setShowHelp(true);
-      });
-
-      window.ipcRenderer.on("startPresentationCommand", () => {
-        setDisplayMode(c => {
-          if (c === DisplayModes.EDIT) return DisplayModes.PRESENTATION;
-        });
-      });
-
-      window.ipcRenderer.on("editDayCommand", editDayListener);
-    }
-  }, [editDayListener]);
-
-  useEffect(() => {
-    if (window.ipcRenderer) {
-      window.ipcRenderer.on("deleteDayCommand", dropDay);
-
-      return () => {
-        window.ipcRenderer.removeListener("deleteDayCommand", dropDay);
-      };
-    }
-  }, [dropDay]);
-
-  const tryNewListener = useCallback(
-    (event, data) => {
-      let continueCleanData = true;
-      if (fileModified) {
-        const result = window.ipcRenderer.sendSync("showMessage", {
-          title: "Gráfica no guardada",
-          message: `La gŕafica no ha sido guardada, ¿Deseas eliminarla?`,
-          type: "warning",
-          buttons: ["Si", "No"]
-        });
-        if (result !== 0) {
-          continueCleanData = false;
-        }
-      }
-
-      if (data.cleanData && continueCleanData) {
-        setCurrentDay(0);
-        setCurrentDaySubStepIdx(0);
-        setFileSource(null);
-        setFileJustOpened(true);
-        setFileModified(false);
-        cleanData();
-      }
-    },
-    [fileModified]
-  );
-
-  const quitListener = useCallback(
-    (event, data) => {
-      if (window.ipcRenderer) {
-        let continueQuit = true;
-        const content = {
-          title,
-          comments,
-          defaultChartType: chartType,
-          days: daysData
-        };
-        if (fileModified) {
-          const result = window.ipcRenderer.sendSync("showMessage", {
-            title: "Gráfica no guardada",
-            message: `La gŕafica no ha sido guardada, ¿Estás seguro que quieres salir?`,
-            type: "warning",
-            buttons: ["Si", "No", "Guardar"]
-          });
-          if (result === 1) {
-            continueQuit = false;
-          } else if (result === 2) {
-            // Guardar
-            const result = window.ipcRenderer.sendSync("saveFile", {
-              saveAs: fileSource === null ? true : false,
-              filePath: fileSource,
-              content: JSON.stringify(content, null, 2)
-            });
-            console.log(result);
-            if (!result.saved) {
-              continueQuit = false;
-            }
-          }
-        }
-
-        if (continueQuit) {
-          window.ipcRenderer.sendSync("quit");
-        }
-      }
-    },
-    [chartType, comments, daysData, fileModified, fileSource, title]
-  );
-
-  const saveFileListener = useCallback(
-    (event, data) => {
-      const content = {
-        title,
-        comments,
-        defaultChartType: chartType,
-        days: daysData
-      };
-      if (window.ipcRenderer) {
-        const result = window.ipcRenderer.sendSync("saveFile", {
-          saveAs: data.saveAs,
-          filePath: fileSource,
-          content: JSON.stringify(content, null, 2)
-        });
-        if (result && result.saved) {
-          setFileSource(result.filePath);
-          setFileJustOpened(true);
-          setFileModified(false);
-        }
-      }
-    },
-    [title, comments, chartType, daysData, fileSource]
-  );
-
-  useEffect(() => {
-    if (window.ipcRenderer) {
-      window.ipcRenderer.on("tryNew", tryNewListener);
-      window.ipcRenderer.on("quitCommand", quitListener);
-
-      return () => {
-        window.ipcRenderer.removeListener("tryNew", tryNewListener);
-        window.ipcRenderer.removeListener("quitCommand", quitListener);
-        if (fileJustOpened) {
-          setFileModified(false);
-        }
-      };
-    }
-  }, [fileJustOpened, tryNewListener, quitListener]);
-
-  useEffect(() => {
-    if (window.ipcRenderer) {
-      window.ipcRenderer.on("saveFileCommand", saveFileListener);
-
-      setFileJustOpened(false);
-
-      return () => {
-        window.ipcRenderer.removeListener("saveFileCommand", saveFileListener);
-        setFileModified(!fileJustOpened);
-      };
-    }
-  }, [fileJustOpened, saveFileListener]);
-
-  const copyToClipboard = useCallback(() => {
-    const dayJson = daysData[currentDay];
-    window.clipboard.writeText(JSON.stringify(dayJson, null, 2));
-  }, [currentDay, daysData]);
-
-  const pasteFromClipboard = useCallback(() => {
-    try {
-      const clipboardData = window.clipboard.readText();
-      const jsonData = JSON.parse(clipboardData);
-
-      if (jsonData && typeof jsonData === "object") {
-        const finalJsonData = {
-          day: currentDay + 1,
-          symbol: {
-            background:
-              (jsonData.symbol && jsonData.symbol.background) || undefined,
-            icon: (jsonData.symbol && jsonData.symbol.icon) || undefined,
-            intercourse:
-              (jsonData.symbol && jsonData.symbol.intercourse) || undefined,
-            peakDay: (jsonData.symbol && jsonData.symbol.peakDay) || undefined,
-            numberDay:
-              (jsonData.symbol && jsonData.symbol.numberDay) || undefined
-          },
-          annotation: jsonData.annotation,
-          rule: jsonData.rule
-        };
-
-        if (finalJsonData.symbol.peakDay === true) {
-          finalJsonData.symbol.peakDay = false;
-        }
-        setDayValue(currentDay, finalJsonData);
-      }
-    } catch (e) {}
-  }, [currentDay, setDayValue]);
-
-  useEffect(() => {
-    if (window.clipboard && window.ipcRenderer) {
-      window.ipcRenderer.on("copyCommand", copyToClipboard);
-
-      window.ipcRenderer.on("pasteCommand", pasteFromClipboard);
-
-      return () => {
-        window.ipcRenderer.removeListener("copyCommand", copyToClipboard);
-        window.ipcRenderer.removeListener("pasteCommand", pasteFromClipboard);
-      };
-    }
-  }, [copyToClipboard, pasteFromClipboard]);
-
   useEffect(() => {
     if (!title || (title === "" && displayMode === DisplayModes.EDIT)) {
       setDisplayTitleInput(true);
@@ -862,15 +588,15 @@ function App() {
   useEffect(() => {
     const fileName = fileSource
       ? fileSource
-          .split("\\")
-          .pop()
-          .split("/")
-          .pop()
+        .split("\\")
+        .pop()
+        .split("/")
+        .pop()
       : null;
     if (fileModified) {
       document.title = `* Graficador Billings${
         fileName ? ` - ${fileName}` : ""
-      }`;
+        }`;
       return () => {
         document.title = document.title.substring(2);
       };
@@ -1003,14 +729,6 @@ function App() {
       return (
         <h2
           className="chart-title"
-          onClick={() => {
-            if (displayMode === DisplayModes.EDIT) {
-              setDisplayTitleInput(true);
-              setTimeout(() => {
-                titleInputRef.current.focus();
-              }, 100);
-            }
-          }}
         >
           {title}
         </h2>
@@ -1046,91 +764,32 @@ function App() {
       default:
     }
 
-    if (displayMode === DisplayModes.EDIT) {
-      switch (key) {
-        case "f5":
-          setDisplayMode(DisplayModes.PRESENTATION);
-          break;
-        case "ctrl+c":
-          if (displayMode === DisplayModes.EDIT) {
-            copyToClipboard();
-          }
-          break;
-        case "ctrl+v":
-          if (displayMode === DisplayModes.EDIT) {
-            pasteFromClipboard();
-          }
-          break;
-        case "ctrl+plus":
-          addDayOnIdx(currentDay + 1);
-          break;
-        case "ctrl+minus":
-          dropDay(currentDay);
-          break;
-        default:
-      }
-    }
+    // if (displayMode === DisplayModes.EDIT) {
+    //   switch (key) {
+    //     case "f5":
+    //       setDisplayMode(DisplayModes.PRESENTATION);
+    //       break;
+    //     case "ctrl+c":
+    //       if (displayMode === DisplayModes.EDIT) {
+    //         copyToClipboard();
+    //       }
+    //       break;
+    //     case "ctrl+v":
+    //       if (displayMode === DisplayModes.EDIT) {
+    //         pasteFromClipboard();
+    //       }
+    //       break;
+    //     case "ctrl+plus":
+    //       addDayOnIdx(currentDay + 1);
+    //       break;
+    //     case "ctrl+minus":
+    //       dropDay(currentDay);
+    //       break;
+    //     default:
+    //   }
+    // }
   };
 
-  const renderPresentationControl = () => {
-    return (
-      <div className="presentation-control">
-        {displayMode === DisplayModes.EDIT ? (
-          <div
-            className="start-presentation"
-            onClick={() => {
-              setDisplayMode(DisplayModes.PRESENTATION);
-            }}
-          >
-            <StartPresentationIcon
-              className="start-presentation-icon"
-              title="Iniciar presentación (F5)"
-            />
-          </div>
-        ) : (
-          <div
-            className="close-presentation"
-            onClick={() => {
-              setDisplayMode(DisplayModes.EDIT);
-            }}
-          >
-            <CloseIcon
-              className="close-presentation-icon"
-              title="Cerrar presentación (Esc)"
-            />
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  const renderHelpButton = () => {
-    return (
-      displayMode === DisplayModes.EDIT && (
-        <Popover
-          isOpen={showHelp}
-          position={["top", "right", "left", "bottom"]}
-          padding={10}
-          disableReposition
-          onClickOutside={() => setShowHelp(false)}
-          contentLocation={{ top: 0, left: 0 }}
-          containerClassName="help-full"
-          transitionDuration={0.5}
-          content={() => <Help onClose={() => setShowHelp(false)} />}
-        >
-          {
-            <div
-              className="help-icon"
-              onClick={() => setShowHelp(true)}
-              title="Ayuda"
-            >
-              <QuestionIcon />
-            </div>
-          }
-        </Popover>
-      )
-    );
-  };
 
   const closeExportToPdf = () => {
     setShowExportPdf(false);
@@ -1187,40 +846,9 @@ function App() {
         />
 
         <div className="title-and-controls">
-          {renderHelpButton()}
           {renderPdfButton()}
-          {/* <div
-            style={{
-              left: "0px",
-              top: "0px",
-              position: "absolute",
-              backgroundColor: "rgb(0, 91, 175)",
-              padding: "6px",
-              borderRadius: "50%"
-            }}
-          >
-            <div
-              style={{
-                backgroundColor: "white",
-                width: "60px",
-                height: "60px",
-                borderRadius: "50%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
-              <img
-                style={{ objectFit: "contain" }}
-                src={woombIcon}
-                alt="logo"
-                width="55"
-                height="55"
-              />
-            </div>
-          </div> */}
           {renderTitle()}
-          {renderPresentationControl()}
+
         </div>
         <div className="main-chart-container">
           <div className="chart-type-buttons">
@@ -1284,7 +912,7 @@ function App() {
               rows="1"
               cols="1"
               onChange={event => setComments(event.target.value)}
-              disabled={displayMode === DisplayModes.PRESENTATION}
+              disabled={true}
               placeholder={
                 displayMode === DisplayModes.EDIT
                   ? "Escribe los comentarios sobre la gráfica"

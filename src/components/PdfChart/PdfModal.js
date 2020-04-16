@@ -26,35 +26,6 @@ export default function PdfPreview(props) {
             closeModal={props.onClose}
           />
         }
-        {/* {renderPdf &&
-          (true ? (
-            <PDFViewer>
-              <PdfRenderer
-                daysData={props.daysData}
-                title={props.title}
-                comments={props.comments}
-                chartType={props.chartType}
-              />
-            </PDFViewer>
-          ) : (
-            <div>
-              <PDFDownloadLink
-                document={
-                  <PdfRenderer
-                    daysData={props.daysData}
-                    title={props.title}
-                    comments={props.comments}
-                    chartType={props.chartType}
-                  />
-                }
-                fileName="somename.pdf"
-              >
-                {({ blob, url, loading, error }) =>
-                  loading ? "Loading document..." : "Download now!"
-                }
-              </PDFDownloadLink>
-            </div>
-          ))} */}
       </div>
     </div>
   );

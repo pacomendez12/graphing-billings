@@ -57,19 +57,19 @@ export default function EditDay(props) {
   const renderSymbolsOptions = () => {
     const symbols = isUsingColors
       ? [
-          { title: "Bebé", icon: Icons.BABE },
-          { title: "Puntos goteo", icon: Icons.BLACK_DOTS },
-          { title: "Bebé con goteo", icon: Icons.BABE_RED_DOTS },
-          { title: "Ninguno", icon: Icons.NONE }
-        ]
+        { title: "Bebé", icon: Icons.BABE },
+        { title: "Puntos goteo", icon: Icons.BLACK_DOTS },
+        { title: "Bebé con goteo", icon: Icons.BABE_RED_DOTS },
+        { title: "Ninguno", icon: Icons.NONE }
+      ]
       : [
-          { title: "Sangrado fuerte", icon: Icons.RED_ICON },
-          { title: "Sangrado goteo", icon: Icons.BLACK_DOTS },
-          { title: "Nada y seco", icon: Icons.GREEN_ICON },
-          { title: "Flujo infértil", icon: Icons.YELLOW_ICON },
-          { title: "Posible fertilidad", icon: Icons.BABE },
-          { title: "Posible fertilidad con goteo", icon: Icons.BABE_RED_DOTS }
-        ];
+        { title: "Sangrado fuerte", icon: Icons.RED_ICON },
+        { title: "Sangrado goteo", icon: Icons.BLACK_DOTS },
+        { title: "Nada y seco", icon: Icons.GREEN_ICON },
+        { title: "Flujo infértil", icon: Icons.YELLOW_ICON },
+        { title: "Posible fertilidad", icon: Icons.BABE },
+        { title: "Posible fertilidad con goteo", icon: Icons.BABE_RED_DOTS }
+      ];
 
     return (
       <React.Fragment>
@@ -109,11 +109,11 @@ export default function EditDay(props) {
               title={i.title}
               className={`box${
                 (peakDay && i.text === "X") ||
-                (numberDay && i.text === numberDay) ||
-                (!numberDay && !peakDay && i.text === null)
+                  (numberDay && i.text === numberDay) ||
+                  (!numberDay && !peakDay && i.text === null)
                   ? " item-checked"
                   : ""
-              }`}
+                }`}
               onClick={() => {
                 if (i.text === "X") {
                   setPeakDay(true);
@@ -267,7 +267,7 @@ export default function EditDay(props) {
       />
       <div className="top-bar">
         <div className="title">
-          <h2>{`Editar día ${props.day}`}</h2>
+          <h2>{`Resolver día ${props.day}`}</h2>
         </div>
         <button
           className="close-button"
