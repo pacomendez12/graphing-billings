@@ -506,7 +506,6 @@ function App() {
   const [hotKeysDisabled, setHotKeysDisabled] = useState(false);
   const [showExportPdf, setShowExportPdf] = useState(false);
   const [fileModified, setFileModified] = useState(false);
-  const [fileJustOpened, setFileJustOpened] = useState(true);
   const [fileSource, setFileSource] = useState(null);
   const titleInputRef = useRef(null);
 
