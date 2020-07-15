@@ -519,21 +519,40 @@ function App() {
       setTitle(dataJson.title || "");
       setComments(dataJson.comments || "");
 
+      const { type } = dataJson;
+
       const days = dataJson.days ? dataJson.days.map((day, idx) => {
-        return {
-          day: idx + 1,
-          symbol: {
-            background: "WHITE",
-            icon: "NONE",
-            intercourse: false,
-            peakDay: false,
-            numberDay: null
-          },
-          annotation: day,
-          rule: null
+        console.log(day);
+        if (type === 'FULL') {
+          return {
+            day: idx + 1,
+            symbol: {
+              background: day.background || "WHITE",
+              icon: day.icon || "NONE",
+              intercourse: day.intercourse !== undefined ? day.intercourse : false,
+              peakDay: day.peakDay !== undefined ? day.peakDay : false,
+              numberDay: day.numberDay !== undefined ? day.numberDay : null
+            },
+            annotation: day.annotation,
+            rule: day.rule !== undefined ? day.rule : null
+          }
+        } else {
+          return {
+            day: idx + 1,
+            symbol: {
+              background: "WHITE",
+              icon: "NONE",
+              intercourse: false,
+              peakDay: false,
+              numberDay: null
+            },
+            annotation: day,
+            rule: null
+          }
         }
       }) : [{ ...emptyDay }];
 
+      console.log(days);
       setDaysData(days)
     } catch (e) {
 
