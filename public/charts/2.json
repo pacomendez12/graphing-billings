@@ -1,0 +1,367 @@
+{
+  "title": "Gráfica 2",
+  "comments": "Completa la gráfica, Rellena los cuadros correspondientes con el símbolo o color (solo 3 Colores)",
+  "defaultChartType": "COLORS",
+  "days": [
+    {
+      "day": 1,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Sangrado Mojado",
+      "rule": null
+    },
+    {
+      "day": 2,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Sangrado Mojado",
+      "rule": null
+    },
+    {
+      "day": 3,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Sangrado Mojado",
+      "rule": null
+    },
+    {
+      "day": 4,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Goteo Mojado",
+      "rule": null
+    },
+    {
+      "day": 5,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Goteo Seco",
+      "rule": null
+    },
+    {
+      "day": 6,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 7,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 8,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 9,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 10,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Mojado",
+      "rule": null
+    },
+    {
+      "day": 11,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Amarillo Mojado",
+      "rule": null
+    },
+    {
+      "day": 12,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Claro Mojado",
+      "rule": null
+    },
+    {
+      "day": 13,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Claro Muy mojado",
+      "rule": null
+    },
+    {
+      "day": 14,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Claro Resbaloso",
+      "rule": null
+    },
+    {
+      "day": 15,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "NONE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Resbaloso",
+      "rule": null
+    },
+    {
+      "day": 16,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 17,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 18,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 19,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 20,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 21,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 22,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 23,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 24,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 25,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 26,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 27,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 28,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 29,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    },
+    {
+      "day": 30,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": null
+    }
+  ]
+}

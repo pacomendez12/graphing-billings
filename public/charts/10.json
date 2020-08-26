@@ -1,0 +1,901 @@
+{
+  "title": "Gráfica 10",
+  "comments": "Gráfica de mujer en Circunstancias especiales. Completa la gráfica aplicando las reglas para no embarazarse y grafica las relaciones posibles.",
+  "defaultChartType": "COLORS",
+  "days": [
+    {
+      "day": 1,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Sangrado Mojado",
+      "rule": 1
+    },
+    {
+      "day": 2,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Sangrado Mojado",
+      "rule": 1
+    },
+    {
+      "day": 3,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Sangrado Mojado",
+      "rule": 1
+    },
+    {
+      "day": 4,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Sangrado Mojado",
+      "rule": 1
+    },
+    {
+      "day": 5,
+      "symbol": {
+        "background": "RED",
+        "icon": "BLACK_DOTS",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Goteo Seco",
+      "rule": 2
+    },
+    {
+      "day": 6,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "(Nada seco) Escurrimiento",
+      "rule": 2
+    },
+    {
+      "day": 7,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada seco",
+      "rule": 2
+    },
+    {
+      "day": 8,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nebuloso Pegajoso",
+      "rule": 3
+    },
+    {
+      "day": 9,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nebuloso Pegajoso",
+      "rule": 3
+    },
+    {
+      "day": 10,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 11,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 12,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 13,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 14,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": 1
+      },
+      "annotation": "Nada Seco",
+      "rule": 3
+    },
+    {
+      "day": 15,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": 2
+      },
+      "annotation": "Nada Seco",
+      "rule": 3
+    },
+    {
+      "day": 16,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 17,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 18,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 19,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 20,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 21,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 22,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": 1
+      },
+      "annotation": "Nada Seco",
+      "rule": 3
+    },
+    {
+      "day": 23,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 24,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "YELLOW_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 25,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 26,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada seco",
+      "rule": 2
+    },
+    {
+      "day": 27,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE"
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 28,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "YELLOW_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 29,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE"
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 30,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada seco",
+      "rule": 2
+    },
+    {
+      "day": 31,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE"
+      },
+      "annotation": "Nebuloso Pegajoso",
+      "rule": 3
+    },
+    {
+      "day": 32,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE"
+      },
+      "annotation": "Nebuloso Pegajoso",
+      "rule": 3
+    },
+    {
+      "day": 33,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "YELLOW_ICON",
+        "peakDay": false,
+        "numberDay": 1
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 34,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "YELLOW_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": 2
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 35,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "YELLOW_ICON",
+        "peakDay": false,
+        "numberDay": 3
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 36,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "YELLOW_ICON",
+        "intercourse": true
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 37,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada seco",
+      "rule": 2
+    },
+    {
+      "day": 38,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada seco",
+      "rule": 2
+    },
+    {
+      "day": 39,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE"
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 40,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "YELLOW_ICON",
+        "intercourse": true
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 41,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE"
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 42,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "YELLOW_ICON",
+        "intercourse": true
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 43,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE"
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 44,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada seco",
+      "rule": 2
+    },
+    {
+      "day": 45,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada seco",
+      "rule": 2
+    },
+    {
+      "day": 46,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE"
+      },
+      "annotation": "Nebuloso Mojado",
+      "rule": 3
+    },
+    {
+      "day": 47,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE"
+      },
+      "annotation": "Nebuloso Mojado",
+      "rule": 3
+    },
+    {
+      "day": 48,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "YELLOW_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": 1
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 49,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "YELLOW_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": 2
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 50,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "YELLOW_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": 3
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 3
+    },
+    {
+      "day": 51,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "YELLOW_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 52,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 53,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "YELLOW_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 54,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 55,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "YELLOW_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso humedo",
+      "rule": 2
+    },
+    {
+      "day": 56,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE"
+      },
+      "annotation": "Nada Mojado",
+      "rule": 3
+    },
+    {
+      "day": 57,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Mojado",
+      "rule": 3
+    },
+    {
+      "day": 58,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": 1
+      },
+      "annotation": "Nada Seco",
+      "rule": 3
+    },
+    {
+      "day": 59,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Sangrado Mojado",
+      "rule": 3
+    },
+    {
+      "day": 60,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Sangrado Mojado",
+      "rule": 3
+    },
+    {
+      "day": 61,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Sangrado Mojado",
+      "rule": 3
+    },
+    {
+      "day": 62,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Sangrado Mojado",
+      "rule": 3
+    },
+    {
+      "day": 63,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Claro Resbaloso",
+      "rule": 3
+    },
+    {
+      "day": 64,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Claro Elastico Resbaloso",
+      "rule": 3
+    },
+    {
+      "day": 65,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": true,
+        "numberDay": null
+      },
+      "annotation": "Claro Elastico Resbaloso",
+      "rule": 3
+    },
+    {
+      "day": 66,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": 1
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 67,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": 2
+      },
+      "annotation": "Grumoso Humedo",
+      "rule": "C"
+    },
+    {
+      "day": 68,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": 3
+      },
+      "annotation": "Grumoso humedo",
+      "rule": "C"
+    },
+    {
+      "day": 69,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 70,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 71,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 72,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 73,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 74,
+      "symbol": {
+        "background": "YELLOW",
+        "icon": "YELLOW_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Grumoso Humedo",
+      "rule": "C"
+    },
+    {
+      "day": 75,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 76,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 77,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 78,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Sangrado Mojado",
+      "rule": 1
+    }
+  ]
+}

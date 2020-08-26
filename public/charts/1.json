@@ -1,0 +1,258 @@
+{
+    "title": "Gráfica 1",
+    "comments": "",
+    "defaultChartType": "COLORS",
+    "days": [
+        {
+            "day": 1,
+            "symbol": {
+                "background": "RED",
+                "icon": "RED_ICON",
+                "intercourse": false,
+                "peakDay": false,
+                "numberDay": null
+            },
+            "annotation": "Sangrado mojada"
+        },
+        {
+            "day": 2,
+            "symbol": {
+                "background": "RED",
+                "icon": "RED_ICON"
+            },
+            "annotation": "Sangrado mojada"
+        },
+        {
+            "day": 3,
+            "symbol": {
+                "background": "RED",
+                "icon": "RED_ICON"
+            },
+            "annotation": "Sangrado mojada"
+        },
+        {
+            "day": 4,
+            "symbol": {
+                "background": "RED",
+                "icon": "BLACK_DOTS"
+            },
+            "annotation": "Goteo mojada"
+        },
+        {
+            "day": 5,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON",
+                "intercourse": false,
+                "peakDay": false,
+                "numberDay": null
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 6,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON"
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 7,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON"
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 8,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON"
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 9,
+            "symbol": {
+                "background": "WHITE",
+                "icon": "BABE",
+                "intercourse": false,
+                "peakDay": false,
+                "numberDay": null
+            },
+            "annotation": "Amarillo pegajosa"
+        },
+        {
+            "day": 10,
+            "symbol": {
+                "background": "WHITE",
+                "icon": "BABE"
+            },
+            "annotation": "Nebuloso pegajosa"
+        },
+        {
+            "day": 11,
+            "symbol": {
+                "background": "WHITE",
+                "icon": "BABE"
+            },
+            "annotation": "Blanco mojada"
+        },
+        {
+            "day": 12,
+            "symbol": {
+                "background": "WHITE",
+                "icon": "BABE"
+            },
+            "annotation": "Blanco resbalosa"
+        },
+        {
+            "day": 13,
+            "symbol": {
+                "background": "WHITE",
+                "icon": "BABE"
+            },
+            "annotation": "Transparente resbalosa"
+        },
+        {
+            "day": 14,
+            "symbol": {
+                "background": "WHITE",
+                "icon": "BABE",
+                "peakDay": false,
+                "numberDay": null
+            },
+            "annotation": "Transparente resbalosa"
+        },
+        {
+            "day": 15,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON",
+                "peakDay": false,
+                "numberDay": null
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 16,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON",
+                "peakDay": false,
+                "numberDay": null
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 17,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON",
+                "peakDay": false,
+                "numberDay": null
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 18,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON",
+                "peakDay": false,
+                "numberDay": null
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 19,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON"
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 20,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON"
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 21,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON"
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 22,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON"
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 23,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON"
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 24,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON"
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 25,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON"
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 26,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON"
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 27,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON"
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 28,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON"
+            },
+            "annotation": "Nada seca"
+        },
+        {
+            "day": 29,
+            "symbol": {
+                "background": "GREEN",
+                "icon": "GREEN_ICON"
+            },
+            "annotation": "Nada seca"
+        }
+    ]
+}

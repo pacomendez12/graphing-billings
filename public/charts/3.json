@@ -1,0 +1,427 @@
+{
+  "title": "Gráfica 3",
+  "comments": "Llena la siguiente gráfica, aplica reglas y marca las relaciones posibles",
+  "defaultChartType": "COLORS",
+  "days": [
+    {
+      "day": 1,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Sangrado Mojado",
+      "rule": 1
+    },
+    {
+      "day": 2,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Sangrado Mojado",
+      "rule": 1
+    },
+    {
+      "day": 3,
+      "symbol": {
+        "background": "RED",
+        "icon": "RED_ICON",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Coagulos sangre Mojado",
+      "rule": 1
+    },
+    {
+      "day": 4,
+      "symbol": {
+        "background": "RED",
+        "icon": "BLACK_DOTS",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Goteo ligero Mojado",
+      "rule": 1
+    },
+    {
+      "day": 5,
+      "symbol": {
+        "background": "RED",
+        "icon": "BLACK_DOTS",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Goteo ligero Seco",
+      "rule": 2
+    },
+    {
+      "day": 6,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Mojada Líquido seminal",
+      "rule": 2
+    },
+    {
+      "day": 7,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": 2
+    },
+    {
+      "day": 8,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Mojada Líquido seminal",
+      "rule": 2
+    },
+    {
+      "day": 9,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": 2
+    },
+    {
+      "day": 10,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Mojada Líquido seminal",
+      "rule": 2
+    },
+    {
+      "day": 11,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": 2
+    },
+    {
+      "day": 12,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Mojada Líquido seminal",
+      "rule": 2
+    },
+    {
+      "day": 13,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": 2
+    },
+    {
+      "day": 14,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Mojada Líquido seminal",
+      "rule": 2
+    },
+    {
+      "day": 15,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": 2
+    },
+    {
+      "day": 16,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Mojada Líquido seminal",
+      "rule": 2
+    },
+    {
+      "day": 17,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Claro Mojado",
+      "rule": 3
+    },
+    {
+      "day": 18,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Claro Muy mojado",
+      "rule": 3
+    },
+    {
+      "day": 19,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Claro Resbaloso",
+      "rule": 3
+    },
+    {
+      "day": 20,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Claro hilos Resbaloso",
+      "rule": 3
+    },
+    {
+      "day": 21,
+      "symbol": {
+        "background": "WHITE",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": true,
+        "numberDay": null
+      },
+      "annotation": "Claro Poco resbaloso",
+      "rule": 3
+    },
+    {
+      "day": 22,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": 1
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 23,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": 2
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 24,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "BABE",
+        "intercourse": false,
+        "peakDay": false,
+        "numberDay": 3
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 25,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 26,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 27,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 28,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 29,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 30,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 31,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 32,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 33,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 34,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    },
+    {
+      "day": 35,
+      "symbol": {
+        "background": "GREEN",
+        "icon": "GREEN_ICON",
+        "intercourse": true,
+        "peakDay": false,
+        "numberDay": null
+      },
+      "annotation": "Nada Seco",
+      "rule": "C"
+    }
+  ]
+}
